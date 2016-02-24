@@ -10,7 +10,7 @@ import copy
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160212_762/histogram_20160222/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160212_762/histogram_20160224FS/"
 
 def make_legend(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
@@ -1091,8 +1091,9 @@ from sysWeight_cfi import mceventweight
 sysWeights =  [i["name"] for i in mceventweight]
 sysWeights.append("Scale_Up")
 sysWeights.append("Scale_Down")
+Step="S7"
 
-histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,"S6","csvweight")
+histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,Step,"csvweight")
 orig_r,orig_err = 0.,0. 
 #SystematicUnck={}
 #StepSys2 = ["JES","LF","HF","HF_Stats1","HF_Stats2","LF_Stats1","LF_Stats1","Charm_Err1","Charm_Err2"]
@@ -1102,10 +1103,10 @@ if int(arg3)==0:
   cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
 elif int(arg3)==2:
   SystematicUnc,SystematicUnck ={},{}
-  histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0","S6","csvweight")
+  histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
   histogramSys = {}
   for sys in sysWeights:
-    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,"S6",sys)
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,Step,sys)
     histogramSys[sys] = copy.deepcopy(histograms2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
