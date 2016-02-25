@@ -324,14 +324,16 @@ def main():
 
   from monitors_cfi import monitors,monitors2d
   #mon = monitors[33]
-  mon = monitors[34]
+  mon = monitors[23]
+  mon2 = monitors[24]
   #mon = monitors[6]
   #mon = monitors[10]
   #mon = monitors[11]
   aaa = {}
   #aaa[0]=aCanvas(mon,"S4","LL",True,"csvweight")
   #aaa[1]=aCanvas(mon,"S5","LL",True,"csvweight")
-  aaa[2]=aCanvas(mon,"S6","LL",True,"csvweight")
+  aaa[2]=aCanvas(mon,"S7","LL",True,"csvweight")
+  aaa[3]=aCanvas(mon,"S7","LL",True,"csvweight")
   #aaa[3]=aCanvas(mon,"S6","MM",False,"csvweight")
   #aaa[4]=aCanvas(mon,"S6","EE",False,"csvweight")
   #aaa[5]=aCanvas(mon,"S6","ME",False,"csvweight")
