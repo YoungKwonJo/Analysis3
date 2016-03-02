@@ -10,7 +10,8 @@ import copy
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160212_762/histogram_20160224FS/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160226/"
+#loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160302met/"
 
 def make_legend(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
@@ -886,7 +887,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   histograms[GEN+"ttlf"]["h12"].SetLineColor(kViolet)
  
   normH2=histograms[GEN+"ttbb"]["h12"].DrawNormalized()
-  normH2.SetMaximum(normH2.GetMaximum()*2.8)
+  normH2.SetMaximum(normH2.GetMaximum()*3.8)
   normH2.Draw("HIST")
   histograms[GEN+"ttb"]["h12"].DrawNormalized("sameHIST")
   histograms[GEN+"tt2b"]["h12"].DrawNormalized("sameHIST")
@@ -1009,16 +1010,17 @@ def quardsum(aaa):
 ################
 ################
 #POWHEG###################################
-POWhadronic,POWdileptonic,POWsemileptonic,POWetc=44760741.,10286981.,42910959.,13251918.
-POWttbbF,POWttbjF,POWttccF,POWttlfF=43181.,160433.,91034.,3637828.
-POWttbbV,POWttbjV,POWttccV,POWttlfV=8204.,31131.,15380.,546875.
+POWhadronic,POWdileptonic,POWsemileptonic,POWetc=44779959.0,10291416.0,42929293.0,13257563.0
+POWttbbF,POWttbjF,POWttccF,POWttlfF=43200.0,160514.0,91070.0,3639349.0
+POWttbbV,POWttbjV,POWttccV,POWttlfV=8207.0,31147.0,15393.0,547080.0
+
 POWttbarall    =POWhadronic+POWdileptonic+POWsemileptonic+POWetc
 POWttjjF = POWttbbF+POWttbjF+POWttccF+POWttlfF
 ttjjRatioTTPOW = (POWttjjF/POWttbarall)
 POWttjjV = POWttbbV+POWttbjV+POWttccV+POWttlfV
 
-POWttbbS6 = 2248.0
-POWttjjS6 = 71719.0
+#POWttbbS6,POWttjjS6 = 2206.0,70016.0   #S6
+POWttbbS6,POWttjjS6 = 1535.0,35425.0  #S7 
 
 ttjjAcceptancePOW = (POWttjjV/POWttjjF)
 ttbbAcceptancePOW = (POWttbbV/POWttbbF)
@@ -1029,16 +1031,17 @@ RvisPOW =  POWttbbV/POWttjjV
 RdilepPOW = POWdileptonic/POWttbarall
 
 #MG5 ########################################
-MG5hadronic,MG5dileptonic,MG5semileptonic,MG5etc=4542315.,1135379.,4538140.,1416369.0
-MG5ttbbF,MG5ttbjF,MG5ttccF,MG5ttlfF=4911.,18816.,10817.,428760.
-MG5ttbbV,MG5ttbjV,MG5ttccV,MG5ttlfV=949.,3758.,1881.,66365.
+MG5hadronic,MG5dileptonic,MG5semileptonic,MG5etc=4542315.0,1135409.0,4538142.0,1416370.
+MG5ttbbF,MG5ttbjF,MG5ttccF,MG5ttlfF=4909.0,18821.0,10818.0,428794.0
+MG5ttbbV,MG5ttbjV,MG5ttccV,MG5ttlfV=947.0,3761.0,1881.0,66371.0
+
 MG5ttbarall = MG5hadronic+MG5dileptonic+MG5semileptonic+MG5etc
 MG5ttjjF = MG5ttbbF+MG5ttbjF+MG5ttccF+MG5ttlfF
 MG5ttjjRatioTT = (MG5ttjjF/MG5ttbarall)
 MG5ttjjV = MG5ttbbV+MG5ttbjV+MG5ttccV+MG5ttlfV
 
-MG5ttbbS6 = 261.0
-MG5ttjjS6 = 9017.0
+#MG5ttbbS6,MG5ttjjS6 = 256.0,8806.0  #S6
+MG5ttbbS6,MG5ttjjS6 = 167.0,4428.0  #S7
 
 ttjjAcceptanceMG5= (MG5ttjjV/MG5ttjjF)
 ttbbAcceptanceMG5= (MG5ttbbV/MG5ttbbF)
@@ -1118,8 +1121,8 @@ elif int(arg3)==2:
   genRF      = orig_r*eRPOW*acPPOW
   genRerrorF = orig_r*eRPOW*acPPOW*orig_err/orig_r
   kVal = result["kVal"] 
-  print "FINAL2: csvweight: full gen R $= "+ str(round(genRF*10000)/10000)+" \pm "+str(round(genRerrorF*10000)/10000)+"$"
-  print "FINAL2: csvweight: k $="+str(round(result["kVal"]*10000)/10000)+": "+str(round(result["kValerror"]*10000)/10000)+" "
+  print "FINAL2: csvweight: full gen R = "+ str(round(genRF*10000)/10000)+" $\pm$ "+str(round(genRerrorF*10000)/10000)+"$"
+  print "FINAL2: csvweight: k ="+str(round(result["kVal"]*10000)/10000)+" $\pm$ "+str(round(result["kValerror"]*10000)/10000)+" "
 
   for sys in sysWeights:
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
@@ -1140,8 +1143,8 @@ elif int(arg3)==2:
   sysUnc3k = (result3["kVal"]-kVal)/kVal
   sysUnc4 = (orig_r-orig_r4)/orig_r
   sysUnc4k = (result4["kVal"]-kVal)/kVal
-  #sysUnc5 = (genR-orig_r5*eRMG5)/genR
-  sysUnc5 = (orig_r-orig_r5)/orig_r
+  sysUnc5 = (genR-orig_r5*eRMG5)/genR
+  #sysUnc5 = (orig_r-orig_r5)/orig_r
   sysUnc5k = (result5["kVal"]-kVal)/kVal
 
   sysUnc=0.
