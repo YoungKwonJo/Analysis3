@@ -39,6 +39,13 @@ def makeMCHistSet(histograms):
   histograms2["ttot"] = { "h1":histograms["POWttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"         }
   #histograms2["ttall"] = {"h1":histograms["POWttal"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} all"            }
 
+  histograms2["MG5ttbb"] = { "h1":histograms["MG5ttbb"],   "FillColor":"#660000", "LineColor":"#000000",  "label":"t#bar{t}+b#bar{b}      " }
+  histograms2["MG5ttb"]  = { "h1":histograms["MG5ttb"],    "FillColor":"#ffcc00", "LineColor":"#000000",  "label":"t#bar{t}+b        "      }
+  histograms2["MG5tt2b"] = { "h1":histograms["MG5tt2b"],   "FillColor":"#ffee00", "LineColor":"#000000",  "label":"t#bar{t}+2b        "      }
+  histograms2["MG5ttcc"] = { "h1":histograms["MG5ttcc"],   "FillColor":"#cc6600", "LineColor":"#000000",  "label":"t#bar{t}+c#bar{c}      " }
+  histograms2["MG5ttlf"] = { "h1":histograms["MG5ttlf"],   "FillColor":"#ff0000", "LineColor":"#000000",  "label":"t#bar{t}+lf       "      }
+  histograms2["MG5ttot"] = { "h1":histograms["MG5ttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"         }
+
   histograms2["Singlet"] = {"h1":mergesHistograms(ST,    histograms),    "FillColor":"#ff00ff",  "LineColor":"#000000", "label":"Single t"            } 
   histograms2["VV"]      = {"h1":mergesHistograms(VV,    histograms),    "FillColor":"#ffffff",  "LineColor":"#000000", "label":"VV            "      }
   histograms2["WJets"]   = {"h1":mergesHistograms(WJets, histograms),    "FillColor":"#33cc33",  "LineColor":"#000000", "label":"WJets      "         }
@@ -52,10 +59,11 @@ def makeMCHistSet(histograms):
   histograms2["MCtot2"]  = {"h1":mergesHistograms(MCtot2,  histograms),  "LineColor":"#59d354",  "FillColor":"#ffffff",  "label":"Madgraph" ,"LineStyle": 3    } 
   histograms2["MCtot3"]  = {"h1":mergesHistograms(MCtot3,  histograms),  "LineColor":"#ff00ff",  "FillColor":"#ffffff",  "label":"MC@NLO"   ,"LineStyle": 2    } 
   ttbarlist = ["ttbb","ttb","tt2b","ttcc","ttlf","ttot"]
+  MG5ttbarlist = ["MG5ttbb","MG5ttb","MG5tt2b","MG5ttcc","MG5ttlf","MG5ttot"]
   bkglist=["ttV","Singlet","VV","WJets","ZJets"]
   fullmc =["MCtot1"]
   others =["MCtot2","MCtot3"]
-  plotSet = {"ttbars":ttbarlist, "bkg":bkglist, "fullmc":fullmc, "others":others}
+  plotSet = {"ttbars":ttbarlist, "bkg":bkglist, "fullmc":fullmc, "others":others, "mg5":MG5ttbarlist}
   return histograms2,plotSet
 
 def load1stHistograms(mon,step,Weight):

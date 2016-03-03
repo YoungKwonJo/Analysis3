@@ -10,7 +10,7 @@ import copy
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160226/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160302met/"
 
 def make_legend(xmin,ymin,xmax,ymax):

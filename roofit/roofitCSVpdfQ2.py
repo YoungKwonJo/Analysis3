@@ -10,8 +10,8 @@ import copy
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
-loc2 = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225Q2/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160226/"
+loc2 = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160301Q2/"
 
 def make_legend(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
@@ -1159,7 +1159,7 @@ Step="S7"
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, "1",Step,"csvweight")
 orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 kVal = result["kVal"]
-"""
+#"""
 SystematicUnc,SystematicUnck ={},{}
 sumRerr, sumKerr = 0.,0.
 for i in range(0,212):
@@ -1178,7 +1178,7 @@ for i in range(0,212):
 from math import *
 print "FINAL2: sumRerr : "+str(round(sqrt(sumRerr)*10000)/100)+" %"
 print "FINAL2: sumKerr : "+str(round(sqrt(sumKerr)*10000)/100)+" %"
-"""
+#"""
 from math import *
 SystematicUncQ2,SystematicUncQ2k ={},{}
 sumRerrQ2, sumKerrQ2 = 0.,0.

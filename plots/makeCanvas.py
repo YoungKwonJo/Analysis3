@@ -159,13 +159,25 @@ def myRatioSyst(hdata):
 ##############################
 ##############################
 ##############################
-def StackHist(channel, histograms2, plotSet):
+def StackHist(channel, histograms2, plotSet,isPrint):
   hs = THStack("hs","")
   ls=["hMM","hEE","hME"]
   if channel=="MM":   ls = ["hMM"]
   if channel=="EE":   ls = ["hEE"]
   if channel=="ME":   ls = ["hME"]
   if channel=="MMEE": ls = ["hMM","hEE"]
+  for aa in plotSet["mg5"]:
+    h={}
+    for bb in ls: 
+      if len(h.keys())==0:
+        h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
+      else :
+        h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+    if isPrint : 
+      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
+      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+
 
   for aa in plotSet["ttbars"]:
     h={}
@@ -174,6 +186,11 @@ def StackHist(channel, histograms2, plotSet):
         h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
       else :
         h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+    if isPrint : 
+      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
+      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+
     h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
     hs.Add(copy.deepcopy(h[aa]))
   for aa in plotSet["bkg"]:
@@ -183,6 +200,11 @@ def StackHist(channel, histograms2, plotSet):
         h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
       else :
         h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+    if isPrint : 
+      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
+      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+        
     h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
     hs.Add(copy.deepcopy(h[aa]))
 
@@ -227,8 +249,16 @@ def aCanvas(mon,step,decay,isLogy,Weight):
   MCtot1gr =  myHist2TGraphError(MCtot1)
   MCtot2 =  AddHist(decay,histograms2["MCtot2"])
   MCtot3 =  AddHist(decay,histograms2["MCtot3"])
-  hs = StackHist(decay,histograms2,plotSet)
-  
+
+  isPrint =  (mon["name"] is "Stat")
+  if isPrint : print "channel : "+str(decay)+", Step:"+str(step)+" "+str(mon["name"])
+  hs = StackHist(decay,histograms2,plotSet,isPrint)
+  name = MCtot1.GetName()
+  if isPrint : 
+    if MCtot1.GetBinContent(1)<100 : print " "+("MC").rjust(10)+" & "+str(round(MCtot1.GetBinContent(1)*10)/10)+" $\pm$ "+str(round(MCtot1.GetBinError(1)*10)/10)+" "
+    else                           : print " "+("MC").rjust(10)+" & "+str(int(round(MCtot1.GetBinContent(1))))+" $\pm$ "+str(int(round(MCtot1.GetBinError(1))))+" "
+    print " "+("DATA").rjust(10)+" & "+str(int(round(DATA.GetBinContent(1))) )+" "
+
   ####################################
   if isLogy : 
     scale = MCtot1.GetMaximum()
@@ -324,16 +354,25 @@ def main():
 
   from monitors_cfi import monitors,monitors2d
   #mon = monitors[33]
-  mon = monitors[23]
-  mon2 = monitors[24]
+  mon = monitors[0]
+  #mon = monitors[24]
+  mon2 = monitors[25]
+  mon3 = monitors[6]
+  mon4 = monitors[7]
   #mon = monitors[6]
   #mon = monitors[10]
   #mon = monitors[11]
   aaa = {}
   #aaa[0]=aCanvas(mon,"S4","LL",True,"csvweight")
   #aaa[1]=aCanvas(mon,"S5","LL",True,"csvweight")
-  aaa[2]=aCanvas(mon,"S7","LL",True,"csvweight")
-  aaa[3]=aCanvas(mon,"S7","LL",True,"csvweight")
+#  aaa[2]=aCanvas(mon,"S7","LL",True,"csvweight")
+#  aaa[3]=aCanvas(mon2,"S7","LL",True,"csvweight")
+  aaa[4]=aCanvas(mon,"S2","LL",True,"csvweight")
+  aaa[4]=aCanvas(mon,"S3","LL",True,"csvweight")
+  aaa[4]=aCanvas(mon,"S4","LL",True,"csvweight")
+  aaa[4]=aCanvas(mon,"S5","LL",True,"csvweight")
+  aaa[4]=aCanvas(mon,"S6","LL",True,"csvweight")
+#  aaa[5]=aCanvas(mon4,"S3","LL",True,"csvweight")
   #aaa[3]=aCanvas(mon,"S6","MM",False,"csvweight")
   #aaa[4]=aCanvas(mon,"S6","EE",False,"csvweight")
   #aaa[5]=aCanvas(mon,"S6","ME",False,"csvweight")

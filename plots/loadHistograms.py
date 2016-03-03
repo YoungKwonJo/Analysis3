@@ -9,7 +9,7 @@ import copy
 
 
 lumi = 2260.0
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160224/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
 
 def loadHistogramMC(mc, mon, Step, Weight,DYsf):
   HN = mon["name"]
@@ -21,7 +21,7 @@ def loadHistogramMC(mc, mon, Step, Weight,DYsf):
   name = mc['name']
   #print name+"  "+str(mc['cx'])+"   "
   scale = float(str(mc['cx']))*lumi
-  print name+"/"+Weight+"/h1_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1
+  #print name+"/"+Weight+"/h1_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1
 
   h1 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1).Clone("h1_"+name+"_"+Step+"mm"+"_"+Weight1)
   h2 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN+"_ee_"+Step+"_"+Weight1).Clone("h1_"+name+"_"+Step+"ee"+"_"+Weight1)
