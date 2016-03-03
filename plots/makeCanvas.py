@@ -166,6 +166,7 @@ def StackHist(channel, histograms2, plotSet,isPrint):
   if channel=="EE":   ls = ["hEE"]
   if channel=="ME":   ls = ["hME"]
   if channel=="MMEE": ls = ["hMM","hEE"]
+  Stats = {}
   for aa in plotSet["mg5"]:
     h={}
     for bb in ls: 
@@ -174,10 +175,11 @@ def StackHist(channel, histograms2, plotSet,isPrint):
       else :
         h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
     if isPrint : 
-      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
-      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
-
+      aaa=""
+      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+      Stats[aa]=aaa
 
   for aa in plotSet["ttbars"]:
     h={}
@@ -187,9 +189,11 @@ def StackHist(channel, histograms2, plotSet,isPrint):
       else :
         h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
     if isPrint : 
-      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
-      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+      aaa=""
+      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+      Stats[aa]=aaa
 
     h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
     hs.Add(copy.deepcopy(h[aa]))
@@ -201,14 +205,16 @@ def StackHist(channel, histograms2, plotSet,isPrint):
       else :
         h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
     if isPrint : 
-      if h[aa].GetBinContent(1)==0.   : print " "+(aa).rjust(10)+" & 0 " 
-      elif h[aa].GetBinContent(1)<100 : print " "+(aa).rjust(10)+" & "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : print " "+(aa).rjust(10)+" & "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+      aaa=""
+      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+      Stats[aa]=aaa
         
     h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
     hs.Add(copy.deepcopy(h[aa]))
 
-  return hs
+  return hs,Stats
 
 def AddHist(channel,histograms):
   ls=["hMM","hEE","hME"]
@@ -251,13 +257,15 @@ def aCanvas(mon,step,decay,isLogy,Weight):
   MCtot3 =  AddHist(decay,histograms2["MCtot3"])
 
   isPrint =  (mon["name"] is "Stat")
-  if isPrint : print "channel : "+str(decay)+", Step:"+str(step)+" "+str(mon["name"])
-  hs = StackHist(decay,histograms2,plotSet,isPrint)
+  #if isPrint : print "channel : "+str(decay)+", Step:"+str(step)+" "+str(mon["name"])
+  hs,Stats = StackHist(decay,histograms2,plotSet,isPrint)
   name = MCtot1.GetName()
   if isPrint : 
-    if MCtot1.GetBinContent(1)<100 : print " "+("MC").rjust(10)+" & "+str(round(MCtot1.GetBinContent(1)*10)/10)+" $\pm$ "+str(round(MCtot1.GetBinError(1)*10)/10)+" "
-    else                           : print " "+("MC").rjust(10)+" & "+str(int(round(MCtot1.GetBinContent(1))))+" $\pm$ "+str(int(round(MCtot1.GetBinError(1))))+" "
-    print " "+("DATA").rjust(10)+" & "+str(int(round(DATA.GetBinContent(1))) )+" "
+    aaa=""
+    if MCtot1.GetBinContent(1)<100 : aaa= " "+str(round(MCtot1.GetBinContent(1)*10)/10)+" $\pm$ "+str(round(MCtot1.GetBinError(1)*10)/10)+" "
+    else                           : aaa= " "+str(int(round(MCtot1.GetBinContent(1))))+" $\pm$ "+str(int(round(MCtot1.GetBinError(1))))+" "
+    Stats["MC"]=aaa
+    Stats["DATA"]= " "+str(int(round(DATA.GetBinContent(1))) )+" "
 
   ####################################
   if isLogy : 
@@ -330,7 +338,8 @@ def aCanvas(mon,step,decay,isLogy,Weight):
   c1.cd(), c1.Modified(), c1.cd()
   if isLogy : c1.Print("plots/TH1_"+canvasname+".eps")
   else      : c1.Print("plots/TH1_"+canvasname+"_Li.eps")
-  return c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst
+  c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst]
+  return c1set,Stats,plotSet
 
 ##################################
 ##################################
@@ -340,6 +349,34 @@ def aCanvas(mon,step,decay,isLogy,Weight):
 ##################################
 ##################################
 ##################################
+def printStats(StatsAll,plotSet):
+  s1,s2=10,25
+  for mc in plotSet["mg5"]:
+    aaa=(" "+mc+" ").ljust(s1)
+    for step in sorted(StatsAll.keys()):
+      aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
+    aaa+="  \\\\"
+    print aaa
+  for mc in plotSet["ttbars"]:
+    aaa=(" "+mc+" ").ljust(s1)
+    for step in sorted(StatsAll.keys()):
+      aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
+    aaa+="  \\\\"
+    print aaa
+  for mc in plotSet["bkg"]:
+    aaa=(" "+mc+" ").rjust(s1)
+    for step in sorted(StatsAll.keys()):
+      aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
+    aaa+="  \\\\"
+    print aaa
+  for mc in ["MC","DATA"]:
+    aaa=(" "+mc+" ").rjust(s1)
+    for step in sorted(StatsAll.keys()):
+      aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
+    aaa+="  \\\\"
+    print aaa
+
+
 ##################################
 ##################################
 ##################################
@@ -363,20 +400,25 @@ def main():
   #mon = monitors[10]
   #mon = monitors[11]
   aaa = {}
+  StatsAll = {}
   #aaa[0]=aCanvas(mon,"S4","LL",True,"csvweight")
   #aaa[1]=aCanvas(mon,"S5","LL",True,"csvweight")
 #  aaa[2]=aCanvas(mon,"S7","LL",True,"csvweight")
 #  aaa[3]=aCanvas(mon2,"S7","LL",True,"csvweight")
-  aaa[4]=aCanvas(mon,"S2","LL",True,"csvweight")
-  aaa[4]=aCanvas(mon,"S3","LL",True,"csvweight")
-  aaa[4]=aCanvas(mon,"S4","LL",True,"csvweight")
-  aaa[4]=aCanvas(mon,"S5","LL",True,"csvweight")
-  aaa[4]=aCanvas(mon,"S6","LL",True,"csvweight")
-#  aaa[5]=aCanvas(mon4,"S3","LL",True,"csvweight")
-  #aaa[3]=aCanvas(mon,"S6","MM",False,"csvweight")
-  #aaa[4]=aCanvas(mon,"S6","EE",False,"csvweight")
-  #aaa[5]=aCanvas(mon,"S6","ME",False,"csvweight")
-  #aaa[2]=aCanvas(mon,"S6","LL",True,"CEN")
+  decay = "EE"
+  aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight")
+  aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight")
+  aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight")
+  aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight")
+  aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight")
+
+  #aaa[1]=aCanvas(mon,"S6","MM",False,"csvweight")
+  #aaa[1]=aCanvas(mon,"S6","EE",False,"csvweight")
+  #aaa[1]=aCanvas(mon,"S6","ME",False,"csvweight")
+  #aaa[1]=aCanvas(mon,"S6","LL",True,"CEN")
+
+  print str(StatsAll)
+  printStats(StatsAll,plotSet)  
 
   return aaa
 
