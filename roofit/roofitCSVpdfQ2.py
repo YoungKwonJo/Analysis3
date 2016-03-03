@@ -10,8 +10,8 @@ import copy
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160226/"
-loc2 = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160301Q2/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
+loc2 = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225Q2/"
 
 def make_legend(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
@@ -1154,15 +1154,17 @@ arg2 =  sys.argv[2] #
 #  arg3 = sys.argv[3]
 
 
-Step="S7"
+Step="S6"
 
+from math import *
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, "1",Step,"csvweight")
 orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 kVal = result["kVal"]
 #"""
 SystematicUnc,SystematicUnck ={},{}
 sumRerr, sumKerr = 0.,0.
-for i in range(0,212):
+#for i in range(1,212):
+for i in range(1,101):
   if int(arg2) is 1:
     loadHistogramTTbarPOW(histograms,Step,"pdf_N"+str(i))
     orig_r2,bbb,resultPDF=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
@@ -1172,14 +1174,19 @@ for i in range(0,212):
     print "FINAL2: pdf_N"+str(i)+": k "+str(round(sysUnck*10000)/100)+"      ,     k = "+ str(round(resultPDF["kVal"]*10000)/10000)+" "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
-    sumRerr+=sysUnc*sysUnc
-    sumKerr+=sysUnck*sysUnck
+#    sumRerr+=sysUnc*sysUnc
+#    sumKerr+=sysUnck*sysUnck
+    if fabs(sysUnc)>sumRerr : sumRerr=fabs(sysUnc)
+    if fabs(sysUnck)>sumKerr : sumKerr=fabs(sysUnck)
 
-from math import *
-print "FINAL2: sumRerr : "+str(round(sqrt(sumRerr)*10000)/100)+" %"
-print "FINAL2: sumKerr : "+str(round(sqrt(sumKerr)*10000)/100)+" %"
+
+#print "FINAL2: sumRerr : "+str(round(sqrt(sumRerr)*10000)/100)+" %"
+#print "FINAL2: sumKerr : "+str(round(sqrt(sumKerr)*10000)/100)+" %"
+print "FINAL2: sumRerr : "+str(round(sumRerr*10000)/100)+" %"
+print "FINAL2: sumKerr : "+str(round(sumKerr*10000)/100)+" %"
+
+
 #"""
-from math import *
 SystematicUncQ2,SystematicUncQ2k ={},{}
 sumRerrQ2, sumKerrQ2 = 0.,0.
 for i in range(1,8):

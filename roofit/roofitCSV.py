@@ -1019,8 +1019,8 @@ POWttjjF = POWttbbF+POWttbjF+POWttccF+POWttlfF
 ttjjRatioTTPOW = (POWttjjF/POWttbarall)
 POWttjjV = POWttbbV+POWttbjV+POWttccV+POWttlfV
 
-#POWttbbS6,POWttjjS6 = 2206.0,70016.0   #S6
-POWttbbS6,POWttjjS6 = 1535.0,35425.0  #S7 
+POWttbbS6,POWttjjS6 = 2206.0,70016.0   #S6
+#POWttbbS6,POWttjjS6 = 1535.0,35425.0  #S7 
 
 ttjjAcceptancePOW = (POWttjjV/POWttjjF)
 ttbbAcceptancePOW = (POWttbbV/POWttbbF)
@@ -1040,8 +1040,8 @@ MG5ttjjF = MG5ttbbF+MG5ttbjF+MG5ttccF+MG5ttlfF
 MG5ttjjRatioTT = (MG5ttjjF/MG5ttbarall)
 MG5ttjjV = MG5ttbbV+MG5ttbjV+MG5ttccV+MG5ttlfV
 
-#MG5ttbbS6,MG5ttjjS6 = 256.0,8806.0  #S6
-MG5ttbbS6,MG5ttjjS6 = 167.0,4428.0  #S7
+MG5ttbbS6,MG5ttjjS6 = 256.0,8806.0  #S6
+#MG5ttbbS6,MG5ttjjS6 = 167.0,4428.0  #S7
 
 ttjjAcceptanceMG5= (MG5ttjjV/MG5ttjjF)
 ttbbAcceptanceMG5= (MG5ttbbV/MG5ttbbF)
@@ -1094,7 +1094,7 @@ from sysWeight_cfi import mceventweight
 sysWeights =  [i["name"] for i in mceventweight]
 sysWeights.append("Scale_Up")
 sysWeights.append("Scale_Down")
-Step="S7"
+Step="S6"
 
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,Step,"csvweight")
 orig_r,orig_err = 0.,0. 

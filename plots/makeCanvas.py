@@ -21,7 +21,7 @@ def make_legend(xmin,ymin,xmax,ymax):
 
 def addLegendLumi():#lumi):
   #lumi2 = str(round(lumi/100)/10)
-  title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.26 fb^{-1}")
+  title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.2 fb^{-1}")
   title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.20),      title.SetY(0.83)
   title.SetTextFont(42)#, title.SetTextSize(0.05),  title.SetTextSizePixels(24)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
@@ -277,10 +277,12 @@ def aCanvas(mon,step,decay,isLogy,Weight):
 
     DATA.SetMaximum(maxY*10000)
     if maxY*10000 < scale*140 : DATA.SetMaximum(scale*140)
-    if minY>1       :  DATA.SetMinimum( 4.0 )
-    elif minY>0.4   :  DATA.SetMinimum( 0.4 )
-    elif minY>0.04  :  DATA.SetMinimum( 0.04 )
-    elif minY<0.04  :  DATA.SetMinimum( 0.004 )
+    #if minY>1       :  DATA.SetMinimum( 4.0 )
+    #elif minY>0.4   :  DATA.SetMinimum( 0.4 )
+    #if minY>0.04  :  DATA.SetMinimum( 0.04 )
+    #elif
+    #minY<0.04  :  
+    DATA.SetMinimum( 0.04 )
   else :
     DATA.SetMaximum( 2.2*max(DATA.GetMaximum(),MCtot1.GetMaximum()) )
 
@@ -380,7 +382,19 @@ def printStats(StatsAll,plotSet):
 ##################################
 ##################################
 ##################################
-def main():
+def main():#step, moni):
+  import sys
+  if len(sys.argv) < 2:
+    sys.exit()
+
+  step = sys.argv[1]      # 
+  st=step.replace("S","")
+  runStat=False
+  if int(st)==0 : runStat=True
+
+  moni = int(sys.argv[2]) #
+  print ""+step+" moni:"+str(moni)
+ 
   gROOT.SetStyle("Plain")
   gStyle.SetOptFit(1000),    gStyle.SetOptStat("emruo")
   gStyle.SetOptStat(kFALSE)
@@ -390,35 +404,37 @@ def main():
   setTDRStyle()
 
   from monitors_cfi import monitors,monitors2d
-  #mon = monitors[33]
-  mon = monitors[0]
-  #mon = monitors[24]
-  mon2 = monitors[25]
-  mon3 = monitors[6]
-  mon4 = monitors[7]
-  #mon = monitors[6]
-  #mon = monitors[10]
-  #mon = monitors[11]
   aaa = {}
   StatsAll = {}
-  #aaa[0]=aCanvas(mon,"S4","LL",True,"csvweight")
-  #aaa[1]=aCanvas(mon,"S5","LL",True,"csvweight")
-#  aaa[2]=aCanvas(mon,"S7","LL",True,"csvweight")
-#  aaa[3]=aCanvas(mon2,"S7","LL",True,"csvweight")
-  decay = "EE"
-  aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight")
-  aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight")
-  aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight")
-  aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight")
-  aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight")
-
-  #aaa[1]=aCanvas(mon,"S6","MM",False,"csvweight")
-  #aaa[1]=aCanvas(mon,"S6","EE",False,"csvweight")
-  #aaa[1]=aCanvas(mon,"S6","ME",False,"csvweight")
-  #aaa[1]=aCanvas(mon,"S6","LL",True,"CEN")
-
-  print str(StatsAll)
-  printStats(StatsAll,plotSet)  
+  #['Stat', 'nGoodPV', 'MET', 'ZMass',            # 0-3
+  # 'nBJet30L', 'nBJet30M', 'NJet30', 'nBJet30T', # 4-7
+  # 'lep1Pt', 'lep2Pt', 'lep1Eta', 'lep2Eta',     # 8-11
+  # 'lep1Phi', 'lep2Phi', 'lep1Iso', 'lep2Iso'    #12-15
+  # 'jet1Pt', 'jet2Pt', 'jet3Pt', 'jet4Pt',       #16-19
+  # 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet4Eta',   #20-23
+  # 'jet1Phi', 'jet2Phi', 'jet3Phi', 'jet4Phi',   #24-27
+  # 'jet1CSV', 'jet2CSV', 'jet3CSV', 'jet4CSV']   #28-31
+  mon = monitors[moni]
+  if runStat : mon = monitors[0]
+  else :
+    #step="S2"
+    weight="csvweight"
+    isLogy = True
+    aaa[1]=aCanvas(mon,step,"MM",isLogy,weight)
+    aaa[2]=aCanvas(mon,step,"EE",isLogy,weight)
+    aaa[3]=aCanvas(mon,step,"ME",isLogy,weight)
+    aaa[4]=aCanvas(mon,step,"LL",isLogy,weight)
+    
+  if runStat:
+    decay = "LL"
+    aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight")
+    aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight")
+    aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight")
+    aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight")
+    aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight")
+    
+    #print str(StatsAll)
+    printStats(StatsAll,plotSet)  
 
   return aaa
 
