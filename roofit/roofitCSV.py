@@ -917,6 +917,55 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
 
 ################
 ################
+################
+################
+################
+################
+################
+################
+def Chi2Test2D(GEN,histograms):#data2D,mc2D):
+  ttbb = histograms[GEN+"ttbb"]["h1"]
+  ttb  = histograms[GEN+"ttb"]["h1"]
+  tt2b  = histograms[GEN+"tt2b"]["h1"]
+  ttcc = histograms[GEN+"ttcc"]["h1"]
+  #ttc = histograms[GEN+"ttc"]["h1"]
+  ttlf = histograms[GEN+"ttlf"]["h1"]
+  ttcclf = histograms[GEN+"ttcclf"]["h1"]
+  ttot = histograms[GEN+"ttot"]["h1"]
+  bkg = histograms["bkg"]["h1"]
+  ddbkg = histograms["ddbkg"]["h1"]
+  data2D = histograms["DATA"]["h1"]
+
+  mc2D = histograms[GEN+"ttbb"]["h1"].Clone("mc2D")
+  mc2D.Reset()
+  mc2D.Add(ttbb), mc2D.Add(ttb),mc2D.Add(tt2b)
+  #mc2D.Add(ttcc)
+  mc2D.Add(ttcclf),  mc2D.Add(ttot),  mc2D.Add(bkg),  mc2D.Add(ddbkg)
+
+  binN    = mc2D.GetNbinsX()*mc2D.GetNbinsY()
+  mc_1d   =  TH1D("mc_1d","",binN,0.,10.)
+  data_1d = TH1D("data_1d","",binN,0.,10.)
+  for i in range(1,mc2D.GetNbinsX()+1):
+    for j in range(1,mc2D.GetNbinsY()+1):
+       ij = i*(mc2D.GetNbinsX()-1)+j
+       mc_1d.SetBinContent  (ij,mc2D.GetBinContent  (i,j) )
+       mc_1d.SetBinError    (ij,mc2D.GetBinError    (i,j) )
+       data_1d.SetBinContent(ij,data2D.GetBinContent(i,j) )
+       data_1d.SetBinError  (ij,data2D.GetBinError  (i,j) )
+  chi2nof_1d =  data_1d.Chi2Test(mc_1d,"UW P CHI2/NDF")
+  chi2_1d = data_1d.Chi2Test(mc_1d,"UW P CHI2")
+
+  print "chi/ndof = "+str(chi2nof_1d)
+  print "chi      = "+str(chi2_1d)
+
+################
+################
+################
+################
+################
+################
+################
+################
 def roundStr(val,n):
   return str(round(val*pow(10,n))/pow(10,n))
 
@@ -1098,6 +1147,7 @@ Step="S6"
 
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,Step,"csvweight")
 orig_r,orig_err = 0.,0. 
+Chi2Test2D(GEN,histograms)
 #SystematicUnck={}
 #StepSys2 = ["JES","LF","HF","HF_Stats1","HF_Stats2","LF_Stats1","LF_Stats1","Charm_Err1","Charm_Err2"]
 
