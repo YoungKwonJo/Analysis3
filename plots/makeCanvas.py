@@ -273,16 +273,16 @@ def aCanvas(mon,step,decay,isLogy,Weight):
     maxY,minY=0., 1.
     for i in range(int(DATA.GetNbinsX()*0.7)+1, DATA.GetNbinsX()+2):
        if maxY<DATA.GetBinContent(i): maxY=DATA.GetBinContent(i)
-       if DATA.GetBinContent(i)>0 and minY>DATA.GetBinContent(i): minY=DATA.GetBinContent(i)
+    ttbbMuMu=histograms2["ttbb"]["h1"]["hMM"]
+    for i in range(1, ttbbMuMu.GetNbinsX()+2):
+      if ttbbMuMu.GetBinContent(i)>0 and minY>ttbbMuMu.GetBinContent(i): minY=ttbbMuMu.GetBinContent(i)
 
     DATA.SetMaximum(maxY*10000)
     if maxY*10000 < scale*140 : DATA.SetMaximum(scale*140)
-    #if minY>1       :  DATA.SetMinimum( 4.0 )
-    #elif minY>0.4   :  DATA.SetMinimum( 0.4 )
-    #if minY>0.04  :  DATA.SetMinimum( 0.04 )
-    #elif
-    #minY<0.04  :  
-    DATA.SetMinimum( 0.04 )
+    if   minY>1     :  DATA.SetMinimum( 4.0 )
+    elif minY>0.4   :  DATA.SetMinimum( 0.4 )
+    elif minY>0.04  :  DATA.SetMinimum( 0.04 )
+    elif minY<0.04  :  DATA.SetMinimum( 0.004 )
   else :
     DATA.SetMaximum( 2.2*max(DATA.GetMaximum(),MCtot1.GetMaximum()) )
 

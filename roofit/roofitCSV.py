@@ -118,6 +118,9 @@ def loadHistogram(arg1, arg2, Step, Weight):
   
   GEN="MG5"
   if int(arg2)==1 : GEN="POW"
+  if int(arg2)==2 : GEN="POHP"
+  if int(arg2)==3 : GEN="POPY6"
+
 #  if int(arg2)==2 : GEN="AMC"
   
   #histograms = ["name":"name","hist": ]
@@ -140,7 +143,9 @@ def loadHistogram(arg1, arg2, Step, Weight):
     #color = mc['ColorLabel']['color'] 
     #histnameMM = "h2_"+name+"_"+HN+"_mm_"+Step
     #print name
-    #print name+"/"+Weight+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight
+    #print "FINAL2: "+name+"/"+Weight+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight
+    if f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1) == None : continue
+
     h1 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1).Clone("h2_"+name+"_"+Step+"LL"+"_"+Weight1)
     h2 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+Weight1)
     h3 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+Weight1)
@@ -952,6 +957,8 @@ def Chi2Test2D(GEN,histograms):#data2D,mc2D):
        mc_1d.SetBinError    (ij,mc2D.GetBinError    (i,j) )
        data_1d.SetBinContent(ij,data2D.GetBinContent(i,j) )
        data_1d.SetBinError  (ij,data2D.GetBinError  (i,j) )
+  ##https://root.cern.ch/doc/master/classTH1.html#a11153bd9c45ceac48bbfac56cb62ea74
+  # options
   chi2nof_1d =  data_1d.Chi2Test(mc_1d,"UW P CHI2/NDF")
   chi2_1d = data_1d.Chi2Test(mc_1d,"UW P CHI2")
 
@@ -1159,6 +1166,7 @@ elif int(arg3)==2:
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
   histogramSys = {}
   for sys in sysWeights:
+    print "FINAL2: loadhistogram "+sys 
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,Step,sys)
     histogramSys[sys] = copy.deepcopy(histograms2)
 
