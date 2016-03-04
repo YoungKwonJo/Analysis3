@@ -148,7 +148,7 @@ def getValues(data,doSumWeight):
   else           : return cx,fileList
 
 
-data = loadJson('dataset.json')
+data = loadJson('../plots/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}

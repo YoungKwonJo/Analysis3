@@ -103,6 +103,8 @@ def loadHistogram(arg1, arg2, Step, Weight):
   HN = "jet3CSV_jet4CSV"                                                                                                          
   HN1 = "jet3CSV"
   HN2 = "jet4CSV"
+  import sys
+  sys.path.append('../plots')
   from mcsample_cfi import mcsamples,datasamples 
   #lumi = 2110. 
   #Step = "S6csvweight"
