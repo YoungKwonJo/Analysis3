@@ -7,8 +7,8 @@ from cut_cfi import cut_maker,ll_cuts
 
 def getIt(tree,htemp, weight, sel):
   htemp.Reset()
-  tree.Project("htempD","1",weight+"*"+sel,"10000")
-  #tree.Project("htempD","1",weight+"*"+sel)
+  #tree.Project("htempD","1",weight+"*"+sel,"",10000)
+  tree.Project("htempD","1",weight+"*"+sel)
   return htemp.Integral()
 
 def loadTree(files):
