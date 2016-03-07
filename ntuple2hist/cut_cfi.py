@@ -6,7 +6,8 @@ em= "(channel==1)"
 
 preselection = "(filtered==1)" 
 #trigger   = "((tri==1)*(filtered==1))"
-trigger   = "((tri==1)*(filtered==1))"
+trigger   = "((tri>0)*(filtered==1))"
+triggerLL = "((channel==3||(channel==2)||(channel==1)) && "+trigger+" )"
 
 cut = [ "(step1==1)", "(step2==1)",  "(step3==1)", "(step4==1)","(step5==1)","(step6==1)" ]
 #cut = [ "(step1==1)", "(step2==1)",  "(met>-1)", "(njet30>3)","(nbjetM30>1)","(nbjetT30>1)" ]
@@ -38,6 +39,17 @@ em_cuts = {
    "("+cut[0]+"&&"+em+")", cut[1], cut[2], cut[3], cut[4], cut[5]
 ]
 }
+
+ll_cuts = {
+"channel": "ll",
+"cut":[
+   "(1)", 
+#   preselection,
+   "("+triggerLL+")",
+   cut[0], cut[1], cut[2], cut[3], cut[4], cut[5]
+]
+}
+
 
 ##########
 import copy

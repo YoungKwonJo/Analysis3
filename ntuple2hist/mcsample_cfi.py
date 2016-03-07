@@ -76,7 +76,7 @@ def mAND2(aaa):
       bbb=mAND(ii,bbb)
   return bbb
 def op_(aaa):
-  return "!(" + aaa + ")"
+  return "(!(" + aaa + "))"
 
 def GW(sel="1"):
   return "("+sel+")"
@@ -93,7 +93,7 @@ def ttbarSelections(isVis):
     return ttbb,ttb,tt2b,ttcc,ttlf,ttot
   else : 
    #full phase
-   #fullphase ="(diLeptonicM1==1 && NaddJets20 >= 2)"
+   fullphase ="(diLeptonicM1==1 && NaddJets20 >= 2)"
    #TTJJ = "(NaddJets20 >= 2 && diLeptonicM1==1)"
    ttbb = "(NaddbJets20 >= 2 && diLeptonicM1==1)"
    ttb = "(NaddJets20 >= 2 && NaddbJets20 == 1 && diLeptonicM1==1 && !(genTtbarId%100==52))"
@@ -102,7 +102,7 @@ def ttbarSelections(isVis):
    ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
    ##ttlf = "( !"+ttbb+" && !"+ttb+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
    ttot = op_(fullphase)
-   return ttbb,ttb,tt2b,ttcc,ttlf
+   return ttbb,ttb,tt2b,ttcc,ttlf,ttot
 
 def oldttbarSelections():
   ll = " (partonInPhaseLep==1 && NgenJet>=4 )"
@@ -206,8 +206,8 @@ def dataSet(name,filename):
 
 isVis = True
 ttbb,ttb,tt2b,ttcc,ttlf,ttot =ttbarSelections(isVis)
-#ttbarSelections={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot,"All":"(1)"}
-ttbarSelections={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot}
+#ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot,"All":"(1)"}
+ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot}
 
 ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" 
                    ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" 
@@ -225,7 +225,7 @@ dataSamples = { "MuMu1":"DoubleMuon_Run2015C", "MuMu2":"DoubleMuon_Run2015D"
               }
 mcsamples =[]
 for ttbar in ttbarMCsamples.keys():
-  mcsamples+=ttbarMCSet(ttbar,ttbarSelections,ttbarMCsamples[ttbar])
+  mcsamples+=ttbarMCSet(ttbar,ttbarSelections_,ttbarMCsamples[ttbar])
 for bkg in bkgMCsamples.keys():
   mcsamples+= bkgMCSet(bkg,bkgMCsamples[bkg])
 
