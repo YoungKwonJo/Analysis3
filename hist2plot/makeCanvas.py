@@ -7,6 +7,8 @@ from ROOT import *
 from array import array
 import copy
 
+import sys
+sys.path.append('../ntuple2hist')
 
 ###################################################
 ###################################################
@@ -67,15 +69,17 @@ def myPad2(name):
 def StyleUp(histograms):
   for aa in histograms.keys():
     for bb in [0,1,2]:
-      cc=histograms[aa]["h1"]["hMM"]
-      if bb==1 : cc=histograms[aa]["h1"]["hEE"]
-      if bb==2 : cc=histograms[aa]["h1"]["hME"] 
-      if "LineColor"   in histograms[aa].keys(): cc.SetLineColor( TColor.GetColor(histograms[aa]["LineColor"])  )
-      if "LineStyle"   in histograms[aa].keys(): cc.SetLineStyle(  histograms[aa]["LineStyle"]   )
-      if "FillStyle"   in histograms[aa].keys(): cc.SetFillStyle(  histograms[aa]["FillStyle"]   )
-      if "MarkerStyle" in histograms[aa].keys(): cc.SetMarkerStyle(histograms[aa]["MarkerStyle"] )
-      if "MarkerSize"  in histograms[aa].keys(): cc.SetMarkerSize( histograms[aa]["MarkerSize"]  )
-      if "FillColor"   in histograms[aa].keys(): cc.SetFillColor(  TColor.GetColor(histograms[aa]["FillColor"]) )
+      #print str(aa)+":"+str(histograms[aa]["h1"].keys())
+      if len(histograms[aa]["h1"].keys())>0 :
+        cc=histograms[aa]["h1"]["hMM"]
+        if bb==1 : cc=histograms[aa]["h1"]["hEE"]
+        if bb==2 : cc=histograms[aa]["h1"]["hME"] 
+        if "LineColor"   in histograms[aa].keys(): cc.SetLineColor( TColor.GetColor(histograms[aa]["LineColor"])  )
+        if "LineStyle"   in histograms[aa].keys(): cc.SetLineStyle(  histograms[aa]["LineStyle"]   )
+        if "FillStyle"   in histograms[aa].keys(): cc.SetFillStyle(  histograms[aa]["FillStyle"]   )
+        if "MarkerStyle" in histograms[aa].keys(): cc.SetMarkerStyle(histograms[aa]["MarkerStyle"] )
+        if "MarkerSize"  in histograms[aa].keys(): cc.SetMarkerSize( histograms[aa]["MarkerSize"]  )
+        if "FillColor"   in histograms[aa].keys(): cc.SetFillColor(  TColor.GetColor(histograms[aa]["FillColor"]) )
 def copyStyleUp(hist, hist2):
   hist.SetLineColor(   hist2.GetLineColor()  )
   hist.SetLineStyle(   hist2.GetLineStyle()  )
@@ -169,50 +173,53 @@ def StackHist(channel, histograms2, plotSet,isPrint):
   Stats = {}
   for aa in plotSet["mg5"]:
     h={}
-    for bb in ls: 
-      if len(h.keys())==0:
-        h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
-      else :
-        h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
-    if isPrint : 
-      aaa=""
-      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
-      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
-      Stats[aa]=aaa
+    if len(histograms2[aa]["h1"].keys())>0 :
+      for bb in ls: 
+        if len(h.keys())==0:
+          h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
+        else :
+          h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+      if isPrint : 
+        aaa=""
+        if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+        elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+        else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+        Stats[aa]=aaa
 
   for aa in plotSet["ttbars"]:
     h={}
-    for bb in ls: 
-      if len(h.keys())==0:
-        h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
-      else :
-        h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
-    if isPrint : 
-      aaa=""
-      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
-      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
-      Stats[aa]=aaa
-
-    h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
-    hs.Add(copy.deepcopy(h[aa]))
+    if len(histograms2[aa]["h1"].keys())>0 :
+      for bb in ls: 
+        if len(h.keys())==0:
+          h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
+        else :
+          h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+      if isPrint : 
+        aaa=""
+        if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+        elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+        else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+        Stats[aa]=aaa
+      
+      h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
+      hs.Add(copy.deepcopy(h[aa]))
   for aa in plotSet["bkg"]:
     h={}
-    for bb in ls: 
-      if len(h.keys())==0:
-        h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
-      else :
-        h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
-    if isPrint : 
-      aaa=""
-      if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
-      elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
-      else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
-      Stats[aa]=aaa
-        
-    h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
-    hs.Add(copy.deepcopy(h[aa]))
+    if len(histograms2[aa]["h1"].keys())>0 :
+      for bb in ls: 
+        if len(h.keys())==0:
+          h[aa]=copy.deepcopy(histograms2[aa]["h1"][bb])
+        else :
+          h[aa].Add(copy.deepcopy(histograms2[aa]["h1"][bb]))
+      if isPrint : 
+        aaa=""
+        if h[aa].GetBinContent(1)==0.   : aaa= " 0 " 
+        elif h[aa].GetBinContent(1)<100 : aaa= " "+str(round(h[aa].GetBinContent(1)*10)/10)+" $\pm$ "+str(round(h[aa].GetBinError(1)*10)/10)+" "
+        else                            : aaa= " "+str(int(round(h[aa].GetBinContent(1))))+" $\pm$ "+str(int(round(h[aa].GetBinError(1))))+" "
+        Stats[aa]=aaa
+          
+      h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
+      hs.Add(copy.deepcopy(h[aa]))
 
   return hs,Stats
 
@@ -223,12 +230,14 @@ def AddHist(channel,histograms):
   if channel=="ME":   ls = ["hME"]
   if channel=="MMEE": ls = ["hMM","hEE"]
   h={}
-  for bb in ls: 
-    if len(h.keys())==0:
-      h["aa"]=copy.deepcopy(histograms["h1"][bb])
-    else :
-      h["aa"].Add(copy.deepcopy(histograms["h1"][bb]))
-  return h["aa"]
+  if len(histograms["h1"].keys())>0 :
+    for bb in ls: 
+      if len(h.keys())==0:
+        h["aa"]=copy.deepcopy(histograms["h1"][bb])
+      else :
+        h["aa"].Add(copy.deepcopy(histograms["h1"][bb]))
+    return h["aa"]
+  else : False
 
 def printStat():
   print ""
@@ -307,13 +316,17 @@ def aCanvas(mon,step,decay,isLogy,Weight):
   leg3 = make_legend(legx1,0.56, legx1+wid,0.63)
   #leg3 = make_legend(legx1,0.54, legx1+wid,0.63)
   for aa in plotSet["ttbars"]:
-    leg.AddEntry(histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "f")
+    if len(histograms2[aa]["h1"].keys())>0:
+      leg.AddEntry(histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "f")
   leg.AddEntry(histograms2["DATA"]["h1"]["hMM"], histograms2["DATA"]["label"], "p")
   for aa in plotSet["bkg"]:
-    leg2.AddEntry( histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "f")
+    #print ""+str(histograms2[aa])
+    if len(histograms2[aa]["h1"].keys())>0:
+      leg2.AddEntry( histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "f")
 
   for aa in plotSet["others"]:
-    leg3.AddEntry(histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "l")
+    if len(histograms2[aa]["h1"].keys())>0:
+      leg3.AddEntry(histograms2[aa]["h1"]["hMM"], histograms2[aa]["label"], "l")
   #leg3.AddEntry(histograms2["ttH"]["h1"]["hMM"], histograms2["ttH"]["label"], "l")
   ###############
   leg.Draw(),  leg2.Draw(),  leg3.Draw()

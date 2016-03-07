@@ -7,6 +7,7 @@ log = False
 #log = True
 #aMC=["AMCttbb","AMCttb","AMCttc","AMCttcc","AMCttlf","AMCttot","TTWlNu","TTWqq","TTZll","TTZqq","DYJets","DYJets10","WJets"]
 
+######################
 def h1_maker(tree, mon, cut):
   h1 =  TH1D( mon['name'], mon['title'], mon['xbin_set'][0],mon['xbin_set'][1],mon['xbin_set'][2])
   h1.GetXaxis().SetTitle(mon['x_name'])
@@ -24,6 +25,25 @@ def h1_set(name,monitor,cutname):
         }
   return mon
 
+######################
+def h2_maker(tree, mon, cut):
+  h2 =  TH2F( mon['name'], mon['title'], mon['xbin_set'][0],mon['xbin_set'][1],mon['xbin_set'][2], mon['ybin_set'][0],mon['ybin_set'][1],mon['ybin_set'][2])
+  h2.GetXaxis().SetTitle(mon['x_name'])
+  h2.GetYaxis().SetTitle(mon['y_name'])
+  h2.Sumw2()
+  tree.Project(mon['name'],mon['var'],cut)
+  return h2  
+
+def h2_set(name,monitor,monitor2,cutname):
+  mon = {  "name" : "h2_"+name+"_"+monitor['name']+"_"+monitor2['name']+"_"+cutname, "title" : name+" "+monitor['var']+" vs "+monitor2['var'],
+           "var" : monitor2['var']+":"+monitor['var'],         
+           "xbin_set" : monitor['xbin_set'], "ybin_set" : monitor2['xbin_set'],
+           "x_name": monitor['unit'], "y_name": monitor2['unit']
+        }
+  return mon
+
+######################
+######################
 def h_all_maker(tree2,mc, monitors, cuts, eventweight,Ntot,hN_maker):
   hh = {}
   h=[]
@@ -62,25 +82,6 @@ def h_all_maker(tree2,mc, monitors, cuts, eventweight,Ntot,hN_maker):
   return hh
 
 
-######################
-def h2_maker(tree, mon, cut):
-  h2 =  TH2F( mon['name'], mon['title'], mon['xbin_set'][0],mon['xbin_set'][1],mon['xbin_set'][2], mon['ybin_set'][0],mon['ybin_set'][1],mon['ybin_set'][2])
-  h2.GetXaxis().SetTitle(mon['x_name'])
-  h2.GetYaxis().SetTitle(mon['y_name'])
-  h2.Sumw2()
-  tree.Project(mon['name'],mon['var'],cut)
-  return h2  
-
-def h2_set(name,monitor,monitor2,cutname):
-  mon = {  "name" : "h2_"+name+"_"+monitor['name']+"_"+monitor2['name']+"_"+cutname, "title" : name+" "+monitor['var']+" vs "+monitor2['var'],
-           "var" : monitor2['var']+":"+monitor['var'],         
-           "xbin_set" : monitor['xbin_set'], "ybin_set" : monitor2['xbin_set'],
-           "x_name": monitor['unit'], "y_name": monitor2['unit']
-        }
-  return mon
-
-######################
-######################
 ####################
 ####################
 ####################
@@ -142,6 +143,9 @@ def ntuple2hist(json,cuts,mcweight,mon,hN_maker):
 
   return h
 
+
+#########################################
+#########################################
 
 def makeoutput(outputname, h):
   #fout = TFile("root/"+outputname,"RECREATE")

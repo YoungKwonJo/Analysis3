@@ -7,6 +7,8 @@ from ROOT import *
 from array import array
 import copy
 
+import sys
+sys.path.append('../ntuple2hist')
 
 lumi = 2260.0
 loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
@@ -101,10 +103,11 @@ def main():
   histograms = {}
   from mcsample_cfi import mcsamples
   from monitors_cfi import monitors,monitors2d
+  from drellYanEstimation import DYsf
 
   mon = monitors[0]
   for mc in mcsamples:
-    histograms[mc["name"]]=loadHistogramMC(mc, mon,"S6","csvweight")
+    histograms[mc["name"]]=loadHistogramMC(mc, mon,"S6","csvweight",DYsf)
   histograms["DATA"]=loadHistogramDATA(mon,"S6","csvweight")
   #histograms["POWttbb"]["hMM"].Draw()
   c1 = TCanvas()

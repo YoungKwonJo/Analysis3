@@ -7,6 +7,9 @@ from ROOT import *
 from array import array
 import copy
 
+import sys
+sys.path.append('../ntuple2hist')
+
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"

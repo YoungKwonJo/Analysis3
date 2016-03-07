@@ -7,6 +7,8 @@ from ROOT import *
 from array import array
 import copy
 
+import sys
+sys.path.append('../ntuple2hist')
 
 from loadHistograms import loadHistogramMC,loadHistogramDATA,mergesHistograms
 
@@ -82,7 +84,7 @@ def load1stHistograms(mon,step,Weight):
 def main():
   from monitors_cfi import monitors,monitors2d
   mon = monitors[7]
-  histograms=load1stHistograms(mon,"S2")
+  histograms=load1stHistograms(mon,"S2","csvweight")
   #c1 = TCanvas()
   #histograms["TTZqq"]["hMM"].Draw()
   #histograms["DATA"]["hEE"].Draw()

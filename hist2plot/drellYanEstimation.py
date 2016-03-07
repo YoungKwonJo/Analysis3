@@ -3,6 +3,9 @@ import copy
 from array import array
 from math import sqrt
 
+import sys
+sys.path.append('../ntuple2hist')
+
 ################
 from loadHistograms import lumi,loc 
 

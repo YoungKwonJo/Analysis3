@@ -7,6 +7,9 @@ from ROOT import *
 from array import array
 import copy
 
+import sys
+sys.path.append('../ntuple2hist')
+
 
 lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
@@ -1144,11 +1147,7 @@ if len(sys.argv) > 3:
 StepSys = ["JES_Up","JES_Down","JER_NOM","JER_Up","JER_Down","LF_Up", "LF_Down", "HF_Up", "HF_Down", "HF_Stats1_Up","HF_Stats1_Down","HF_Stats2_Up","HF_Stats2_Down","LF_Stats1_Up","LF_Stats1_Down","LF_Stats2_Up","LF_Stats2_Down","CQ_Err1_Up", "CQ_Err1_Down", "CQ_Err2_Up", "CQ_Err2_Down","PW_Up","PW_Down"]
 StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","LF_Stats1","LF_Stats2"],"CQ":["CQ_Err1","CQ_Err2"],"pileup":["PW"]}
 
-import sys,os
-sys.path.append('../plots')
-#sys.path.insert(0, os.path.abspath('..'))
 from sysWeight_cfi import mceventweight
-
 sysWeights =  [i["name"] for i in mceventweight]
 sysWeights.append("Scale_Up")
 sysWeights.append("Scale_Down")

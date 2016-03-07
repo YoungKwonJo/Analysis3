@@ -9,6 +9,8 @@ preselection = "(filtered==1)"
 trigger   = "((tri==1)*(filtered==1))"
 
 cut = [ "(step1==1)", "(step2==1)",  "(step3==1)", "(step4==1)","(step5==1)","(step6==1)" ]
+#cut = [ "(step1==1)", "(step2==1)",  "(met>-1)", "(njet30>3)","(nbjetM30>1)","(nbjetT30>1)" ]
+#cut = [ "(step1==1)", "(step2==1)",  "(met>40.)", "(njet30>3)","(nbjetM30>1)","(nbjetT30>1)" ]
 mm_cuts ={
 "channel": "mm",
 "cut": [
