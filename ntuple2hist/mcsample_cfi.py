@@ -40,6 +40,7 @@ def files(path):
     return llll
     #return l, size
 
+"""
 def getEntries(mypath):
   lcgls="lcg-ls -v -b -T srmv2 -D srmv2 --vo cms srm://cms-se.sdfarm.kr:8443/srm/v2/server?SFN="
   aaa = (lcgls_+mypath)
@@ -51,6 +52,7 @@ def getEntries(mypath):
   ddd2= int(ddd)
   if ddd2==999: ddd2+=getEntries(lcgls_,Idx_+1)
   return ddd2
+"""
 
 def sumWeight(files):
   chain = TChain("cattree/nom")
