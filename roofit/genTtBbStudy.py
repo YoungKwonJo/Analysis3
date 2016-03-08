@@ -22,13 +22,14 @@ def loadTree(files):
 def ntuple2entries(filename,weight):
   #####selection
   hadronic,semileptonic,dileptonic     = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
-  etc = "(!("+hadronic+"||"+semileptonic+"||"+dileptonic+"))"
+  #etc = "(!("+hadronic+"||"+semileptonic+"||"+dileptonic+"))"
+  etc = "(!"+hadronic+"&& !"+semileptonic+"&& !"+dileptonic+")"
   allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
 
   ttbb,ttb,tt2b,ttcc,ttlf,ttot = ttbarSelections(True)
   ttbbF,ttbF,tt2bF,ttccF,ttlfF,ttotF = ttbarSelections(False)
   ttNN = { 
-     "ttbb":ttbb, "ttb":ttb,  "tt2b":tt2b, "ttccF":ttcc, "ttlfF":ttlf, "ttot":ttot, 
+     "ttbb":ttbb, "ttb":ttb,  "tt2b":tt2b, "ttcc":ttcc, "ttlf":ttlf, "ttot":ttot, 
      "ttbbF":ttbbF,"ttbF":ttbF, "tt2bF":tt2bF, "ttccF":ttccF, "ttlfF":ttlfF, "ttotF":ttotF, 
   }
   S0,S6,S7=cut_maker(ll_cuts,0)['cut']["S0"],cut_maker(ll_cuts,6)['cut']["S6"],cut_maker(ll_cuts,7)['cut']["S7"]
