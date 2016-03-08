@@ -54,8 +54,20 @@ def ntuple2entries(filename,weight):
 #########################################################
 #########################################################
 allsummary = {}
-for x in ttbarMCsamples.keys():
-  allsummary[x] = ntuple2entries(ttbarMCsamples[x],"weight")
+weights = {"nom":"weight"
+  ,"Q2_N1":"scaleWeights[1]"
+  ,"Q2_N2":"scaleWeights[2]"
+  ,"Q2_N3":"scaleWeights[3]"
+  ,"Q2_N4":"scaleWeights[4]"
+  ,"Q2_N5":"scaleWeights[5]"
+  ,"Q2_N6":"scaleWeights[6]"
+  ,"Q2_N7":"scaleWeights[7]"
+}
+for y in weights.keys():
+  allsummaryA = {}
+  for x in ttbarMCsamples.keys():
+    allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],"weight")
+  allsummary[y]=allsummaryA
 
 print str(allsummary)
 
