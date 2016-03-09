@@ -50,7 +50,13 @@ ttcc={"woCW": "( !("+hasCFromW+") && "+isTtcc+" && "+semileptonic+" )",
       "wiCW": "( "+hasCFromW+" && "+isTtcc+" && "+semileptonic+" )"
      }
 
-monitors = ["NJets20","NbJets20","NcJets20","NaddbJets20","NaddcJets20"]
+monitors = [
+{"val":"NJets20",  "Nbin":15, "min":0., "max":15. },
+{"val":"NbJets20", "Nbin":7, "min":0., "max":7. },
+{"val":"NcJets20", "Nbin":7, "min":0., "max":7. },
+{"val":"NaddbJets20", "Nbin":7, "min":0., "max":7. },
+{"val":"NaddcJets20", "Nbin":7, "min":0., "max":7. }
+]
 
 filename = "TT_powheg"
 tree = loadTree(fileList[filename])
@@ -65,11 +71,12 @@ allmons = {}
 import copy
 for x in monitors:
   mons = {}
+  xx = x
   for y in ttcc.keys():
-    val = {"name":"h"+x+y, "val":x, "Nbin":7, "min":0., "max":7. }
-    h1=getIt(tree,val,"weight",ttcc[y])
+    xx["name"]= "h"+xx["val"]+y
+    h1=getIt(tree,xx,"weight",ttcc[y])
     mons[y]=copy.deepcopy(h1)
-  allmons[x]=copy.deepcopy(mons)
+  allmons[x["val"]]=copy.deepcopy(mons)
 
 makeoutput("ttcc.root",allmons)
 
