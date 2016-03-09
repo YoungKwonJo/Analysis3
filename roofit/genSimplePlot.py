@@ -46,9 +46,20 @@ hasCFromW="(genTtbarId>9000)"
 isTtcc = "(genTtbarId%100>43 && genTtbarId%100<46)"
 hadronic,semileptonic,dileptonic = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
 
-ttcc={"woCW": "( !("+hasCFromW+") && "+isTtcc+" && "+semileptonic+" )",
-      "wiCW": "( "+hasCFromW+" && "+isTtcc+" && "+semileptonic+" )"
+ttcc={"withoutCW": "( !("+hasCFromW+") && "+isTtcc+" && "+semileptonic+" )",
+      "withCW": "( "+hasCFromW+" && "+isTtcc+" && "+semileptonic+" )"
      }
+
+ttbar={
+      "SLwithoutCW": "( !("+hasCFromW+") && "+semileptonic+" )",
+      "SLwithCW"   : "( "+hasCFromW+" && "+semileptonic+" )",
+      "LLwithoutCW": "( !("+hasCFromW+") && "+dileptonic+" )",
+      "LLwithCW"   : "( "+hasCFromW+" && "+dileptonic+" )",
+      "HHwithoutCW": "( !("+hasCFromW+") && "+hadronic+" )",
+      "HHwithCW"   : "( "+hasCFromW+" && "+hadronic+" )"
+     }
+
+
 
 monitors = [
 {"val":"NJets20",  "Nbin":15, "min":0., "max":15. },
@@ -72,13 +83,13 @@ import copy
 for x in monitors:
   mons = {}
   xx = x
-  for y in ttcc.keys():
+  for y in ttbar.keys():
     xx["name"]= "h"+xx["val"]+y
-    h1=getIt(tree,xx,"weight",ttcc[y])
+    h1=getIt(tree,xx,"weight",ttbar[y])
     mons[y]=copy.deepcopy(h1)
   allmons[x["val"]]=copy.deepcopy(mons)
 
-makeoutput("ttcc.root",allmons)
+makeoutput("ttbar.root",allmons)
 
 
 ###write pickle
