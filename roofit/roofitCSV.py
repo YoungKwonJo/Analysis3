@@ -1167,7 +1167,7 @@ elif int(arg3)==2:
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
   histogramSys = {}
   for sys in sysWeights:
-    print "FINAL2: loadhistogram "+sys 
+    #print "FINAL2: loadhistogram "+sys 
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,Step,sys)
     histogramSys[sys] = copy.deepcopy(histograms2)
 
