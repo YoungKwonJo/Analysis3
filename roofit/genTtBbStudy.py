@@ -67,7 +67,7 @@ weights = {"nom":"weight"
 for y in weights.keys():
   allsummaryA = {}
   for x in ttbarMCsamples.keys():
-    allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],"weight")
+    allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
   allsummary[y]=allsummaryA
 
 print str(allsummary)
