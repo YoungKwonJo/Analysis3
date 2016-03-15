@@ -103,6 +103,9 @@ gROOT.ProcessLine(".L tdrStyle.C")
 setTDRStyle()
 
 def loadHistogram(arg1, arg2, Step, Weight):
+  return loadHistogram2(arg1,arg2,Step,Weight,{"Up":[],"Down":[]})
+
+def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   HN = "jet3CSV_jet4CSV"                                                                                                          
   HN1 = "jet3CSV"
   HN2 = "jet4CSV"
@@ -163,7 +166,7 @@ def loadHistogram(arg1, arg2, Step, Weight):
 
     h1.Add(h2)
     h1.Add(h3)
-  
+
     h1111 = "h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1
     h11 = TH1F(h1111,"",1,0,1)
     if None != f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1):
@@ -196,7 +199,17 @@ def loadHistogram(arg1, arg2, Step, Weight):
     #ci = TColor.GetColor(mc['ColorLabel']['color'])  
     #h12.SetLineColor(ci)
     #h122.SetLineColor(ci)
-  
+    if name in Variation["Up"]:
+      h1.Scale(2.)
+      h11.Scale(2.)
+      h12.Scale(2.)
+      print "FINAL2: "+name+" Up"
+    if name in Variation["Down"]:
+      h1.Scale(0.5)
+      h11.Scale(0.5)
+      h12.Scale(0.5)
+      print "FINAL2: "+name+" Down"
+ 
     histograms[name]={"h1":copy.deepcopy(h1),"exp":h1.Integral(),"h11":copy.deepcopy(h11),"h12":copy.deepcopy(h12)}
     #print "FINAL2 "+name+"  "+str(histograms[name]["exp"])
 
@@ -1131,7 +1144,10 @@ genInfoMG5 = {"Acceptance":{"ttjj":ttjjAcceptanceMG5,"ttbb":ttbbAcceptanceMG5 },
 ##############################################################################
 ##############################################################################
 ##############################################################################
+def makeUpDown(sys,sysa):
+  return {sys+"Up":{"Up":sysa,"Down":[]}, sys+"Down":{"Up":[],"Down":sysa}}
 
+#######
 import sys
 if len(sys.argv) < 3:
   sys.exit()
@@ -1162,6 +1178,38 @@ Chi2Test2D(GEN,histograms)
 from math import *
 if int(arg3)==0:
   cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
+elif int(arg3)==3:
+  SystematicUnc,SystematicUnck ={},{}
+  histogramSys = {}
+  #ttccUp={"Up":[GEN+'ttcc'],"Down":[]}
+  #ttccDown={"Up":[],"Down":[GEN+'ttcc']}
+  #sysSets = {"ttccUp":ttccUp,"ttccDown":ttccDown}
+  sysSets=        makeUpDown("ttcc",[GEN+'ttcc'])
+  #print "FINAL2: "+str(makeUpDown("SingleTop",['STbt', 'STt', 'STbtW', 'STtW'] ) )
+  sysSets.update( makeUpDown("SingleTop",['STbt', 'STt', 'STbtW', 'STtW'])  )
+  for sys in sysSets.keys():
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
+    histogramSys[sys] = copy.deepcopy(histograms2)
+
+  orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
+  kVal = result["kVal"] 
+  for sys in sysSets.keys():
+    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
+    sysUnc = (orig_r-orig_r2)/orig_r
+    sysUnck = (kVal-result2["kVal"])/kVal
+    print "FINAL2: "+(sys.rjust(30))+": R "+ str(round(sysUnc*10000)/100)+" %     ,     R = "+ str(round(orig_r2*10000)/10000)+" "
+    print "FINAL2: "+(sys.rjust(30))+": k "+str(round(sysUnck*10000)/100)+"      ,     k = "+ str(round(result2["kVal"]*10000)/10000)+" "
+    SystematicUnc[sys]=copy.deepcopy(sysUnc)
+    SystematicUnck[sys]=copy.deepcopy(sysUnck)
+
+  """
+  signals2= [GEN+'ttcc', GEN+'ttlf']
+  backgrounds1= [GEN+"ttot"]
+  backgrounds2= ['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
+  backgrounds3= [ 'DYJets','DYJets10']
+  higgs= ['ttH2non', 'ttH2bb']
+  """
+
 elif int(arg3)==2:
   SystematicUnc,SystematicUnck ={},{}
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
