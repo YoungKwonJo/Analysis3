@@ -1187,6 +1187,11 @@ elif int(arg3)==3:
   sysSets=        makeUpDown("ttcc",[GEN+'ttcc'])
   #print "FINAL2: "+str(makeUpDown("SingleTop",['STbt', 'STt', 'STbtW', 'STtW'] ) )
   sysSets.update( makeUpDown("SingleTop",['STbt', 'STt', 'STbtW', 'STtW'])  )
+  sysSets.update( makeUpDown("VV",['WW', 'WZ', 'ZZ'])  )
+  sysSets.update( makeUpDown("DYJets",['DYJets','DYJets10'])  )
+  sysSets.update( makeUpDown("TTV",['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq'])  )
+  sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
+
   for sys in sysSets.keys():
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
     histogramSys[sys] = copy.deepcopy(histograms2)
