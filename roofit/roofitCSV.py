@@ -1083,6 +1083,7 @@ def quardsum(aaa):
 ################
 ################
 ################
+"""
 #POWHEG###################################
 POWhadronic,POWdileptonic,POWsemileptonic,POWetc=44779959.0,10291416.0,42929293.0,13257563.0
 POWttbbF,POWttbjF,POWttccF,POWttlfF=43200.0,160514.0,91070.0,3639349.0
@@ -1116,6 +1117,45 @@ MG5ttjjV = MG5ttbbV+MG5ttbjV+MG5ttccV+MG5ttlfV
 
 MG5ttbbS6,MG5ttjjS6 = 256.0,8806.0  #S6
 #MG5ttbbS6,MG5ttjjS6 = 167.0,4428.0  #S7
+"""
+from gensummary import gensummary
+PW=gensummary["nom"]["POW"]
+MG=gensummary["nom"]["MG5"]
+POWttbarall=PW["semileptonic"]+PW["dileptonic"]+PW["hadroic"]+PW["etc"]
+POWdileptonic=PW["dileptonic"]
+POWttjjF= PW["S0"]["ttbbF"]+PW["S0"]["ttbF"]+PW["S0"]["ttlfF"]+PW["S0"]["ttccF"]
+POWttbbF= PW["S0"]["ttbbF"]
+ttjjRatioTTPOW = (POWttjjF/POWttbarall)
+POWttjjV= PW["S0"]["ttbb"]+PW["S0"]["ttb"]+PW["S0"]["ttlf"]+PW["S0"]["ttcc"]
+POWttbbV= PW["S0"]["ttbb"]
+
+POWttjjS6= PW["S6"]["ttbb"]+PW["S6"]["ttb"]+PW["S6"]["ttlf"]+PW["S6"]["ttcc"]
+POWttbbS6= PW["S6"]["ttbb"]
+
+POWttjjS7= PW["S7"]["ttbb"]+PW["S7"]["ttb"]+PW["S7"]["ttlf"]+PW["S7"]["ttcc"]
+POWttbbS7= PW["S7"]["ttbb"]
+
+ttjjAcceptancePOW = (POWttjjV/POWttjjF)
+ttbbAcceptancePOW = (POWttbbV/POWttbbF)
+ttjjEffPOW = POWttjjS6 / POWttjjV
+ttbbEffPOW = POWttbbS6 / POWttbbV
+RfullPOW = POWttbbF/POWttjjF
+RvisPOW =  POWttbbV/POWttjjV
+RdilepPOW = POWdileptonic/POWttbarall
+
+MG5ttbarall=MG["semileptonic"]+MG["dileptonic"]+MG["hadroic"]+MG["etc"]
+MG5dileptonic=MG["dileptonic"]
+MG5ttjjF= MG["S0"]["ttbbF"]+MG["S0"]["ttbF"]+MG["S0"]["ttlfF"]+MG["S0"]["ttccF"]
+MG5ttbbF= MG["S0"]["ttbbF"]
+ttjjRatioTTMG5 = (MG5ttjjF/MG5ttbarall)
+MG5ttjjV= MG["S0"]["ttbb"]+MG["S0"]["ttb"]+MG["S0"]["ttlf"]+MG["S0"]["ttcc"]
+MG5ttbbV= MG["S0"]["ttbb"]
+
+MG5ttjjS6= MG["S6"]["ttbb"]+MG["S6"]["ttb"]+MG["S6"]["ttlf"]+MG["S6"]["ttcc"]
+MG5ttbbS6= MG["S6"]["ttbb"]
+
+MG5ttjjS7= MG["S7"]["ttbb"]+MG["S7"]["ttb"]+MG["S7"]["ttlf"]+MG["S7"]["ttcc"]
+MG5ttbbS7= MG["S7"]["ttbb"]
 
 ttjjAcceptanceMG5= (MG5ttjjV/MG5ttjjF)
 ttbbAcceptanceMG5= (MG5ttbbV/MG5ttbbF)
@@ -1131,7 +1171,7 @@ acPPOW = ttjjAcceptancePOW/ttbbAcceptancePOW
 #acPAMC = ttjjAcceptanceAMC/ttbbAcceptanceAMC
 eRMG5 = ttjjEffMG5/ttbbEffMG5 
 acPMG5 = ttjjAcceptanceMG5/ttbbAcceptanceMG5
-
+####
 genInfoPOW = {"Acceptance":{"ttjj":ttjjAcceptancePOW,"ttbb":ttbbAcceptancePOW }, "effciency":{ "ttjj":ttjjEffPOW,"ttbb":ttbbEffPOW  }, "eR":eRPOW, "acP":acPPOW, "Rfull": RfullPOW, "Rvis":RvisPOW ,"Rll":RdilepPOW}
 #genInfoAMC = {"Acceptance":{"ttjj":ttjjAcceptanceAMC,"ttbb":ttbbAcceptanceAMC }, "effciency":{ "ttjj":ttjjEffAMC,"ttbb":ttbbEffAMC  }, "eR":eRAMC, "acP":acPAMC, "Rfull": RfullAMC, "Rvis":RvisAMC  }
 genInfoMG5 = {"Acceptance":{"ttjj":ttjjAcceptanceMG5,"ttbb":ttbbAcceptanceMG5 }, "effciency":{ "ttjj":ttjjEffMG5,"ttbb":ttbbEffMG5  }, "eR":eRMG5, "acP":acPMG5, "Rfull": RfullMG5, "Rvis":RvisMG5, "Rll":RdilepMG5  }
@@ -1191,7 +1231,6 @@ elif int(arg3)==3:
   sysSets.update( makeUpDown("DYJets",['DYJets','DYJets10'])  )
   sysSets.update( makeUpDown("TTV",['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq'])  )
   sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
-
   for sys in sysSets.keys():
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
     histogramSys[sys] = copy.deepcopy(histograms2)
