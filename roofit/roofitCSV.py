@@ -203,12 +203,12 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
       h1.Scale(2.)
       h11.Scale(2.)
       h12.Scale(2.)
-      print "FINAL2: "+name+" Up"
+      #print "FINAL2: "+name+" Up"
     if name in Variation["Down"]:
       h1.Scale(0.5)
       h11.Scale(0.5)
       h12.Scale(0.5)
-      print "FINAL2: "+name+" Down"
+      #print "FINAL2: "+name+" Down"
  
     histograms[name]={"h1":copy.deepcopy(h1),"exp":h1.Integral(),"h11":copy.deepcopy(h11),"h12":copy.deepcopy(h12)}
     #print "FINAL2 "+name+"  "+str(histograms[name]["exp"])
@@ -980,8 +980,8 @@ def Chi2Test2D(GEN,histograms):#data2D,mc2D):
   chi2nof_1d =  data_1d.Chi2Test(mc_1d,"UW P CHI2/NDF")
   chi2_1d = data_1d.Chi2Test(mc_1d,"UW P CHI2")
 
-  print "chi/ndof = "+str(chi2nof_1d)
-  print "chi      = "+str(chi2_1d)
+  print "FINAL: chi/ndof = "+str(chi2nof_1d)
+  print "FINAL: chi      = "+str(chi2_1d)
 
 ################
 ################
