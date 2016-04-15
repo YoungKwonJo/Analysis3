@@ -59,7 +59,7 @@ def makeMCHistSet(histograms):
 
   histograms2["MCtot1"]  = {"h1":mergesHistograms(MCtot1,  histograms),  "LineColor":"#afc6c6",  "FillColor":"#afc6c6",  "label":""         ,"FillStyle": 1001 } 
   histograms2["MCtot2"]  = {"h1":mergesHistograms(MCtot2,  histograms),  "LineColor":"#59d354",  "FillColor":"#ffffff",  "label":"Madgraph" ,"LineStyle": 3    } 
-  histograms2["MCtot3"]  = {"h1":mergesHistograms(MCtot3,  histograms),  "LineColor":"#ff00ff",  "FillColor":"#ffffff",  "label":"MC@NLO"   ,"LineStyle": 2    } 
+  histograms2["MCtot3"]  = {"h1":mergesHistograms(MCtot3,  histograms),  "LineColor":"#ff00ff",  "FillColor":"#ffffff",  "label":"aMC@NLO"   ,"LineStyle": 2    } 
   ttbarlist = ["ttbb","ttb","tt2b","ttcc","ttlf","ttot"]
   MG5ttbarlist = ["MG5ttbb","MG5ttb","MG5tt2b","MG5ttcc","MG5ttlf","MG5ttot"]
   bkglist=["ttV","Singlet","VV","WJets","ZJets"]

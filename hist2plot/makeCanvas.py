@@ -203,6 +203,20 @@ def StackHist(channel, histograms2, plotSet,isPrint):
       
       h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
       hs.Add(copy.deepcopy(h[aa]))
+
+      if aa.find("ttbb")>-1:
+        #print "histograms2.keys(): "+str(histograms2.keys())
+        #aaaa=histograms2["ttV"]["h1"]
+        hh={}
+        for bb in ls:
+          #print "ttV:"+bb+": "+str(type(aaaa[bb]))
+          if len(hh.keys())==0:
+            hh['ttV']=copy.deepcopy(aaaa[bb])
+          else :
+            hh['ttV'].Add(copy.deepcopy(aaaa[bb]))
+        hh['ttV'].SetFillColor( TColor.GetColor(histograms2["ttV"]["FillColor"]) )
+        hs.Add(copy.deepcopy(hh["ttV"]))
+
   for aa in plotSet["bkg"]:
     h={}
     if len(histograms2[aa]["h1"].keys())>0 :
@@ -219,7 +233,7 @@ def StackHist(channel, histograms2, plotSet,isPrint):
         Stats[aa]=aaa
           
       h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
-      hs.Add(copy.deepcopy(h[aa]))
+      if aa.find("ttV")==-1: hs.Add(copy.deepcopy(h[aa]))
 
   return hs,Stats
 
