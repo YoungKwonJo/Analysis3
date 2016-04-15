@@ -3,8 +3,8 @@ baseWeight = "weight*puweight*mueffweight*eleffweight"
 mceventweight=[
 {"name":"CEN",       "var": "("+baseWeight+")"},
 {"name":"csvweight", "var": "("+baseWeight+"*csvweights[0])"},
-{"name":"PW_Up",     "var": "(weight*puweightUp*lepweight*csvweights[0])"},
-{"name":"PW_Down",   "var": "(weight*puweightDown*lepweight*csvweights[0])"},
+{"name":"PW_Up",     "var": "(weight*puweightUp*mueffweight*eleffweight*csvweights[0])"},
+{"name":"PW_Down",   "var": "(weight*puweightDown*mueffweight*eleffweight*csvweights[0])"},
 {"name":"JER_NOM",   "var": "("+baseWeight+"*csvweights[0])"},
 {"name":"JER_Up",    "var": "("+baseWeight+"*csvweights[0])"},
 {"name":"JER_Down",  "var": "("+baseWeight+"*csvweights[0])"},

@@ -56,13 +56,13 @@ def ntuple2entries(filename,weight):
 #########################################################
 allsummary = {}
 weights = {"nom":"weight"
-  ,"Q2_N1":"scaleWeights[1]"
-  ,"Q2_N2":"scaleWeights[2]"
-  ,"Q2_N3":"scaleWeights[3]"
-  ,"Q2_N4":"scaleWeights[4]"
-  ,"Q2_N5":"scaleWeights[5]"
-  ,"Q2_N6":"scaleWeights[6]"
-  ,"Q2_N7":"scaleWeights[7]"
+  ,"Q2_N1":"scaleWeightsUp[0]"
+  ,"Q2_N2":"scaleWeightsUp[1]"
+  ,"Q2_N3":"scaleWeightsUp[2]"
+  ,"Q2_N4":"scaleWeightsDown[0]"
+  ,"Q2_N5":"scaleWeightsWown[1]"
+  ,"Q2_N6":"scaleWeightsDown[2]"
+#  ,"Q2_N7":"scaleWeights[7]"
 }
 for y in weights.keys():
   allsummaryA = {}
