@@ -439,7 +439,11 @@ def main():#step, moni):
     aaa[4]=aCanvas(mon,step,"LL",isLogy,weight)
     
   if runStat:
+    mon = monitors[0]
     decay = "LL"
+    if moni==1 : decay = "MM"
+    if moni==2 : decay = "ME"
+    if moni==3 : decay = "EE"
     aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight")
     aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight")
     aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight")

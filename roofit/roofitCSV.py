@@ -11,9 +11,12 @@ import sys
 sys.path.append('../ntuple2hist')
 
 
-lumi = 2260.
+lumi = 2262.376
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160414/"
+
+#lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
+#loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160225/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160224_763/histogram20160302met/"
 
 def make_legend(xmin,ymin,xmax,ymax):
@@ -244,7 +247,8 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   signals1= [GEN+'ttbb', GEN+'ttb',GEN+'tt2b']
   signals2= [GEN+'ttcc', GEN+'ttlf']#, GEN+'ttot']
   backgrounds1= [GEN+"ttot"]
-  backgrounds2= ['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
+  backgrounds2= ['TTWqq', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
+  #backgrounds2= ['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
   backgrounds3= [ 'DYJets','DYJets10']
   higgs= ['ttH2non', 'ttH2bb']
  
@@ -424,6 +428,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   print "n_data:"+str(n_data)
   #print "FINAL2 :"+str(n_ttjj)
 
+  if n_ttjj==0:  return False,False,False
   
   rttbb = n_ttbb/n_ttjj
   rttb  = n_ttb/n_ttjj
@@ -1229,7 +1234,7 @@ elif int(arg3)==3:
   sysSets.update( makeUpDown("SingleTop",['STbt', 'STt', 'STbtW', 'STtW'])  )
   sysSets.update( makeUpDown("VV",['WW', 'WZ', 'ZZ'])  )
   sysSets.update( makeUpDown("DYJets",['DYJets','DYJets10'])  )
-  sysSets.update( makeUpDown("TTV",['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq'])  )
+  sysSets.update( makeUpDown("TTV",[ 'TTWqq', 'TTZqq'])  )
   sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
   for sys in sysSets.keys():
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
@@ -1264,6 +1269,7 @@ elif int(arg3)==2:
     histogramSys[sys] = copy.deepcopy(histograms2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
+
   #print "FINAL2: csvweight: R = "+ str(round(orig_r*10000)/10000)+" \pm "+str(round(orig_err*10000)/10000)+"$"
   genR      = orig_r*eRPOW
   resultPrint(result,genInfoPOW)
@@ -1277,6 +1283,7 @@ elif int(arg3)==2:
 
   for sys in sysWeights:
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
+    if orig_r==False or result2==False : continue
     sysUnc = (orig_r-orig_r2)/orig_r
     sysUnck = (kVal-result2["kVal"])/kVal
 
