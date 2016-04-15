@@ -206,7 +206,7 @@ def StackHist(channel, histograms2, plotSet,isPrint):
 
       if aa.find("ttbb")>-1:
         #print "histograms2.keys(): "+str(histograms2.keys())
-        #aaaa=histograms2["ttV"]["h1"]
+        aaaa=histograms2["ttV"]["h1"]
         hh={}
         for bb in ls:
           #print "ttV:"+bb+": "+str(type(aaaa[bb]))

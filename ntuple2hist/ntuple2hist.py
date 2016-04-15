@@ -22,7 +22,7 @@ if kk > len(mceventweight)+1 : sys.exit()
 iijj = int(ii/jj)
 cuti= int(ii%jj)+2
 
-if iijj>len(monitors)+1 : sys.exit()
+if iijj>len(monitors)+5 : sys.exit()
 
 mm_cut=cut_maker(mm_cuts,cuti)
 ee_cut=cut_maker(ee_cuts,cuti)
