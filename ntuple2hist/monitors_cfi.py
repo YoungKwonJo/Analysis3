@@ -46,6 +46,16 @@ monitors = [
   { "name":"jet3CSV",     "unit":"CSVv2 of 3rd leading Jet ",     "var":"jets_bDiscriminatorCSV[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
   { "name":"jet4CSV",     "unit":"CSVv2 of 4th leading Jet ",     "var":"jets_bDiscriminatorCSV[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
 
+  { "name":"jet1CCvsLT",     "unit":"CCvsLTv2 of 1st leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[0]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet2CCvsLT",     "unit":"CCvsLTv2 of 2nd leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[1]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet3CCvsLT",     "unit":"CCvsLTv2 of 3rd leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet4CCvsLT",     "unit":"CCvsLTv2 of 4th leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
+
+  { "name":"jet1CCvsBT",     "unit":"CCvsBTv2 of 1st leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[0]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet2CCvsBT",     "unit":"CCvsBTv2 of 2nd leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[1]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet3CCvsBT",     "unit":"CCvsBTv2 of 3rd leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet4CCvsBT",     "unit":"CCvsBTv2 of 4th leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
+
 #  { "name":"jet1Ptpt",      "unit":"p_T of 1st leading Jet ",      "var":"jets_pt[0]",    "xbin_set":[40,0,400]   },
 #  { "name":"jet2Ptpt",      "unit":"p_T of 2nd leading Jet ",      "var":"jets_pt[1]",    "xbin_set":[40,0,400]   },
 #  { "name":"jet3Ptpt",      "unit":"p_T of 3rd leading Jet ",      "var":"jets_pt[2]",    "xbin_set":[40,0,400]   },
@@ -63,5 +73,21 @@ monitors2d = {
 ("Mon%d"%MN2) : [
   { "name":"jet3CSV",     "unit":"CSV2 of 3rd leading Jet ",     "var":"jets_bDiscriminatorCSV[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
   { "name":"jet4CSV",     "unit":"CSV2 of 4th leading Jet ",     "var":"jets_bDiscriminatorCSV[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
+],
+("Mon%d"%(MN2+1)) : [
+  { "name":"jet3CCvsLT",     "unit":"CCvsLT2 of 3rd leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet4CCvsLT",     "unit":"CCvsLT2 of 4th leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
+],
+("Mon%d"%(MN2+2)) : [
+  { "name":"jet3CCvsBT",     "unit":"CCvsBT2 of 3rd leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[2]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet4CCvsBT",     "unit":"CCvsBT2 of 4th leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[3]]",   "xbin_set":[10,0,1]     },
+],
+("Mon%d"%(MN2+3)) : [
+  { "name":"jet1CCvsLT",     "unit":"CCvsLT2 of 1st leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[0]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet2CCvsLT",     "unit":"CCvsLT2 of 2nd leading Jet ",     "var":"jets_CCvsLT[csvd_jetid[1]]",   "xbin_set":[10,0,1]     },
+],
+("Mon%d"%(MN2+4)) : [
+  { "name":"jet1CCvsBT",     "unit":"CCvsBT2 of 1st leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[0]]",   "xbin_set":[10,0,1]     },
+  { "name":"jet2CCvsBT",     "unit":"CCvsBT2 of 2nd leading Jet ",     "var":"jets_CCvsBT[csvd_jetid[1]]",   "xbin_set":[10,0,1]     },
 ],
 }
