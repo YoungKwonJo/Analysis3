@@ -4,7 +4,7 @@ from os.path import isfile, join
 
 
 ###################################################################
-loc = "/store/user/youngjo/Cattools/v7-6-3v1/"
+loc = "/store/user/youngjo/Cattools/v7-6-4v1/"
 z  ="v1" # bkg
 zz ="v1" # data
 zzz="v1" # ttbar
@@ -152,6 +152,36 @@ cx = {}
 sumWeights={}
 fileList={}
 ##############
+sumWeights['DYJets']=76816262.0
+sumWeights['DYJets_10to50']=22606898.5977
+sumWeights['DYJets_MG']=15978571.8146
+sumWeights['DYJets_MG_5to50']=7437140.2403
+sumWeights['WJets']=16521035.0153
+sumWeights['TTJets_MG5']=12822326.6803
+sumWeights['TTJets_aMC']=12698526.0
+sumWeights['TTJets_scaleup']=14082216.0
+sumWeights['TTJets_scaledown']=12798823.0
+sumWeights['TT_powheg']=97994442.0
+sumWeights['TT_powheg_scaledown']=9932876.0
+sumWeights['TT_powheg_scaleup']=9919776.0
+sumWeights['TT_powheg-herwigpp']=19383463.0
+sumWeights['TT_powheg_pythia6']=0.0
+sumWeights['SingleTbar_tW']=950000.0
+sumWeights['SingleTop_tW']=1000000.0
+sumWeights['SingleTbar_t']=0.0
+sumWeights['SingleTop_t']=0.0
+sumWeights['SingleTop_s']=0.0
+sumWeights['WW']=988437.589993
+sumWeights['WZ']=1000000.0
+sumWeights['ZZ']=985600.0
+sumWeights['ttH_bb']=0.0
+sumWeights['ttH_nonbb']=0.0
+sumWeights['ttWJetsToQQ']=429599.0
+sumWeights['ttWJetsToLNu']=0.0
+sumWeights['ttZToLLNuNu']=0.0
+sumWeights['ttZToQQ']=350106.0
+
+"""
 sumWeights['DYJets']=81242001.0
 sumWeights['DYJets_10to50']=22607314.5977
 sumWeights['DYJets_MG']=0.0
@@ -180,6 +210,8 @@ sumWeights['ttWJetsToQQ']=429622.0
 sumWeights['ttWJetsToLNu']=129017.0
 sumWeights['ttZToLLNuNu']=0.0
 sumWeights['ttZToQQ']=350133.0
+
+"""
 
 #############
 if len(sumWeights.keys()) is 0 : 
@@ -215,11 +247,12 @@ ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "
                    ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" 
                 }
 #ttbarMCsamples = {"MG5":"TTJets_MG5","AMC","TTJets_aMC","POW":"TT_powheg","upPOW":"TT_powheg_scaleup","dwPOW":"TT_powheg_scaledown","POHP":"TT_powheg-herwigpp","POPY6":"TT_powheg_pythia6" }
-bkgMCsamples = {"TTWlNu":"ttWJetsToLNu",  "TTWqq":"ttWJetsToQQ", "TTZll":"ttZToLLNuNu",   "TTZqq":"ttZToQQ",
+#bkgMCsamples = {"TTWlNu":"ttWJetsToLNu",  "TTWqq":"ttWJetsToQQ", "TTZll":"ttZToLLNuNu",   "TTZqq":"ttZToQQ",
+bkgMCsamples = {  "TTWqq":"ttWJetsToQQ",  "TTZqq":"ttZToQQ",
                 "STbt":"SingleTbar_t",    "STt":"SingleTop_t",   "STbtW":"SingleTbar_tW", "STtW":"SingleTop_tW",
                 "WW":"WW",       "WZ":"WZ",         "ZZ":"ZZ",
-                "WJets":"WJets", "DYJets":"DYJets", "DYJets10":"DYJets_10to50",
-                "ttH2non":"ttH_nonbb",  "ttH2bb":"ttH_bb"
+                "WJets":"WJets", "DYJets":"DYJets", "DYJets10":"DYJets_10to50"
+#                "ttH2non":"ttH_nonbb",  "ttH2bb":"ttH_bb"
                }
 dataSamples = { "MuMu1":"DoubleMuon_Run2015C", "MuMu2":"DoubleMuon_Run2015D"
                ,"ElEl1":"DoubleEG_Run2015C",   "ElEl2":"DoubleEG_Run2015D"

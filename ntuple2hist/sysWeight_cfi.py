@@ -1,5 +1,5 @@
 
-baseWeight = "weight*puweight*lepweight"
+baseWeight = "weight*puweight*mueffweight*eleffweight"
 mceventweight=[
 {"name":"CEN",       "var": "("+baseWeight+")"},
 {"name":"csvweight", "var": "("+baseWeight+"*csvweights[0])"},
