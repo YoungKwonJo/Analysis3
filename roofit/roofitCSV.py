@@ -12,7 +12,7 @@ sys.path.append('../ntuple2hist')
 
 
 lumi = 2262.376
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160414/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160415_ctag/"
 
 #lumi = 2260.
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160204_ttbb_roofit/histogram/"
