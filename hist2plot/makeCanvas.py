@@ -412,6 +412,10 @@ def printStats(StatsAll,plotSet):
 def main():#step, moni):
   import sys
   if len(sys.argv) < 2:
+    print "usage : python -i makeCanvas.py S2 I"
+    from monitors_cfi import monitors,monitors2d
+    for i in range(0,len(monitors)):
+      print "I= "+str(i)+" : "+monitors[i]["name"]
     sys.exit()
 
   step = sys.argv[1]      # 
