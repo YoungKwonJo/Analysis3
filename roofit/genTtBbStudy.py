@@ -62,7 +62,6 @@ weights = {"nom":"weight"
   ,"Q2_Dw1":"scaleWeightsDown[0]"
   ,"Q2_Dw2":"scaleWeightsDown[1]"
   ,"Q2_Dw3":"scaleWeightsDown[2]"
-#  ,"Q2_N7":"scaleWeights[7]"
 }
 for y in weights.keys():
   allsummaryA = {}
