@@ -100,7 +100,11 @@ def ntuple2hist(json,cuts,mcweight,mon,hN_maker):
   elif aWeight.find("JER_Down")>-1:  nom2 = "cattree/nomJER_dw"
   elif aWeight.find("JES_Up")>-1:    nom2 = "cattree/nomJES_up"
   elif aWeight.find("JES_Down")>-1:  nom2 = "cattree/nomJES_dw"
-  else :                             nom2 = "cattree/nom2"
+  elif aWeight.find("Mu_Up")>-1:    nom2 = "cattree/nomMu_up"
+  elif aWeight.find("Mu_Down")>-1:  nom2 = "cattree/nomMu_dw"
+  elif aWeight.find("El_Up")>-1:    nom2 = "cattree/nomEl_up"
+  elif aWeight.find("El_Down")>-1:  nom2 = "cattree/nomEl_up"
+  else :                            nom2 = "cattree/nom2"
 
   for i,mc in enumerate(mcsamples):
     #chain = TChain("cattree/nom")

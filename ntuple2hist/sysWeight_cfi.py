@@ -27,7 +27,13 @@ mceventweight=[
 {"name":"CQ_Err1_Up",      "var": "("+baseWeight+"*csvweights[15])"},   
 {"name":"CQ_Err1_Down",    "var": "("+baseWeight+"*csvweights[16])"}, 
 {"name":"CQ_Err2_Up",      "var": "("+baseWeight+"*csvweights[17])"},   
-{"name":"CQ_Err2_Down",    "var": "("+baseWeight+"*csvweights[18])"} 
+{"name":"CQ_Err2_Down",    "var": "("+baseWeight+"*csvweights[18])"},
+#]
+#mceventweight=[
+{"name":"Mu_Up",     "var": "(weight*puweight*mueffweight_up*eleffweight*tri*csvweights[0])"},
+{"name":"Mu_Down",   "var": "(weight*puweight*mueffweight_dn*eleffweight*tri*csvweights[0])"},
+{"name":"El_Up",     "var": "(weight*puweight*mueffweight*eleffweight_up*tri*csvweights[0])"},
+{"name":"El_Down",   "var": "(weight*puweight*mueffweight*eleffweight_dn*tri*csvweights[0])"}
 ]
 
 
