@@ -66,7 +66,7 @@ allsummary = {}
 weights = {"pdf_N"+step:weight}
 for y in weights.keys():
   allsummaryA = {}
-  for x in ttbarMCsamples.keys():
+  for x in ["POW"]:
     allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
   allsummary[y]=allsummaryA
 
