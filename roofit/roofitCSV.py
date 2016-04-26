@@ -137,7 +137,8 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   #histograms = ["name":"name","hist": ]
   histograms = {}
   histograms2 = {}
-  dy_ee_sf,dy_mm_sf = 1.14618572215,0.844371813284
+  dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
+  #dy_ee_sf,dy_mm_sf = 1.14618572215,0.844371813284
   #dy_ee_sf = 1.17764007675
   #dy_mm_sf = 0.894244897143
 
@@ -258,6 +259,7 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   #signals2dw = ["dw"+GEN+'ttcc', "dw"+GEN+'ttlf']
   #backgrounds1up= ["up"+GEN+"ttot"]
   #backgrounds1dw= ["dw"+GEN+"ttot"]
+  #print "FINAL2 : histograms.keys() : "+str(histograms.keys())
   bkghist = histograms[GEN+'ttot']["h1"].Clone("bkghist")
   bkghist.Reset()
   ddbkghist = histograms[GEN+'ttot']["h1"].Clone("ddbkghist")
@@ -1205,8 +1207,8 @@ if len(sys.argv) > 3:
   arg3 = sys.argv[3]
 
 
-StepSys = ["JES_Up","JES_Down","JER_NOM","JER_Up","JER_Down","LF_Up", "LF_Down", "HF_Up", "HF_Down", "HF_Stats1_Up","HF_Stats1_Down","HF_Stats2_Up","HF_Stats2_Down","LF_Stats1_Up","LF_Stats1_Down","LF_Stats2_Up","LF_Stats2_Down","CQ_Err1_Up", "CQ_Err1_Down", "CQ_Err2_Up", "CQ_Err2_Down","PW_Up","PW_Down"]
-StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","LF_Stats1","LF_Stats2"],"CQ":["CQ_Err1","CQ_Err2"],"pileup":["PW"]}
+#StepSys = ["JES_Up","JES_Down","JER_NOM","JER_Up","JER_Down","LF_Up", "LF_Down", "HF_Up", "HF_Down", "HF_Stats1_Up","HF_Stats1_Down","HF_Stats2_Up","HF_Stats2_Down","LF_Stats1_Up","LF_Stats1_Down","LF_Stats2_Up","LF_Stats2_Down","CQ_Err1_Up", "CQ_Err1_Down", "CQ_Err2_Up", "CQ_Err2_Down","PW_Up","PW_Down"]
+StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","LF_Stats1","LF_Stats2"],"CQ":["CQ_Err1","CQ_Err2"],"pileup":["PW"],"lepton":["Mu","El"]}
 
 from sysWeight_cfi import mceventweight
 sysWeights =  [i["name"] for i in mceventweight]
