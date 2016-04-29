@@ -87,7 +87,7 @@ def h_all_maker(tree2,mc, monitors, cuts, eventweight,Ntot,hN_maker):
 ####################
 
 
-def ntuple2hist(json,cuts,mcweight,mon,hN_maker):
+def ntuple2hist(json,cuts,mon,hN_maker):
   h = {}
   mcsamples = json['mcsamples']
   #mceventweight = json[mcweight]
