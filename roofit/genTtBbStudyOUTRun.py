@@ -59,7 +59,7 @@ def PrintSys(data,data2):
   sysTtjjEff=(data['Eff']["ttjj"]-data2['Eff']['ttjj'])/data['Eff']["ttjj"]
 
   print "sys rVS : "+str(roudV(sysRvs)*100)+" %"
-  print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
+  #print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
   #print "sys ttbb Eff : "+str(roudV(sysTtbbEff)*100)+" %"
   #print "sys ttjj Eff : "+str(roudV(sysTtjjEff)*100)+" %"
 
@@ -80,6 +80,13 @@ print ""
 print "MG5"
 MG5=printV(result['nom']['MG5'],True)
 PrintSys(POW,MG5)
+
+print ""
+print "POHP"
+POHP=printV(result['nom']['POHP'],True)
+PrintSys(POW,POHP)
+
+
 print ""
 print "Down"
 dwPOWnom=printV(result['nom']['dwPOW'],False)
