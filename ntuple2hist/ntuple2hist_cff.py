@@ -118,7 +118,7 @@ def ntuple2hist(json,cuts,mcweight,mon,hN_maker):
       chain2.Add(afile)
     #tree = chain
     tree2 = chain2
-
+    if mcsamples[i]['name'].find("MG5")>-1 : mceventweight={'name':mceventweight['name'],'var':mceventweight['var'].replace("(weight*","(").replace('*weight*','*')}
     #htemp = TH1D("htemp"+mcsamples[i]['name'],"",1,-2,2)
     #tree.Project("htemp"+mcsamples[i]['name'],"1","weight")#/abs(weight)")
     #Ntot = htemp.GetBinContent(1)

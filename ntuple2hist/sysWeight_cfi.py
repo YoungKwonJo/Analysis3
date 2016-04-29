@@ -36,4 +36,5 @@ mceventweight=[
 {"name":"El_Down",   "var": "(weight*puweight*mueffweight*eleffweight_dn*tri*csvweights[0])"}
 ]
 
+mceventweightMG5 = [{'name':i['name'],'var':i['var'].replace("(weight*","(").replace('*weight*','*')} for i in mceventweight]
 

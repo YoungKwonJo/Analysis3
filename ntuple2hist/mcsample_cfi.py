@@ -168,6 +168,7 @@ cx = {}
 sumWeights={}
 fileList={}
 ##############
+"""
 sumWeights['DYJets']=76816262.0
 sumWeights['DYJets_10to50']=22606898.5977
 sumWeights['DYJets_MG']=15978571.8146
@@ -196,7 +197,7 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=0.0
 sumWeights['ttZToLLNuNu']=0.0
 sumWeights['ttZToQQ']=350106.0
-
+"""
 """
 sumWeights['DYJets']=81242001.0
 sumWeights['DYJets_10to50']=22607314.5977
