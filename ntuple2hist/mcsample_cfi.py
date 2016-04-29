@@ -64,6 +64,17 @@ def sumWeight(files):
   htemp = TH1D("htempSS","",1,-2,2)
   tree.Project("htempSS","1","weight")
   return htemp.GetBinContent(1) 
+ 
+def sumEntries(files):
+  chain = TChain("cattree/nom")
+  for afile in files:
+    f = TFile.Open(afile)
+    if None == f: continue
+    chain.Add(afile)
+  tree = chain
+  htemp = TH1D("htempSS","",1,-2,2)
+  tree.Project("htempSS","1","1")
+  return htemp.GetBinContent(1) 
   
 ###################################################################
 ###################################################################
@@ -131,7 +142,12 @@ def getValues(data,doSumWeight):
   fileList={}
   for aa in data:
     cx[aa["name"]]=aa["xsec"]
-    if aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6"]:
+    if aa["name"] in ["DYJets_MG","DYJets_MG_5to50","TTJets_MG5"]:
+      fileList[aa["name"]]   = files(loc + aa["name"] + zzz)
+      if doSumWeight :
+        sumWeights[aa["name"]] = sumEntries(files(loc +  aa["name"] + zzz))
+        print "sumWeights['"+aa["name"]+"']="+str(sumWeights[aa["name"]])
+    elif aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6"]:
       fileList[aa["name"]]   = files(loc + aa["name"] + zzz)
       if doSumWeight :
         sumWeights[aa["name"]] = sumWeight(files(loc +  aa["name"] + zzz))
