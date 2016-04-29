@@ -167,14 +167,12 @@ data = loadJson('../ntuple2hist/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}
-##############
-"""
 sumWeights['DYJets']=76816262.0
 sumWeights['DYJets_10to50']=22606898.5977
-sumWeights['DYJets_MG']=15978571.8146
-sumWeights['DYJets_MG_5to50']=7437140.2403
+sumWeights['DYJets_MG']=9004328.0
+sumWeights['DYJets_MG_5to50']=8771481.0
 sumWeights['WJets']=16521035.0153
-sumWeights['TTJets_MG5']=12822326.6803
+sumWeights['TTJets_MG5']=10215131.0
 sumWeights['TTJets_aMC']=12698526.0
 sumWeights['TTJets_scaleup']=14082216.0
 sumWeights['TTJets_scaledown']=12798823.0
@@ -197,38 +195,7 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=0.0
 sumWeights['ttZToLLNuNu']=0.0
 sumWeights['ttZToQQ']=350106.0
-"""
-"""
-sumWeights['DYJets']=81242001.0
-sumWeights['DYJets_10to50']=22607314.5977
-sumWeights['DYJets_MG']=0.0
-sumWeights['DYJets_MG_5to50']=0.0
-sumWeights['WJets']=16521039.0153
-sumWeights['TTJets_MG5']=12823249.2114
-sumWeights['TTJets_aMC']=12772171.0
-sumWeights['TTJets_scaleup']=14043634.0
-sumWeights['TTJets_scaledown']=12799661.0
-sumWeights['TT_powheg']=98000668.0
-sumWeights['TT_powheg_scaledown']=9933538.0
-sumWeights['TT_powheg_scaleup']=9920397.0
-sumWeights['TT_powheg-herwigpp']=18730486.0
-sumWeights['TT_powheg_pythia6']=0.0
-sumWeights['SingleTbar_tW']=999476.0
-sumWeights['SingleTop_tW']=1000069.0
-sumWeights['SingleTbar_t']=1630907.0
-sumWeights['SingleTop_t']=3299209.0
-sumWeights['SingleTop_s']=621948.962929
-sumWeights['WW']=988497.589993
-sumWeights['WZ']=1000017.0
-sumWeights['ZZ']=985620.0
-sumWeights['ttH_bb']=3772274.0
-sumWeights['ttH_nonbb']=3946493.0
-sumWeights['ttWJetsToQQ']=429622.0
-sumWeights['ttWJetsToLNu']=129017.0
-sumWeights['ttZToLLNuNu']=0.0
-sumWeights['ttZToQQ']=350133.0
 
-"""
 
 #############
 if len(sumWeights.keys()) is 0 : 
