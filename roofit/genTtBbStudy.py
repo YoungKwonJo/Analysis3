@@ -45,7 +45,7 @@ def ntuple2entries(filename,weight):
   for x in ttEff.keys():
     summary2 = {}
     for y in ttNN.keys():
-      print x+y+": ("+str(ttEff[x])+"*"+str(ttNN[y])+")"
+      #print x+y+": ("+str(ttEff[x])+"*"+str(ttNN[y])+")"
       summary2[y] =  getIt(tree,htemp,weight,"(("+ttEff[x]+")*("+ttNN[y]+"))")
     summary[x] = summary2
  
@@ -63,11 +63,25 @@ weights = {"nom":"weight"
   ,"Q2_Dw2":"scaleWeightsDown[1]"
   ,"Q2_Dw3":"scaleWeightsDown[2]"
 }
+weights2 = {"nom":"1","weight":"weight"}
+#ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" }
+ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
+
+import sys
+if len(sys.argv) < 1:
+  print "no argument.."
+  sys.exit()
+xx = int(sys.argv[1])
+x = ttbarMCs[xx]
+
+if x.find("MG5")>-1 : weights=weights2
+
 for y in weights.keys():
   allsummaryA = {}
-  for x in ttbarMCsamples.keys():
-    allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
+  #for x in ttbarMCsamples.keys():
+  allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
   allsummary[y]=allsummaryA
 
-print str(allsummary)
+print x+"="+str(allsummary)
+
 

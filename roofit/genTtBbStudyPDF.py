@@ -45,7 +45,7 @@ def ntuple2entries(filename,weight):
   for x in ttEff.keys():
     summary2 = {}
     for y in ttNN.keys():
-      print x+y+": ("+str(ttEff[x])+"*"+str(ttNN[y])+")"
+      #print x+y+": ("+str(ttEff[x])+"*"+str(ttNN[y])+")"
       summary2[y] =  getIt(tree,htemp,weight,"(("+ttEff[x]+")*("+ttNN[y]+"))")
     summary[x] = summary2
  
@@ -70,5 +70,5 @@ for y in weights.keys():
     allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
   allsummary[y]=allsummaryA
 
-print str(allsummary)
+print "pdf_N"+step+"="+str(allsummary)
 
