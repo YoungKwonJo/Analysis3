@@ -305,19 +305,20 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
 ##############################################
 ##############################################
 def resultPrint(result, freeTTB, freeTTCC, GEN):
-  return resultPrint2(result, freeTTB, freeTTCC, GEN, True)
+  return resultPrintNew2(result, freeTTB, freeTTCC, GEN, True)
 
-def resultPrint2(result, freeTTB, freeTTCC, GEN, isPrint):
-
+def resultPrintNew2(result, freeTTB, freeTTCC, GEN, isPrint):
   if isPrint : print "FINAL: ----------------------   "
   if isPrint : print "FINAL: MC:"+ str(GEN)
   fsig = result["fsig"]
   rttbb = result["rttbb"]
   recoR      = fsig.getVal()
   recoRerror = fsig.getError()
-  if isPrint : print "FINAL: prefit: R="+str(round(rttbb*10000)/10000)
-  if isPrint : print "FINAL: $R = "+ str(round(recoR*10000)/10000)+" \pm "+str(round(recoRerror*10000)/10000)+"$"
-  
+  if isPrint : print "FINAL: prefit: R="+str(roudV(rttbb))
+  if isPrint : print "FINAL: R = "+ str(roudV(recoR))+" $\pm$ "+str(roudV(recoRerror))+" "
+  #return false
+
+  #"""
   recoR2=1.
   recoR3=1.
   recoR2error=0.0
@@ -332,10 +333,10 @@ def resultPrint2(result, freeTTB, freeTTCC, GEN, isPrint):
     recoR3      = fsig3.getVal()
     recoR2error = fsig2.getError()
     recoR3error = fsig3.getError()
-    if isPrint : print "FINAL: prefit: R2="+str(round(rttb*10000)/10000)
-    if isPrint : print "FINAL: $R2 = "+ str(round(recoR2*10000)/10000)+" \pm "+str(round(recoR2error*10000)/10000)+"$"
-    if isPrint : print "FINAL: prefit: R3="+str(round(rtt2b*10000)/10000)
-    if isPrint : print "FINAL: $R3 = "+ str(round(recoR3*10000)/10000)+" \pm "+str(round(recoR3error*10000)/10000)+"$"
+    if isPrint : print "FINAL: prefit: R2="+str(roudV(rttb))
+    if isPrint : print "FINAL: $R2 = "+ str(roudV(recoR2))+" \pm "+str(roudV(recoR2error))+"$"
+    if isPrint : print "FINAL: prefit: R3="+str(roudV(rtt2b))
+    if isPrint : print "FINAL: $R3 = "+ str(roudV(recoR3))+" \pm "+str(roudV(recoR3error))+"$"
   else:
     if isPrint : print "FINAL: freeTTB : "+str(freeTTB)
     fsig2con = result["fsig2con"]
@@ -345,10 +346,10 @@ def resultPrint2(result, freeTTB, freeTTCC, GEN, isPrint):
     rttb = result["rttb"]
     rtt2b = result["rtt2b"]
     #recoR2error = fsig2con.getError()
-    if isPrint : print "FINAL: prefit: R2="+str(round(rttb*10000)/10000)
-    if isPrint : print "FINAL: $R2 = "+ str(round(recoR2*10000)/10000)#+" \pm "+str(round(recoR2error*10000)/10000)+"$"
-    if isPrint : print "FINAL: prefit: R3="+str(round(rtt2b*10000)/10000)
-    if isPrint : print "FINAL: $R3 = "+ str(round(recoR3*10000)/10000)#+" \pm "+str(round(recoR3error*10000)/10000)+"$"
+    if isPrint : print "FINAL: prefit: R2="+str(roudV(rttb))
+    if isPrint : print "FINAL: $R2 = "+ str(roudV(recoR2))#+" \pm "+str(roudV(recoR2error))+"$"
+    if isPrint : print "FINAL: prefit: R3="+str(roudV(rtt2b))
+    if isPrint : print "FINAL: $R3 = "+ str(roudV(recoR3))#+" \pm "+str(roudV(recoR3error))+"$"
   
   recoRcc=1.
   recoRccerror=0.0
@@ -358,21 +359,21 @@ def resultPrint2(result, freeTTB, freeTTCC, GEN, isPrint):
     rttcc = result["rttcc"]
     recoRcc      = fsigcc.getVal()
     recoRccerror = fsigcc.getError()
-    if isPrint : print "FINAL: prefit: Rcc="+str(round(rttcc*10000)/10000)
-    if isPrint : print "FINAL: $Rcc = "+ str(round(recoRcc*10000)/10000)+" \pm "+str(round(recoRccerror*10000)/10000)+"$"
+    if isPrint : print "FINAL: prefit: Rcc="+str(roudV(rttcc))
+    if isPrint : print "FINAL: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
   else:
     if isPrint : print "FINAL: freeTTCC : "+str(freeTTCC)
     #recoRcc      = fsigcc.getVal()
     #recoRccerror = fsigcc.getError()
     rttcc = result["rttcc"]
-    if isPrint : print "FINAL: prefit: Rcc="+str(round(rttcc*10000)/10000)
-    #if isPrint : print "FINAL: $Rcc = "+ str(round(recoRcc*10000)/10000)+" \pm "+str(round(recoRccerror*10000)/10000)+"$"
+    if isPrint : print "FINAL: prefit: Rcc="+str(roudV(rttcc))
+    #if isPrint : print "FINAL: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
   
   
   k = result["k"]
   kVal      = k.getVal()
   kValerror = k.getError()
-  if isPrint : print "FINAL: $k = "+str(round(kVal*10000)/10000)+" \pm "+str(round(kValerror*10000)/10000)+"$"
+  if isPrint : print "FINAL: $k = "+str(roudV(kVal))+" \pm "+str(roudV(kValerror))+"$"
   result2 = {
       "recoR":copy.deepcopy(recoR), "recoRerror":copy.deepcopy(recoRerror),
       "recoR2":copy.deepcopy(recoR2), "recoR2error":copy.deepcopy(recoR2error),
@@ -381,7 +382,8 @@ def resultPrint2(result, freeTTB, freeTTCC, GEN, isPrint):
       "kVal":copy.deepcopy(kVal), "kValerror":copy.deepcopy(kValerror)
       }
 
-  return result2 
+  return result2
+  #"""
 ################
 ################
 ################
@@ -525,7 +527,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   }
   #return result
   #result2=resultPrint(result, freeTTB, freeTTCC, GEN)
-  result2=resultPrint2(result, freeTTB, freeTTCC, GEN, True)
+  result2=resultPrintNew2(result, freeTTB, freeTTCC, GEN, True)
+
   recoR=result2["recoR"]
   recoRerror=result2["recoRerror"]
   recoR2=result2["recoR2"]
@@ -586,8 +589,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   lineTbb.Draw()
   
   l1 = make_legend(0.49,0.76,0.93,0.88)
-  l1.AddEntry(lineTbb,"prefit: R="+str(round(rttbb*10000)/10000),"l")
-  l1.AddEntry(lineKKK,"fit: R="+str(round(recoR*10000)/10000)+" #pm "+str(round(recoRerror*10000)/10000)+"","l")
+  l1.AddEntry(lineTbb,"prefit: R="+str(roudV(rttbb)),"l")
+  l1.AddEntry(lineKKK,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","l")
   l1.SetTextSize(0.04)
   l1.SetFillColor(0)
   l1.SetLineColor(0)
@@ -650,7 +653,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   
   l1K = make_legend(0.49,0.76,0.93,0.88)
   l1K.AddEntry(lineTbbK,"prefit: k=1.0","l")
-  l1K.AddEntry(lineKKK,"fit: k="+str(round(kVal*10000)/10000)+" #pm "+str(round(kValerror*10000)/10000)+"","l")
+  l1K.AddEntry(lineKKK,"fit: k="+str(roudV(kVal))+" #pm "+str(roudV(kValerror))+"","l")
   l1K.SetTextSize(0.04)
   l1K.SetFillColor(0)
   l1K.SetLineColor(0)
@@ -769,11 +772,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     pt3.Draw()
   
     l2 = make_legend(0.49,0.7,0.93,0.88)
-    l2.AddEntry(preM,"prefit: R="+str(round(rttbb*10000)/10000),"p")
-    l2.AddEntry(preM,"prefit: R2="+str(round(rttb*10000)/10000),"p")
+    l2.AddEntry(preM,"prefit: R="+str(roudV(rttbb)),"p")
+    l2.AddEntry(preM,"prefit: R2="+str(roudV(rttb)),"p")
   
-    l2.AddEntry(preM2,"fit: R="+str(round(recoR*10000)/10000)+" #pm "+str(round(recoRerror*10000)/10000)+"","p")
-    l2.AddEntry(preM2,"fit: R2="+str(round(recoR2*10000)/10000)+" #pm "+str(round(recoR2error*10000)/10000)+"","p")
+    l2.AddEntry(preM2,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","p")
+    l2.AddEntry(preM2,"fit: R2="+str(roudV(recoR2))+" #pm "+str(roudV(recoR2error))+"","p")
     l2.SetTextSize(0.04)
     l2.SetFillColor(0)
     l2.SetLineColor(0)
@@ -807,11 +810,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     pt3.Draw()
   
     l21 = make_legend(0.49,0.7,0.93,0.88)
-    l21.AddEntry(preM21,"prefit: R="+str(round(rttbb*10000)/10000),"p")
-    l21.AddEntry(preM21,"prefit: R3="+str(round(rtt2b*10000)/10000),"p")
+    l21.AddEntry(preM21,"prefit: R="+str(roudV(rttbb)),"p")
+    l21.AddEntry(preM21,"prefit: R3="+str(roudV(rtt2b)),"p")
   
-    l21.AddEntry(preM22,"fit: R="+str(round(recoR*10000)/10000)+" #pm "+str(round(recoRerror*10000)/10000)+"","p")
-    l21.AddEntry(preM22,"fit: R3="+str(round(recoR3*10000)/10000)+" #pm "+str(round(recoR3error*10000)/10000)+"","p")
+    l21.AddEntry(preM22,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","p")
+    l21.AddEntry(preM22,"fit: R3="+str(roudV(recoR3))+" #pm "+str(roudV(recoR3error))+"","p")
     l21.SetTextSize(0.04)
     l21.SetFillColor(0)
     l21.SetLineColor(0)
@@ -852,10 +855,10 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     pt3.Draw()
   
     l2 = make_legend(0.49,0.7,0.93,0.88)
-    l2.AddEntry(preM,"prefit: R="+str(round(rttbb*10000)/10000),"p")
-    l2.AddEntry(preM,"prefit: Rcc="+str(round(rttcc*10000)/10000),"p")
-    l2.AddEntry(preM2,"fit: R="+str(round(recoR*10000)/10000)+" #pm "+str(round(recoRerror*10000)/10000)+"","p")
-    l2.AddEntry(preM2,"fit: Rcc="+str(round(recoRcc*10000)/10000)+" #pm "+str(round(recoRccerror*10000)/10000)+"","p")
+    l2.AddEntry(preM,"prefit: R="+str(roudV(rttbb)),"p")
+    l2.AddEntry(preM,"prefit: Rcc="+str(roudV(rttcc)),"p")
+    l2.AddEntry(preM2,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","p")
+    l2.AddEntry(preM2,"fit: Rcc="+str(roudV(recoRcc))+" #pm "+str(roudV(recoRccerror))+"","p")
     l2.SetTextSize(0.04)
     l2.SetFillColor(0)
     l2.SetLineColor(0)
@@ -998,28 +1001,22 @@ def Chi2Test2D(GEN,histograms):#data2D,mc2D):
 ################
 ################
 ################
-def roundStr(val,n):
-  return str(round(val*pow(10,n))/pow(10,n))
-
-def roundStrP(val,n):
-  return str(round(val*pow(10,n+2))/pow(10,n))+" \\%"
-
-
-def resultPrint(result, genInfo):
+def resultPrint3(result, genInfo):
 
   #eR = genInfo["eR"]
   #acP = genInfo["acP"]
-  ttjjAcp = genInfo["Acceptance"]["ttjj"]
-  ttbbAcp = genInfo["Acceptance"]["ttbb"]
+  ttjjAcp = genInfo["Acc"]["ttjj"]
+  ttbbAcp = genInfo["Acc"]["ttbb"]
 
-  ttjjEff = genInfo["effciency"]["ttjj"]
-  ttbbEff = genInfo["effciency"]["ttbb"]
+  ttjjEff = genInfo["Eff"]["ttjj"]
+  ttbbEff = genInfo["Eff"]["ttbb"]
 
   rttbb= result["rttbb"][0]
 
-  n_ttjj = result["n_ttbb"] + result["n_ttb"] + result["n_ttcc"] + result["n_ttlf"]
-  print "FINAL2:  "+str(result["n_ttbb"]) +"  "+ str(result["n_ttb"]) +"  "+ str(result["n_ttcc"]) +"   "+ str(result["n_ttlf"])
-  print "FINAL2: "+str(n_ttjj)
+  n_ttjj = result["n_ttbb"] + result["n_ttb"] + result["n_tt2b"] + result["n_ttcc"] + result["n_ttlf"]
+  print "FINAL2: n_ttbb: "+str(roudV(result["n_ttbb"])) +", ttb:"+ str(roudV(result["n_ttb"]))+", tt2b:"+str(roudV(result["n_tt2b"]))
+  print "FINAL2: n_ttcc: "+str(roudV(result["n_ttcc"])) +", ttlf: "+ str(roudV(result["n_ttlf"]))
+  print "FINAL2: n_ttjj: "+str(roudV(n_ttjj))
 
   #eR=ttjjEff/ttbbEff
   recoR = result["recoR"] 
@@ -1037,38 +1034,40 @@ def resultPrint(result, genInfo):
   NewCXttbbfull = NewNttbb/(lumi * ttbbEff * ttbbAcp )
   NewCXttjjfull = NewNttjj/(lumi * ttjjEff * ttjjAcp )
 
-  print "FINAL2: ---------------------"
+  print "FINAL2: ---genInfo---------------------------------"
 
-  print "FINAL2: R full : "+roundStrP(genInfo["Rfull"],4)+"  "
-  print "FINAL2: R_vis : " +roundStrP(genInfo["Rvis"],4)+"  "
+  print "FINAL2: R full : "+str(roudV(genInfo["rFS"]*100))+" % "
+  print "FINAL2: R_vis : " +str(roudV(genInfo["rVS"]*100))+" % "
 
-  print "FINAL2: Acceptance ttjj : "+roundStrP(ttjjAcp,4)+"  "
-  print "FINAL2: Acceptance ttbb : "+roundStrP(ttbbAcp,4)+"  "
+  print "FINAL2: Acceptance ttjj : "+str(roudV(ttjjAcp*100))+" % "
+  print "FINAL2: Acceptance ttbb : "+str(roudV(ttbbAcp*100))+" % "
 
-  print "FINAL2: efficiency ttjj : "+roundStrP(ttjjEff,4)+" "
-  print "FINAL2: efficiency ttbb : "+roundStrP(ttbbEff,4)+" "
-
-  print "FINAL2: ---------------------"
-
-  print "FINAL2: #ttjj prefit = "+str(round(n_ttjj*100)/100)+"  "
-  print "FINAL2: #ttjj fitting = "+str(round(NewNttjj*100)/100)+"  "
-  print "FINAL2: #ttbb fitting = "+str(round(NewNttbb*100)/100)+"  "
+  print "FINAL2: efficiency ttjj : "+str(roudV(ttjjEff*100))+" % "
+  print "FINAL2: efficiency ttbb : "+str(roudV(ttbbEff*100))+" % "
 
 
-  print "FINAL2:Reco  R = "+ str(round(recoR*10000)/10000)+" \pm "+str(round(recoRerror*10000)/10000)+" "
-  print "FINAL2:vis   R = "+ str(round(genR*10000)/10000)+" \pm "+str(round(genRerror*10000)/10000)+" "
+  print "FINAL2: #ttjj prefit = "+str(roudV(n_ttjj))+"  "
+  print "FINAL2: -----Measure----------------"
+  print "FINAL2: #ttjj fitting = "+str(roudV(NewNttjj))+"  "
+  print "FINAL2: #ttbb fitting = "+str(roudV(NewNttbb))+"  "
+
+
+  print "FINAL2:Reco  R = "+ str(roudV(recoR))+" \pm "+str(roudV(recoRerror))+" "
+  print "FINAL2:vis   R = "+ str(roudV(genR))+" \pm "+str(roudV(genRerror))+" "
   fullR    = (genR*ttjjAcp/ttbbAcp)
   fullRerr = (genR*ttjjAcp/ttbbAcp)*(genRerror/genR)
-  print "FINAL2:full  R = "+ str(round(fullR*10000)/10000)+" \pm "+str(round(fullRerr*10000)/10000)+" "
+  print "FINAL2:full  R = "+ str(roudV(fullR))+" \pm "+str(roudV(fullRerr))+" "
 
-  print "FINAL2:vis   ttbb :"+str(NewCXttbbvis)+" pb"
-  print "FINAL2:vis   ttjj :"+str(NewCXttjjvis)+" pb"
+  print "FINAL2:vis   ttbb :"+str(roudV(NewCXttbbvis))+" pb"
+  print "FINAL2:vis   ttjj :"+str(roudV(NewCXttjjvis))+" pb"
 
-  print "FINAL2:full ll   ttbb :"+str(NewCXttbbfull)+" pb"
-  print "FINAL2:full ll  ttjj :"+str(NewCXttjjfull)+" pb"
-  print "FINAL2:ll r : "+str(RdilepPOW)
-  print "FINAL2:full   ttbb :"+str(NewCXttbbfull/RdilepPOW)+" pb"
-  print "FINAL2:full   ttjj :"+str(NewCXttjjfull/RdilepPOW)+" pb"
+  print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" pb"
+  print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" pb"
+  RdilepPOW=genInfo["data"]['dileptonic']/genInfo["total"]
+  print "FINAL2:ll r : "+str(roudV(RdilepPOW))
+  print "FINAL2:full   ttbb :"+str(roudV(NewCXttbbfull/RdilepPOW))+" pb"
+  print "FINAL2:full   ttjj :"+str(roudV(NewCXttjjfull/RdilepPOW))+" pb"
+  print "FINAL2: ----------------------------------------------"
  
 
 
@@ -1090,102 +1089,83 @@ def quardsum(aaa):
 ################
 ################
 ################
-"""
-#POWHEG###################################
-POWhadronic,POWdileptonic,POWsemileptonic,POWetc=44779959.0,10291416.0,42929293.0,13257563.0
-POWttbbF,POWttbjF,POWttccF,POWttlfF=43200.0,160514.0,91070.0,3639349.0
-POWttbbV,POWttbjV,POWttccV,POWttlfV=8207.0,31147.0,15393.0,547080.0
 
-POWttbarall    =POWhadronic+POWdileptonic+POWsemileptonic+POWetc
-POWttjjF = POWttbbF+POWttbjF+POWttccF+POWttlfF
-ttjjRatioTTPOW = (POWttjjF/POWttbarall)
-POWttjjV = POWttbbV+POWttbjV+POWttccV+POWttlfV
+def roudV(val1):
+  val =abs(val1)
+  if val > 100 :
+    return int(round(val))
+  elif val > 1 : 
+    return round(val*100)/100
+  else :
+    nom=10000.
+    if val>0.1    : nom=10000.
+    elif val>0.01 : nom=100000.
+    elif val>0.001: nom=1000000.
+    elif val>0.0001: nom=10000000.
+    else          : nom=1000000000.
 
-POWttbbS6,POWttjjS6 = 2206.0,70016.0   #S6
-#POWttbbS6,POWttjjS6 = 1535.0,35425.0  #S7 
+    return round(val*nom)/nom
 
-ttjjAcceptancePOW = (POWttjjV/POWttjjF)
-ttbbAcceptancePOW = (POWttbbV/POWttbbF)
-ttjjEffPOW = POWttjjS6 / POWttjjV
-ttbbEffPOW = POWttbbS6 / POWttbbV
-RfullPOW = POWttbbF/POWttjjF
-RvisPOW =  POWttbbV/POWttjjV
-RdilepPOW = POWdileptonic/POWttbarall
+def sumV(data,step,candi):
+  sumV =0.
+  if step == "": 
+    for i in candi:  sumV +=data[i] 
+  else         : 
+    for i in candi:  sumV +=data[step][i]
+  return sumV
 
-#MG5 ########################################
-MG5hadronic,MG5dileptonic,MG5semileptonic,MG5etc=4542315.0,1135409.0,4538142.0,1416370.
-MG5ttbbF,MG5ttbjF,MG5ttccF,MG5ttlfF=4909.0,18821.0,10818.0,428794.0
-MG5ttbbV,MG5ttbjV,MG5ttccV,MG5ttlfV=947.0,3761.0,1881.0,66371.0
+def printV(data,isPrint):
+  total = sumV(data,"",['dileptonic','semileptonic','hadroic'])
+  if isPrint : print "total : "+str(total)
+  if isPrint : print "dileptonic : "+str(data['dileptonic'])+", semileptonic : "+str(data['semileptonic'])+", hadroic : "+str(data['hadroic'])
+  VS = ["ttbb","tt2b","ttb","ttcc","ttlf"]# "ttot"
+  FS = ["ttbbF","ttbF","ttccF","ttlfF"]
+  ttbb = data['S0']['ttbb']
+  ttbbF = data['S0']['ttbbF']
+  ttjj = sumV(data,'S0',VS)
+  ttjjF = sumV(data,'S0',FS)
+  ttbbAcc=ttbb/ttbbF
+  ttjjAcc=ttjj/ttjjF
+  rFS = ttbbF/ttjjF
+  rVS = ttbb/ttjj
+  rTtjjTotalFS=ttjjF/total
+  rTtjjTotalVS=ttjj/total
 
-MG5ttbarall = MG5hadronic+MG5dileptonic+MG5semileptonic+MG5etc
-MG5ttjjF = MG5ttbbF+MG5ttbjF+MG5ttccF+MG5ttlfF
-MG5ttjjRatioTT = (MG5ttjjF/MG5ttbarall)
-MG5ttjjV = MG5ttbbV+MG5ttbjV+MG5ttccV+MG5ttlfV
+  if isPrint : print "ratio ttjj/total FS: "+str(roudV(rTtjjTotalFS*100))+" %"
+  if isPrint : print "ratio ttjj/total VS: "+str(roudV(rTtjjTotalVS*100))+" %"
+  if isPrint : print "Acceptance(VS/FS) ttbb : "+str(roudV(ttbbAcc))+", ttjj : "+str(roudV(ttjjAcc))
+  if isPrint : print "FS R(ttbb/ttjj) : "+str(roudV(rFS)*100)+" %"
+  if isPrint : print "VS R(ttbb/ttjj) : "+str(roudV(rVS)*100)+" %"
+  ttbbS6 = data['S6']['ttbb']
+  ttjjS6 = sumV(data,"S6",["ttbb","tt2b","ttb","ttcc","ttlf"])
+  ttbbEff= ttbbS6/ttbb
+  ttjjEff= ttjjS6/ttjj
+  rTtjjTotalS6=ttjjS6/total
+  if isPrint : print "ratio ttjj/total S6: "+str(roudV(rTtjjTotalS6))+" %"
+  if isPrint : print "efficiency S6/S0 in VS"
+  if isPrint : print "ttbb : "+str(roudV(ttbbEff)*100)+" %"
+  if isPrint : print "ttjj : "+str(roudV(ttjjEff)*100)+" %"
 
-MG5ttbbS6,MG5ttjjS6 = 256.0,8806.0  #S6
-#MG5ttbbS6,MG5ttjjS6 = 167.0,4428.0  #S7
-"""
-from gensummary import gensummary
-PW=gensummary["nom"]["POW"]
-MG=gensummary["nom"]["MG5"]
-POWttbarall=PW["semileptonic"]+PW["dileptonic"]+PW["hadroic"]+PW["etc"]
-POWdileptonic=PW["dileptonic"]
-POWttjjF= PW["S0"]["ttbbF"]+PW["S0"]["ttbF"]+PW["S0"]["ttlfF"]+PW["S0"]["ttccF"]
-POWttbbF= PW["S0"]["ttbbF"]
-ttjjRatioTTPOW = (POWttjjF/POWttbarall)
-POWttjjV= PW["S0"]["ttbb"]+PW["S0"]["ttb"]+PW["S0"]["ttlf"]+PW["S0"]["ttcc"]
-POWttbbV= PW["S0"]["ttbb"]
+  return {"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6},"data":data,"total":total}
 
-POWttjjS6= PW["S6"]["ttbb"]+PW["S6"]["ttb"]+PW["S6"]["ttlf"]+PW["S6"]["ttcc"]
-POWttbbS6= PW["S6"]["ttbb"]
+def getSys(a,b):
+  return (a-b)/a
 
-POWttjjS7= PW["S7"]["ttbb"]+PW["S7"]["ttb"]+PW["S7"]["ttlf"]+PW["S7"]["ttcc"]
-POWttbbS7= PW["S7"]["ttbb"]
+################
+################
+################
+################
+################
+################
+##origin : genstudy/Q2scale.py 
+POW={'semileptonic': 42929174.0, 'dileptonic': 10285310.0, 'S0': {'ttbbF': 43175.0, 'ttbF': 124142.0, 'ttlfF': 3637657.0, 'ttotF': 94065561.0, 'ttccF': 87638.0, 'ttb': 24712.0, 'ttlf': 546363.0, 'ttbb': 8194.0, 'ttot': 97393418.0, 'ttcc': 15362.0, 'tt2bF': 36269.0, 'tt2b': 6393.0}, 'S7': {'ttbbF': 1940.0, 'ttbF': 2537.0, 'ttlfF': 29941.0, 'ttotF': 915.0, 'ttccF': 1303.0, 'ttb': 2527.0, 'ttlf': 29159.0, 'ttbb': 1532.0, 'ttot': 2428.0, 'ttcc': 1209.0, 'tt2bF': 1207.0, 'tt2b': 988.0}, 'S6': {'ttbbF': 2838.0, 'ttbF': 4276.0, 'ttlfF': 62138.0, 'ttotF': 1874.0, 'ttccF': 3056.0, 'ttb': 4127.0, 'ttlf': 59498.0, 'ttbb': 2206.0, 'ttot': 6077.0, 'ttcc': 2659.0, 'tt2bF': 1905.0, 'tt2b': 1520.0}, 'etc': 0.0, 'hadroic': 44779958.0}
+MG5={'semileptonic': 4538129.0, 'etc': 0.0, 'S0': {'ttbbF': 4909.0, 'ttbb': 947.0, 'ttbF': 14552.0, 'ttlfF': 428550.0, 'ttotF': 9752453.0, 'ttccF': 10408.0, 'ttcc': 1881.0, 'tt2bF': 4259.0, 'tt2b': 787.0, 'ttb': 2969.0, 'ttlf': 66280.0, 'ttot': 10142267.0}, 'S7': {'ttbbF': 214.0, 'ttbb': 166.0, 'ttbF': 307.0, 'ttlfF': 3767.0, 'ttotF': 117.0, 'ttccF': 169.0, 'ttcc': 159.0, 'tt2bF': 161.0, 'tt2b': 132.0, 'ttb': 305.0, 'ttlf': 3669.0, 'ttot': 304.0}, 'S6': {'ttbbF': 333.0, 'ttbb': 198.0, 'ttbF': 520.0, 'ttlfF': 7859.0, 'ttotF': 233.0, 'ttccF': 303.0, 'ttcc': 264.0, 'tt2bF': 172.0, 'tt2b': 141.0, 'ttb': 407.0, 'ttlf': 5816.0, 'ttot': 570.0}, 'dileptonic': 1134687.0, 'hadroic': 4542315.0}
+AMC={'semileptonic': 5638266.0, 'etc': 0.0, 'S0': {'ttbbF': 6284.0, 'ttbb': 1150.0, 'ttbF': 17267.0, 'ttlfF': 556938.0, 'ttotF': 12100541.0, 'ttccF': 13274.0, 'ttcc': 2140.0, 'tt2bF': 4222.0, 'tt2b': 735.0, 'ttb': 3307.0, 'ttlf': 80763.0, 'ttot': 12610431.0}, 'S7': {'ttbbF': 257.0, 'ttbb': 177.0, 'ttbF': 275.0, 'ttlfF': 4158.0, 'ttotF': 125.0, 'ttccF': 173.0, 'ttcc': 157.0, 'tt2bF': 131.0, 'tt2b': 125.0, 'ttb': 298.0, 'ttlf': 4062.0, 'ttot': 300.0}, 'S6': {'ttbbF': 397.0, 'ttbb': 283.0, 'ttbF': 543.0, 'ttlfF': 8713.0, 'ttotF': 243.0, 'ttccF': 348.0, 'ttcc': 307.0, 'tt2bF': 220.0, 'tt2b': 186.0, 'ttb': 559.0, 'ttlf': 8328.0, 'ttot': 801.0}, 'dileptonic': 1409642.0, 'hadroic': 5650618.0}
 
-ttjjAcceptancePOW = (POWttjjV/POWttjjF)
-ttbbAcceptancePOW = (POWttbbV/POWttbbF)
-ttjjEffPOW = POWttjjS6 / POWttjjV
-ttbbEffPOW = POWttbbS6 / POWttbbV
-RfullPOW = POWttbbF/POWttjjF
-RvisPOW =  POWttbbV/POWttjjV
-RdilepPOW = POWdileptonic/POWttbarall
 
-MG5ttbarall=MG["semileptonic"]+MG["dileptonic"]+MG["hadroic"]+MG["etc"]
-MG5dileptonic=MG["dileptonic"]
-MG5ttjjF= MG["S0"]["ttbbF"]+MG["S0"]["ttbF"]+MG["S0"]["ttlfF"]+MG["S0"]["ttccF"]
-MG5ttbbF= MG["S0"]["ttbbF"]
-ttjjRatioTTMG5 = (MG5ttjjF/MG5ttbarall)
-MG5ttjjV= MG["S0"]["ttbb"]+MG["S0"]["ttb"]+MG["S0"]["ttlf"]+MG["S0"]["ttcc"]
-MG5ttbbV= MG["S0"]["ttbb"]
-
-MG5ttjjS6= MG["S6"]["ttbb"]+MG["S6"]["ttb"]+MG["S6"]["ttlf"]+MG["S6"]["ttcc"]
-MG5ttbbS6= MG["S6"]["ttbb"]
-
-MG5ttjjS7= MG["S7"]["ttbb"]+MG["S7"]["ttb"]+MG["S7"]["ttlf"]+MG["S7"]["ttcc"]
-MG5ttbbS7= MG["S7"]["ttbb"]
-
-ttjjAcceptanceMG5= (MG5ttjjV/MG5ttjjF)
-ttbbAcceptanceMG5= (MG5ttbbV/MG5ttbbF)
-ttjjEffMG5 = (MG5ttjjS6/MG5ttjjV)
-ttbbEffMG5 = (MG5ttbbS6/MG5ttbbV)
-RfullMG5   = (MG5ttbbF/MG5ttjjF)
-RvisMG5    = (MG5ttbbV/MG5ttjjV)
-RdilepMG5 = MG5dileptonic/MG5ttbarall
-
-eRPOW = ttjjEffPOW/ttbbEffPOW 
-acPPOW = ttjjAcceptancePOW/ttbbAcceptancePOW
-#eRAMC = ttjjEffAMC/ttbbEffAMC 
-#acPAMC = ttjjAcceptanceAMC/ttbbAcceptanceAMC
-eRMG5 = ttjjEffMG5/ttbbEffMG5 
-acPMG5 = ttjjAcceptanceMG5/ttbbAcceptanceMG5
-####
-genInfoPOW = {"Acceptance":{"ttjj":ttjjAcceptancePOW,"ttbb":ttbbAcceptancePOW }, "effciency":{ "ttjj":ttjjEffPOW,"ttbb":ttbbEffPOW  }, "eR":eRPOW, "acP":acPPOW, "Rfull": RfullPOW, "Rvis":RvisPOW ,"Rll":RdilepPOW}
-#genInfoAMC = {"Acceptance":{"ttjj":ttjjAcceptanceAMC,"ttbb":ttbbAcceptanceAMC }, "effciency":{ "ttjj":ttjjEffAMC,"ttbb":ttbbEffAMC  }, "eR":eRAMC, "acP":acPAMC, "Rfull": RfullAMC, "Rvis":RvisAMC  }
-genInfoMG5 = {"Acceptance":{"ttjj":ttjjAcceptanceMG5,"ttbb":ttbbAcceptanceMG5 }, "effciency":{ "ttjj":ttjjEffMG5,"ttbb":ttbbEffMG5  }, "eR":eRMG5, "acP":acPMG5, "Rfull": RfullMG5, "Rvis":RvisMG5, "Rll":RdilepMG5  }
-
-#print "FINAL2: POW eR= "+str(eRPOW)+"  , acceptance ttjj:"+str(ttjjAcceptancePOW)+", (effS6: "+str(ttjjEffPOW)+")  ,  ttbb:"+str(ttbbAcceptancePOW)+", (effS6: "+str(ttbbEffPOW)+")"
-#print "FINAL2: AMC eR= "+str(eRAMC)+"  , acceptance ttjj:"+str(ttjjAcceptanceAMC)+", (effS6: "+str(ttjjEffAMC)+")  ,  ttbb:"+str(ttbbAcceptanceAMC)+", (effS6: "+str(ttbbEffAMC)+")"
-#print "FINAL2: MG5 eR= "+str(eRMG5)+"  , acceptance ttjj:"+str(ttjjAcceptanceMG5)+", (effS6: "+str(ttjjEffMG5)+")  ,  ttbb:"+str(ttbbAcceptanceMG5)+", (effS6: "+str(ttbbEffMG5)+")"
+#from .genstudy.pdfAllRun import roudV,sumV,printV,getSys,PrintSys,compareSYS
+POW2=printV(POW,True)
+MG52=printV(MG5,True)
 
 ##############################################################################
 ##############################################################################
@@ -1246,10 +1226,10 @@ elif int(arg3)==3:
   kVal = result["kVal"] 
   for sys in sysSets.keys():
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
-    sysUnc = (orig_r-orig_r2)/orig_r
-    sysUnck = (kVal-result2["kVal"])/kVal
-    print "FINAL2: "+(sys.rjust(30))+": R "+ str(round(sysUnc*10000)/100)+" %     ,     R = "+ str(round(orig_r2*10000)/10000)+" "
-    print "FINAL2: "+(sys.rjust(30))+": k "+str(round(sysUnck*10000)/100)+"      ,     k = "+ str(round(result2["kVal"]*10000)/10000)+" "
+    sysUnc = getSys(orig_r,orig_r2)
+    sysUnck = getSys(kVal,result2["kVal"])
+    print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
+    print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
 
@@ -1272,25 +1252,27 @@ elif int(arg3)==2:
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 
-  #print "FINAL2: csvweight: R = "+ str(round(orig_r*10000)/10000)+" \pm "+str(round(orig_err*10000)/10000)+"$"
-  genR      = orig_r*eRPOW
-  resultPrint(result,genInfoPOW)
+  #print "FINAL2: csvweight: R = "+ str(roudV(orig_r))+" \pm "+str(roudV(orig_err))+"$"
+  eRPOW=POW2["Eff"]['ttjj']/POW2["Eff"]['ttbb']
+  acPPOW=POW2["Acc"]['ttjj']/POW2["Acc"]['ttbb']
+  genR      = orig_r*eRPOW 
+  resultPrint3(result,POW2)
   genRerror = orig_r*eRPOW*orig_err/orig_r
-  #print "FINAL2: csvweight: gen R $= "+ str(round(genR*10000)/10000)+" \pm "+str(round(genRerror*10000)/10000)+"$"
+  #print "FINAL2: csvweight: gen R $= "+ str(roudV(genR))+" \pm "+str(roudV(genRerror))+"$"
   genRF      = orig_r*eRPOW*acPPOW
   genRerrorF = orig_r*eRPOW*acPPOW*orig_err/orig_r
-  kVal = result["kVal"] 
-  print "FINAL2: csvweight: full gen R = "+ str(round(genRF*10000)/10000)+" $\pm$ "+str(round(genRerrorF*10000)/10000)+"$"
-  print "FINAL2: csvweight: k ="+str(round(result["kVal"]*10000)/10000)+" $\pm$ "+str(round(result["kValerror"]*10000)/10000)+" "
+  kVal = result["kVal"]
+  print "FINAL2: csvweight: full gen R = "+ str(roudV(genRF))+" $\pm$ "+str(roudV(genRerrorF))+" "
+  print "FINAL2: csvweight: k ="+str(roudV(result["kVal"]))+" $\pm$ "+str(roudV(result["kValerror"]))+" "
 
   for sys in sysWeights:
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
     if orig_r==False or result2==False : continue
-    sysUnc = (orig_r-orig_r2)/orig_r
-    sysUnck = (kVal-result2["kVal"])/kVal
+    sysUnc = getSys(orig_r,orig_r2)
+    sysUnck = getSys(kVal,result2["kVal"])
 
-    print "FINAL2: "+(sys.rjust(30))+": R "+ str(round(sysUnc*10000)/100)+" %     ,     R = "+ str(round(orig_r2*10000)/10000)+" "
-    print "FINAL2: "+(sys.rjust(30))+": k "+str(round(sysUnck*10000)/100)+"      ,     k = "+ str(round(result2["kVal"]*10000)/10000)+" "
+    print "FINAL2: "+(sys.rjust(30))+": R "+str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
+    print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
   print "FINAL2: ---- "+str(SystematicUnc)+"------"
@@ -1299,13 +1281,16 @@ elif int(arg3)==2:
   orig_r5,orig_err5,result5 = fitting(histogramsMG5, False, False, "MG5",True,False)
   print "FINAL2: ----MG5 k="+str(result5["kVal"])
 
-  sysUnc3 = (orig_r-orig_r3)/orig_r
-  sysUnc3k = (result3["kVal"]-kVal)/kVal
-  sysUnc4 = (orig_r-orig_r4)/orig_r
-  sysUnc4k = (result4["kVal"]-kVal)/kVal
+  eRMG5=MG52["Eff"]['ttjj']/MG52["Eff"]['ttbb']
+  #acPMG5=MG52["Acc"]['ttjj']/MG52["Acc"]['ttbb']
+ 
+  sysUnc3 = getSys(orig_r,orig_r3)
+  sysUnc3k = getSys(kVal,result3["kVal"])
+  sysUnc4 = getSys(orig_r,orig_r4)
+  sysUnc4k = getSys(kVal,result4["kVal"])
   sysUnc5 = (genR-orig_r5*eRMG5)/genR
   #sysUnc5 = (orig_r-orig_r5)/orig_r
-  sysUnc5k = (result5["kVal"]-kVal)/kVal
+  sysUnc5k = getSys(kVal,result5["kVal"])
 
   sysUnc=0.
   for sys2 in StepSys2.keys():
@@ -1327,12 +1312,12 @@ elif int(arg3)==2:
 
     sysUnc = quardsum(sysUnc1)
     sysUnck = quardsum(sysUnc1k)
-    print "FINAL2: "+sys2.rjust(10)+" : "+str(round(sysUnc*10000)/100)+" % ,     k="+str(round(sysUnck*10000)/100)+" % "
+    print "FINAL2: "+sys2.rjust(10)+" : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" % "
     sysUnc = 0.
 
-  print "FINAL2: "+("TTB").rjust(5)+" : "+str(round(sysUnc3*10000)/100)+" % ,     k="+str(round(sysUnc3k*10000)/100)+" % " 
-  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(round(sysUnc4*10000)/100)+" % ,     k="+str(round(sysUnc4k*10000)/100)+" % "
-  print "FINAL2: "+("GEN").rjust(5)+" : "+str(round(sysUnc5*10000)/100)+" % ,     k="+str(round(sysUnc5k*10000)/100)+" % "
+  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" % " 
+  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+" % ,     k="+str(roudV(sysUnc4k*100))+" % "
+  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+" % ,     k="+str(roudV(sysUnc5k*100))+" % "
   print "FINAL2: ---------------- "#+str(SystematicUnc)+"------"
   
 
