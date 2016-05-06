@@ -1231,6 +1231,7 @@ elif int(arg3)==3:
     sysUnck = getSys(kVal,result2["kVal"])
     print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
     print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
+    print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
 
@@ -1313,12 +1314,12 @@ elif int(arg3)==2:
 
     sysUnc = quardsum(sysUnc1)
     sysUnck = quardsum(sysUnc1k)
-    print "FINAL2: "+sys2.rjust(10)+" : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" % "
+    print "FINAL2: "+sys2.rjust(10)+": R : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" %, ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])*100))+" %"
     sysUnc = 0.
 
-  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" % " 
-  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+" % ,     k="+str(roudV(sysUnc4k*100))+" % "
-  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+" % ,     k="+str(roudV(sysUnc5k*100))+" % "
+  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+" %"
+  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+" % ,     k="+str(roudV(sysUnc4k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc4,sysUnc4k])*100))+" %"
+  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+" % ,     k="+str(roudV(sysUnc5k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc5,sysUnc5k])*100))+" %"
   print "FINAL2: ---------------- "#+str(SystematicUnc)+"------"
   
 
