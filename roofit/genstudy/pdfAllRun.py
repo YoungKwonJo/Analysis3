@@ -94,22 +94,26 @@ def compareSYS(data,data2):
 #['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
 #['semileptonic', 'dileptonic', 'S0', 'S7', 'S6', 'etc', 'hadroic']
 #{'ttbbF': 2838.0, 'ttbF': 4276.0, 'ttlfF': 62138.0, 'ttotF': 1874.0, 'ttccF': 3056.0, 'ttb': 4127.0, 'ttlf': 59498.0, 'ttbb': 2206.0, 'ttot': 6077.0, 'ttcc': 2659.0, 'tt2bF': 1905.0, 'tt2b': 1520.0}
-from pdfAll import *
 
-print 'POW'
-POW2=printV(POW,True)
-print ""
-print "PDF"
-POW0=PrintSys(POW2,POW2)
-data31=compareSYS(POW0,POW0)
-#for i in range(0,212):
-for i in range(0,100):
-  bbb= 'pdf_N'+str(i)
-  pdfI = eval(bbb)
-  aaa=printV(pdfI[bbb]['POW'],False)
-  ccc=PrintSys(POW2,aaa)
-  data31=compareSYS(data31,ccc)
+def main():
+  from pdfAll import *
 
-print data31
+  print 'POW'
+  POW2=printV(POW,True)
+  print ""
+  print "PDF"
+  POW0=PrintSys(POW2,POW2)
+  data31=compareSYS(POW0,POW0)
+  #for i in range(0,212):
+  for i in range(0,100):
+    bbb= 'pdf_N'+str(i)
+    pdfI = eval(bbb)
+    aaa=printV(pdfI[bbb]['POW'],False)
+    ccc=PrintSys(POW2,aaa)
+    data31=compareSYS(data31,ccc)
 
+  print data31
+
+if __name__ == "__main__":
+    test=main()
 
