@@ -1052,7 +1052,14 @@ def resultPrint3(result, genInfo):
   print "FINAL2: #ttjj fitting = "+str(roudV(NewNttjj))+"  "
   print "FINAL2: #ttbb fitting = "+str(roudV(NewNttbb))+"  "
 
+  #b=1-ttbAll(r-1)/ttlf
+  n_ttbAll = result["n_ttbb"] + result["n_ttb"] + result["n_tt2b"]
+  n_ttcclf = result["n_ttcc"] + result["n_ttlf"]
+  ttbbSF = recoR/rttbb
+  ttcclfSF = 1.0-n_ttbAll*(recoR/rttbb -1.0)/n_ttcclf
 
+  print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
+  print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"
   print "FINAL2:Reco  R = "+ str(roudV(recoR))+" \pm "+str(roudV(recoRerror))+" "
   print "FINAL2:vis   R = "+ str(roudV(genR))+" \pm "+str(roudV(genRerror))+" "
   fullR    = (genR*ttjjAcp/ttbbAcp)
