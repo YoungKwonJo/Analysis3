@@ -259,9 +259,9 @@ def printStat():
 ######################################
 ######################################
 ######################################
-def aCanvas(mon,step,decay,isLogy,Weight):
+def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   from makeMCHistSet import makeMCHistSet,load1stHistograms
-  histograms=load1stHistograms(mon,step,Weight)
+  histograms=load1stHistograms(mon,step,Weight,SFbyFitting)
   histograms2,plotSet=makeMCHistSet(histograms)
   StyleUp(histograms2)
 
@@ -445,16 +445,18 @@ def main():#step, moni):
   # 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet4Eta',   #20-23
   # 'jet1Phi', 'jet2Phi', 'jet3Phi', 'jet4Phi',   #24-27
   # 'jet1CSV', 'jet2CSV', 'jet3CSV', 'jet4CSV']   #28-31
+  #SFbyFitting={'ttbbSF':1.64378687774,'ttcclfSF':0.914691520079,'k':0.851874148474}
+  SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
   mon = monitors[moni]
   if runStat : mon = monitors[0]
   else :
     #step="S2"
     weight="csvweight"
     isLogy = True
-    aaa[1]=aCanvas(mon,step,"MM",isLogy,weight)
-    aaa[2]=aCanvas(mon,step,"EE",isLogy,weight)
-    aaa[3]=aCanvas(mon,step,"ME",isLogy,weight)
-    aaa[4]=aCanvas(mon,step,"LL",isLogy,weight)
+    aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
+    aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)
+    aaa[3]=aCanvas(mon,step,"ME",isLogy,weight,SFbyFitting)
+    aaa[4]=aCanvas(mon,step,"LL",isLogy,weight,SFbyFitting)
     
   if runStat:
     mon = monitors[0]
@@ -462,11 +464,11 @@ def main():#step, moni):
     if moni==1 : decay = "MM"
     if moni==2 : decay = "ME"
     if moni==3 : decay = "EE"
-    aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight")
-    aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight")
-    aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight")
-    aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight")
-    aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight")
+    aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight",SFbyFitting)
+    aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight",SFbyFitting)
+    aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight",SFbyFitting)
+    aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight",SFbyFitting)
+    aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight",SFbyFitting)
     
     #print str(StatsAll)
     printStats(StatsAll,plotSet)  

@@ -69,12 +69,12 @@ def makeMCHistSet(histograms):
   plotSet = {"ttbars":ttbarlist, "bkg":bkglist, "fullmc":fullmc, "others":others, "mg5":MG5ttbarlist}
   return histograms2,plotSet
 
-def load1stHistograms(mon,step,Weight):
+def load1stHistograms(mon,step,Weight,SFbyFitting):
   from drellYanEstimation import DYsf 
   from mcsample_cfi import mcsamples
   histograms = {}
   for mc in mcsamples:
-    histograms[mc["name"]]=loadHistogramMC(mc, mon,step,Weight,DYsf)
+    histograms[mc["name"]]=loadHistogramMC(mc, mon,step,Weight,DYsf,SFbyFitting)
   histograms["DATA"]=loadHistogramDATA(mon,step,Weight)
 
   return histograms
@@ -85,7 +85,8 @@ def load1stHistograms(mon,step,Weight):
 def main():
   from monitors_cfi import monitors,monitors2d
   mon = monitors[7]
-  histograms=load1stHistograms(mon,"S2","csvweight")
+  SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
+  histograms=load1stHistograms(mon,"S2","csvweight",SFbyFitting)
   #c1 = TCanvas()
   #histograms["TTZqq"]["hMM"].Draw()
   #histograms["DATA"]["hEE"].Draw()

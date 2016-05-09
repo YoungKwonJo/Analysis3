@@ -14,7 +14,7 @@ sys.path.append('../ntuple2hist')
 lumi = 2262.376
 loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/"
 
-def loadHistogramMC(mc, mon, Step, Weight,DYsf):
+def loadHistogramMC(mc, mon, Step, Weight,DYsf,SFbyFitting):
   HN = mon["name"]
   Weight1= Weight
   if Weight is "Scale_Up":   Weight1="csvweight"
@@ -41,6 +41,20 @@ def loadHistogramMC(mc, mon, Step, Weight,DYsf):
       h1.Scale(DYsf[Step][0])
       h2.Scale(DYsf[Step][1])
 
+  isTTB = name.find("ttb")>-1 or name.find("tt2b")>-1 
+  isTTCCLF = name.find("ttcc")>-1 or name.find("ttlf")>-1
+  if isTTB :
+    h1.Scale(SFbyFitting['ttbbSF'])
+    h2.Scale(SFbyFitting['ttbbSF'])
+    h3.Scale(SFbyFitting['ttbbSF'])
+  if isTTCCLF :
+    h1.Scale(SFbyFitting['ttcclfSF'])
+    h2.Scale(SFbyFitting['ttcclfSF'])
+    h3.Scale(SFbyFitting['ttcclfSF'])
+
+  h1.Scale(SFbyFitting['k'])
+  h2.Scale(SFbyFitting['k'])
+  h3.Scale(SFbyFitting['k'])
 
   histograms={"name":name,"hMM":copy.deepcopy(h1),"hEE":copy.deepcopy(h2),"hME":copy.deepcopy(h3)}
   f.Close()
@@ -106,9 +120,10 @@ def main():
   from monitors_cfi import monitors,monitors2d
   from drellYanEstimation import DYsf
 
+  SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
   mon = monitors[0]
   for mc in mcsamples:
-    histograms[mc["name"]]=loadHistogramMC(mc, mon,"S6","csvweight",DYsf)
+    histograms[mc["name"]]=loadHistogramMC(mc, mon,"S6","csvweight",DYsf,SFbyFitting)
   histograms["DATA"]=loadHistogramDATA(mon,"S6","csvweight")
   #histograms["POWttbb"]["hMM"].Draw()
   c1 = TCanvas()
