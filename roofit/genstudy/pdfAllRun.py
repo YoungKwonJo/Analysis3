@@ -2,11 +2,16 @@
 
 #Acceptance
 #Efficiency
-def roudV(val):
+def roudV(val2):
+  val=val2
+  sign=1.
+  if val2<0: 
+    val=-val2
+    sign=-1.
   if val > 100 :
-    return int(round(val))
+    return int(round(val))*sign
   elif val > 1 : 
-    return round(val*100)/100
+    return round(val*100)/100*sign
   else :
     nom=10000.
     if val>0.1    : nom=10000.
@@ -14,7 +19,7 @@ def roudV(val):
     elif val>0.001: nom=1000000.
     else          : nom=100000000.
 
-    return round(val*nom)/nom
+    return round(val*nom)/nom*sign
 
 def sumV(data,step,candi):
   sumV =0.
