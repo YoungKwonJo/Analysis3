@@ -51,10 +51,10 @@ def loadHistogramMC(mc, mon, Step, Weight,DYsf,SFbyFitting):
     h1.Scale(SFbyFitting['ttcclfSF'])
     h2.Scale(SFbyFitting['ttcclfSF'])
     h3.Scale(SFbyFitting['ttcclfSF'])
-
-  h1.Scale(SFbyFitting['k'])
-  h2.Scale(SFbyFitting['k'])
-  h3.Scale(SFbyFitting['k'])
+  if Step.find("S5")>-1 or Step.find("S6")>-1 or Step.find("S7")>-1:
+    h1.Scale(SFbyFitting['k'])
+    h2.Scale(SFbyFitting['k'])
+    h3.Scale(SFbyFitting['k'])
 
   histograms={"name":name,"hMM":copy.deepcopy(h1),"hEE":copy.deepcopy(h2),"hME":copy.deepcopy(h3)}
   f.Close()
