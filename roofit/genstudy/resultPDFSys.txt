@@ -1,0 +1,521 @@
+> python pdfAllRun.py > resultPDFSys.txt
+
+POW
+total : 97994442.0
+dileptonic : 10285310.0, semileptonic : 42929174.0, hadroic : 44779958.0
+ratio ttjj/total FS: 3.97 %
+ratio ttjj/total VS: 0.6133 %
+Acceptance(VS/FS) ttbb : 0.1898, ttjj : 0.1544
+FS R(ttbb/ttjj) : 1.109 %
+VS R(ttbb/ttjj) : 1.363 %
+ratio ttjj/total S6: 0.00071443 %
+efficiency S6/S0 in VS
+ttbb : 26.92 %
+ttjj : 11.65 %
+
+PDF
+++sys ttbb/ttjj in VS : 0.0 %
+++sys Ttjj/Total in FS : 0.0 %
+++sys Ttjj/Total in VS : 0.0 %
+++sys Ttjj/Total in S6 : 0.0 %
++pdf_N0
+++sys ttbb/ttjj in VS : -0.4242 %
+++sys Ttjj/Total in FS : -0.365 %
+++sys Ttjj/Total in VS : -0.7474 %
+++sys Ttjj/Total in S6 : -1.13 %
++pdf_N1
+++sys ttbb/ttjj in VS : -0.326 %
+++sys Ttjj/Total in FS : 0.000369 %
+++sys Ttjj/Total in VS : 0.4091 %
+++sys Ttjj/Total in S6 : 0.3496 %
++pdf_N2
+++sys ttbb/ttjj in VS : 0.001647 %
+++sys Ttjj/Total in FS : 0.014929 %
+++sys Ttjj/Total in VS : -0.057262 %
+++sys Ttjj/Total in S6 : -0.1493 %
++pdf_N3
+++sys ttbb/ttjj in VS : 0.3862 %
+++sys Ttjj/Total in FS : 0.1877 %
+++sys Ttjj/Total in VS : 0.3021 %
+++sys Ttjj/Total in S6 : 0.357 %
++pdf_N4
+++sys ttbb/ttjj in VS : -0.6081 %
+++sys Ttjj/Total in FS : -0.3835 %
+++sys Ttjj/Total in VS : -0.7717 %
+++sys Ttjj/Total in S6 : -1.371 %
++pdf_N5
+++sys ttbb/ttjj in VS : -0.023292 %
+++sys Ttjj/Total in FS : -0.025696 %
+++sys Ttjj/Total in VS : 0.083467 %
+++sys Ttjj/Total in S6 : 0.1101 %
++pdf_N6
+++sys ttbb/ttjj in VS : 0.1161 %
+++sys Ttjj/Total in FS : 0.058148 %
+++sys Ttjj/Total in VS : -0.1774 %
+++sys Ttjj/Total in S6 : -0.087969 %
++pdf_N7
+++sys ttbb/ttjj in VS : -0.1397 %
+++sys Ttjj/Total in FS : -0.043683 %
+++sys Ttjj/Total in VS : 0.1135 %
+++sys Ttjj/Total in S6 : 0.069975 %
++pdf_N8
+++sys ttbb/ttjj in VS : 0.104 %
+++sys Ttjj/Total in FS : 0.021673 %
+++sys Ttjj/Total in VS : -0.030707 %
+++sys Ttjj/Total in S6 : -0.053469 %
++pdf_N9
+++sys ttbb/ttjj in VS : -0.1806 %
+++sys Ttjj/Total in FS : -0.066676 %
+++sys Ttjj/Total in VS : -0.057103 %
+++sys Ttjj/Total in S6 : -0.2472 %
++pdf_N10
+++sys ttbb/ttjj in VS : -0.3521 %
+++sys Ttjj/Total in FS : 0.065334 %
+++sys Ttjj/Total in VS : 0.9419 %
+++sys Ttjj/Total in S6 : 0.8649 %
++pdf_N11
+++sys ttbb/ttjj in VS : 0.1942 %
+++sys Ttjj/Total in FS : 0.055478 %
+++sys Ttjj/Total in VS : -0.094227 %
+++sys Ttjj/Total in S6 : -0.015953 %
++pdf_N12
+++sys ttbb/ttjj in VS : 0.014613 %
+++sys Ttjj/Total in FS : 0.1368 %
+++sys Ttjj/Total in VS : 0.6561 %
+++sys Ttjj/Total in S6 : 0.7177 %
++pdf_N13
+++sys ttbb/ttjj in VS : -0.745 %
+++sys Ttjj/Total in FS : -0.1129 %
+++sys Ttjj/Total in VS : 0.5298 %
+++sys Ttjj/Total in S6 : 0.2592 %
++pdf_N14
+++sys ttbb/ttjj in VS : -0.1635 %
+++sys Ttjj/Total in FS : -0.079473 %
+++sys Ttjj/Total in VS : -0.039934 %
+++sys Ttjj/Total in S6 : -0.1108 %
++pdf_N15
+++sys ttbb/ttjj in VS : -0.006778 %
+++sys Ttjj/Total in FS : -0.04801 %
+++sys Ttjj/Total in VS : -0.3154 %
+++sys Ttjj/Total in S6 : -0.2559 %
++pdf_N16
+++sys ttbb/ttjj in VS : -0.8925 %
+++sys Ttjj/Total in FS : -0.1078 %
+++sys Ttjj/Total in VS : 1.159 %
+++sys Ttjj/Total in S6 : 0.8884 %
++pdf_N17
+++sys ttbb/ttjj in VS : -0.3348 %
+++sys Ttjj/Total in FS : -0.1694 %
+++sys Ttjj/Total in VS : 0.032343 %
+++sys Ttjj/Total in S6 : -0.082506 %
++pdf_N18
+++sys ttbb/ttjj in VS : 0.2601 %
+++sys Ttjj/Total in FS : -0.009732 %
+++sys Ttjj/Total in VS : -0.4463 %
+++sys Ttjj/Total in S6 : -0.3308 %
++pdf_N19
+++sys ttbb/ttjj in VS : 0.1692 %
+++sys Ttjj/Total in FS : -0.087028 %
+++sys Ttjj/Total in VS : -0.8543 %
+++sys Ttjj/Total in S6 : -0.8323 %
++pdf_N20
+++sys ttbb/ttjj in VS : 0.3642 %
+++sys Ttjj/Total in FS : 0.091533 %
+++sys Ttjj/Total in VS : -0.2732 %
+++sys Ttjj/Total in S6 : -0.2065 %
++pdf_N21
+++sys ttbb/ttjj in VS : 0.2795 %
+++sys Ttjj/Total in FS : 0.020569 %
+++sys Ttjj/Total in VS : -0.6973 %
+++sys Ttjj/Total in S6 : -0.6239 %
++pdf_N22
+++sys ttbb/ttjj in VS : 0.7988 %
+++sys Ttjj/Total in FS : 0.1415 %
+++sys Ttjj/Total in VS : -0.7132 %
+++sys Ttjj/Total in S6 : -0.426 %
++pdf_N23
+++sys ttbb/ttjj in VS : 0.635 %
+++sys Ttjj/Total in FS : 0.1032 %
+++sys Ttjj/Total in VS : -0.6713 %
+++sys Ttjj/Total in S6 : -0.6181 %
++pdf_N24
+++sys ttbb/ttjj in VS : 0.092108 %
+++sys Ttjj/Total in FS : 0.099291 %
+++sys Ttjj/Total in VS : 0.2446 %
+++sys Ttjj/Total in S6 : 0.3393 %
++pdf_N25
+++sys ttbb/ttjj in VS : 0.3138 %
+++sys Ttjj/Total in FS : 0.02718 %
+++sys Ttjj/Total in VS : -0.2863 %
+++sys Ttjj/Total in S6 : -0.281 %
++pdf_N26
+++sys ttbb/ttjj in VS : -0.9471 %
+++sys Ttjj/Total in FS : -0.1201 %
+++sys Ttjj/Total in VS : 1.064 %
+++sys Ttjj/Total in S6 : 0.8415 %
++pdf_N27
+++sys ttbb/ttjj in VS : -0.4052 %
+++sys Ttjj/Total in FS : 0.016329 %
+++sys Ttjj/Total in VS : 0.6922 %
+++sys Ttjj/Total in S6 : 0.6161 %
++pdf_N28
+++sys ttbb/ttjj in VS : -0.3754 %
+++sys Ttjj/Total in FS : -0.1242 %
+++sys Ttjj/Total in VS : 0.015227 %
+++sys Ttjj/Total in S6 : -0.1345 %
++pdf_N29
+++sys ttbb/ttjj in VS : 0.3336 %
+++sys Ttjj/Total in FS : 0.021243 %
+++sys Ttjj/Total in VS : -0.6099 %
+++sys Ttjj/Total in S6 : -0.5025 %
++pdf_N30
+++sys ttbb/ttjj in VS : 0.345 %
+++sys Ttjj/Total in FS : 0.1296 %
+++sys Ttjj/Total in VS : -0.078578 %
+++sys Ttjj/Total in S6 : -0.008719 %
++pdf_N31
+++sys ttbb/ttjj in VS : -0.080505 %
+++sys Ttjj/Total in FS : -0.023635 %
+++sys Ttjj/Total in VS : 0.010168 %
+++sys Ttjj/Total in S6 : -0.09169 %
++pdf_N32
+++sys ttbb/ttjj in VS : 0.2134 %
+++sys Ttjj/Total in FS : 0.1488 %
+++sys Ttjj/Total in VS : 0.2403 %
+++sys Ttjj/Total in S6 : 0.3994 %
++pdf_N33
+++sys ttbb/ttjj in VS : 0.603 %
+++sys Ttjj/Total in FS : 0.096946 %
+++sys Ttjj/Total in VS : -0.6886 %
+++sys Ttjj/Total in S6 : -0.5067 %
++pdf_N34
+++sys ttbb/ttjj in VS : -0.301 %
+++sys Ttjj/Total in FS : 0.021256 %
+++sys Ttjj/Total in VS : 0.4698 %
+++sys Ttjj/Total in S6 : 0.4135 %
++pdf_N35
+++sys ttbb/ttjj in VS : 0.23 %
+++sys Ttjj/Total in FS : 0.069883 %
+++sys Ttjj/Total in VS : -0.1016 %
+++sys Ttjj/Total in S6 : 0.093049 %
++pdf_N36
+++sys ttbb/ttjj in VS : -0.3038 %
+++sys Ttjj/Total in FS : -0.040852 %
+++sys Ttjj/Total in VS : 0.2819 %
+++sys Ttjj/Total in S6 : 0.2622 %
++pdf_N37
+++sys ttbb/ttjj in VS : 0.1186 %
+++sys Ttjj/Total in FS : -0.1775 %
+++sys Ttjj/Total in VS : -0.824 %
+++sys Ttjj/Total in S6 : -0.8156 %
++pdf_N38
+++sys ttbb/ttjj in VS : -0.024866 %
+++sys Ttjj/Total in FS : -0.096096 %
+++sys Ttjj/Total in VS : -0.4536 %
+++sys Ttjj/Total in S6 : -0.559 %
++pdf_N39
+++sys ttbb/ttjj in VS : 0.2977 %
+++sys Ttjj/Total in FS : 0.131 %
+++sys Ttjj/Total in VS : 0.063397 %
+++sys Ttjj/Total in S6 : 0.2088 %
++pdf_N40
+++sys ttbb/ttjj in VS : 0.3545 %
+++sys Ttjj/Total in FS : -0.039894 %
+++sys Ttjj/Total in VS : -0.771 %
+++sys Ttjj/Total in S6 : -0.6982 %
++pdf_N41
+++sys ttbb/ttjj in VS : 0.1548 %
+++sys Ttjj/Total in FS : 0.1155 %
+++sys Ttjj/Total in VS : 0.3453 %
+++sys Ttjj/Total in S6 : 0.4464 %
++pdf_N42
+++sys ttbb/ttjj in VS : 0.5896 %
+++sys Ttjj/Total in FS : 0.1649 %
+++sys Ttjj/Total in VS : -0.2073 %
+++sys Ttjj/Total in S6 : -0.036798 %
++pdf_N43
+++sys ttbb/ttjj in VS : 0.1726 %
+++sys Ttjj/Total in FS : 0.004392 %
+++sys Ttjj/Total in VS : -0.1875 %
+++sys Ttjj/Total in S6 : -0.1932 %
++pdf_N44
+++sys ttbb/ttjj in VS : 0.2088 %
+++sys Ttjj/Total in FS : 0.050051 %
+++sys Ttjj/Total in VS : -0.4598 %
+++sys Ttjj/Total in S6 : -0.3609 %
++pdf_N45
+++sys ttbb/ttjj in VS : 0.6035 %
+++sys Ttjj/Total in FS : -0.075708 %
+++sys Ttjj/Total in VS : -1.303 %
+++sys Ttjj/Total in S6 : -1.161 %
++pdf_N46
+++sys ttbb/ttjj in VS : -0.3218 %
+++sys Ttjj/Total in FS : -0.038744 %
+++sys Ttjj/Total in VS : 0.5283 %
+++sys Ttjj/Total in S6 : 0.4226 %
++pdf_N47
+++sys ttbb/ttjj in VS : -0.2284 %
+++sys Ttjj/Total in FS : -0.042086 %
+++sys Ttjj/Total in VS : 0.2204 %
+++sys Ttjj/Total in S6 : 0.1211 %
++pdf_N48
+++sys ttbb/ttjj in VS : -0.3062 %
+++sys Ttjj/Total in FS : 0.013973 %
+++sys Ttjj/Total in VS : 0.3502 %
+++sys Ttjj/Total in S6 : 0.3407 %
++pdf_N49
+++sys ttbb/ttjj in VS : 0.016342 %
+++sys Ttjj/Total in FS : 0.092839 %
+++sys Ttjj/Total in VS : 0.2284 %
+++sys Ttjj/Total in S6 : 0.2731 %
++pdf_N50
+++sys ttbb/ttjj in VS : 0.1482 %
+++sys Ttjj/Total in FS : 0.1015 %
+++sys Ttjj/Total in VS : 0.1547 %
+++sys Ttjj/Total in S6 : 0.2166 %
++pdf_N51
+++sys ttbb/ttjj in VS : 0.059444 %
+++sys Ttjj/Total in FS : 0.070539 %
+++sys Ttjj/Total in VS : 0.1057 %
+++sys Ttjj/Total in S6 : 0.087106 %
++pdf_N52
+++sys ttbb/ttjj in VS : 0.4578 %
+++sys Ttjj/Total in FS : 0.049356 %
+++sys Ttjj/Total in VS : -0.5563 %
+++sys Ttjj/Total in S6 : -0.4253 %
++pdf_N53
+++sys ttbb/ttjj in VS : 0.04456 %
+++sys Ttjj/Total in FS : 0.1229 %
+++sys Ttjj/Total in VS : 0.7708 %
+++sys Ttjj/Total in S6 : 0.7562 %
++pdf_N54
+++sys ttbb/ttjj in VS : 0.12 %
+++sys Ttjj/Total in FS : 0.097835 %
+++sys Ttjj/Total in VS : 0.2377 %
+++sys Ttjj/Total in S6 : 0.2845 %
++pdf_N55
+++sys ttbb/ttjj in VS : -0.6023 %
+++sys Ttjj/Total in FS : -0.1379 %
+++sys Ttjj/Total in VS : 0.4215 %
+++sys Ttjj/Total in S6 : 0.2225 %
++pdf_N56
+++sys ttbb/ttjj in VS : 0.2429 %
+++sys Ttjj/Total in FS : 0.093959 %
+++sys Ttjj/Total in VS : -0.071139 %
+++sys Ttjj/Total in S6 : 0.1628 %
++pdf_N57
+++sys ttbb/ttjj in VS : -0.093395 %
+++sys Ttjj/Total in FS : 0.061861 %
+++sys Ttjj/Total in VS : 0.3767 %
+++sys Ttjj/Total in S6 : 0.3668 %
++pdf_N58
+++sys ttbb/ttjj in VS : -0.019836 %
+++sys Ttjj/Total in FS : -0.076725 %
+++sys Ttjj/Total in VS : -0.3868 %
+++sys Ttjj/Total in S6 : -0.4041 %
++pdf_N59
+++sys ttbb/ttjj in VS : 0.1756 %
+++sys Ttjj/Total in FS : 0.021008 %
+++sys Ttjj/Total in VS : -0.2913 %
+++sys Ttjj/Total in S6 : -0.2358 %
++pdf_N60
+++sys ttbb/ttjj in VS : 0.003689 %
+++sys Ttjj/Total in FS : -0.041983 %
+++sys Ttjj/Total in VS : -0.3479 %
+++sys Ttjj/Total in S6 : -0.2538 %
++pdf_N61
+++sys ttbb/ttjj in VS : 0.1018 %
+++sys Ttjj/Total in FS : -0.060841 %
+++sys Ttjj/Total in VS : -0.5623 %
+++sys Ttjj/Total in S6 : -0.579 %
++pdf_N62
+++sys ttbb/ttjj in VS : 0.1939 %
+++sys Ttjj/Total in FS : 0.1501 %
+++sys Ttjj/Total in VS : 0.5981 %
+++sys Ttjj/Total in S6 : 0.7017 %
++pdf_N63
+++sys ttbb/ttjj in VS : -0.6502 %
+++sys Ttjj/Total in FS : -0.1747 %
+++sys Ttjj/Total in VS : 0.6098 %
+++sys Ttjj/Total in S6 : 0.4501 %
++pdf_N64
+++sys ttbb/ttjj in VS : 0.2561 %
+++sys Ttjj/Total in FS : 0.1468 %
+++sys Ttjj/Total in VS : 0.5205 %
+++sys Ttjj/Total in S6 : 0.5649 %
++pdf_N65
+++sys ttbb/ttjj in VS : 0.1317 %
+++sys Ttjj/Total in FS : 0.049058 %
+++sys Ttjj/Total in VS : -0.09838 %
+++sys Ttjj/Total in S6 : -0.030728 %
++pdf_N66
+++sys ttbb/ttjj in VS : 0.4017 %
+++sys Ttjj/Total in FS : -0.1021 %
+++sys Ttjj/Total in VS : -0.9982 %
+++sys Ttjj/Total in S6 : -0.9423 %
++pdf_N67
+++sys ttbb/ttjj in VS : -0.1893 %
+++sys Ttjj/Total in FS : -0.032101 %
+++sys Ttjj/Total in VS : 0.083805 %
+++sys Ttjj/Total in S6 : 0.006925 %
++pdf_N68
+++sys ttbb/ttjj in VS : -0.2737 %
+++sys Ttjj/Total in FS : 0.046885 %
+++sys Ttjj/Total in VS : 0.8102 %
+++sys Ttjj/Total in S6 : 0.6742 %
++pdf_N69
+++sys ttbb/ttjj in VS : -0.1859 %
+++sys Ttjj/Total in FS : 0.1674 %
+++sys Ttjj/Total in VS : 1.055 %
+++sys Ttjj/Total in S6 : 1.069 %
++pdf_N70
+++sys ttbb/ttjj in VS : 0.5598 %
+++sys Ttjj/Total in FS : 0.1123 %
+++sys Ttjj/Total in VS : -0.5319 %
+++sys Ttjj/Total in S6 : -0.2982 %
++pdf_N71
+++sys ttbb/ttjj in VS : 0.1162 %
+++sys Ttjj/Total in FS : -0.052984 %
+++sys Ttjj/Total in VS : -0.3101 %
+++sys Ttjj/Total in S6 : -0.3024 %
++pdf_N72
+++sys ttbb/ttjj in VS : -0.7094 %
+++sys Ttjj/Total in FS : -0.2684 %
+++sys Ttjj/Total in VS : 0.1484 %
+++sys Ttjj/Total in S6 : -0.3004 %
++pdf_N73
+++sys ttbb/ttjj in VS : 0.1194 %
+++sys Ttjj/Total in FS : 0.1178 %
+++sys Ttjj/Total in VS : 0.4131 %
+++sys Ttjj/Total in S6 : 0.4078 %
++pdf_N74
+++sys ttbb/ttjj in VS : -0.1635 %
+++sys Ttjj/Total in FS : -0.052154 %
+++sys Ttjj/Total in VS : -0.010947 %
+++sys Ttjj/Total in S6 : -0.08627 %
++pdf_N75
+++sys ttbb/ttjj in VS : 0.4216 %
+++sys Ttjj/Total in FS : 0.062761 %
+++sys Ttjj/Total in VS : -0.3474 %
+++sys Ttjj/Total in S6 : -0.3445 %
++pdf_N76
+++sys ttbb/ttjj in VS : 0.3923 %
+++sys Ttjj/Total in FS : 0.1074 %
+++sys Ttjj/Total in VS : -0.1975 %
+++sys Ttjj/Total in S6 : -0.057173 %
++pdf_N77
+++sys ttbb/ttjj in VS : 0.1333 %
+++sys Ttjj/Total in FS : 0.094647 %
+++sys Ttjj/Total in VS : 0.4297 %
+++sys Ttjj/Total in S6 : 0.561 %
++pdf_N78
+++sys ttbb/ttjj in VS : 0.003487 %
+++sys Ttjj/Total in FS : -0.055397 %
+++sys Ttjj/Total in VS : -0.2142 %
+++sys Ttjj/Total in S6 : -0.2124 %
++pdf_N79
+++sys ttbb/ttjj in VS : 0.099787 %
+++sys Ttjj/Total in FS : 0.1067 %
+++sys Ttjj/Total in VS : 0.1497 %
+++sys Ttjj/Total in S6 : 0.2294 %
++pdf_N80
+++sys ttbb/ttjj in VS : 0.2577 %
+++sys Ttjj/Total in FS : 0.034423 %
+++sys Ttjj/Total in VS : -0.4489 %
+++sys Ttjj/Total in S6 : -0.3805 %
++pdf_N81
+++sys ttbb/ttjj in VS : 0.045671 %
+++sys Ttjj/Total in FS : 0.1137 %
+++sys Ttjj/Total in VS : 0.2098 %
+++sys Ttjj/Total in S6 : 0.2081 %
++pdf_N82
+++sys ttbb/ttjj in VS : -0.09382 %
+++sys Ttjj/Total in FS : -0.1094 %
+++sys Ttjj/Total in VS : -0.1491 %
+++sys Ttjj/Total in S6 : -0.1687 %
++pdf_N83
+++sys ttbb/ttjj in VS : -0.054983 %
+++sys Ttjj/Total in FS : 0.01098 %
+++sys Ttjj/Total in VS : -0.1252 %
+++sys Ttjj/Total in S6 : -0.1036 %
++pdf_N84
+++sys ttbb/ttjj in VS : -0.3727 %
+++sys Ttjj/Total in FS : -0.062157 %
+++sys Ttjj/Total in VS : 0.309 %
+++sys Ttjj/Total in S6 : 0.119 %
++pdf_N85
+++sys ttbb/ttjj in VS : -0.2337 %
+++sys Ttjj/Total in FS : 0.01236 %
+++sys Ttjj/Total in VS : 0.5659 %
+++sys Ttjj/Total in S6 : 0.5154 %
++pdf_N86
+++sys ttbb/ttjj in VS : -0.2915 %
+++sys Ttjj/Total in FS : 0.006305 %
+++sys Ttjj/Total in VS : 0.4447 %
+++sys Ttjj/Total in S6 : 0.3316 %
++pdf_N87
+++sys ttbb/ttjj in VS : -0.247 %
+++sys Ttjj/Total in FS : 0.023761 %
+++sys Ttjj/Total in VS : 0.5007 %
+++sys Ttjj/Total in S6 : 0.473 %
++pdf_N88
+++sys ttbb/ttjj in VS : 0.156 %
+++sys Ttjj/Total in FS : -0.057777 %
+++sys Ttjj/Total in VS : -0.2523 %
+++sys Ttjj/Total in S6 : -0.2014 %
++pdf_N89
+++sys ttbb/ttjj in VS : 0.054196 %
+++sys Ttjj/Total in FS : 0.132 %
+++sys Ttjj/Total in VS : 0.38 %
+++sys Ttjj/Total in S6 : 0.3735 %
++pdf_N90
+++sys ttbb/ttjj in VS : -0.022677 %
+++sys Ttjj/Total in FS : -0.003821 %
+++sys Ttjj/Total in VS : 0.066867 %
+++sys Ttjj/Total in S6 : -0.016016 %
++pdf_N91
+++sys ttbb/ttjj in VS : 0.4105 %
+++sys Ttjj/Total in FS : 0.1219 %
+++sys Ttjj/Total in VS : -0.2295 %
+++sys Ttjj/Total in S6 : -0.039723 %
++pdf_N92
+++sys ttbb/ttjj in VS : -0.3359 %
+++sys Ttjj/Total in FS : -0.09307 %
+++sys Ttjj/Total in VS : 0.059625 %
+++sys Ttjj/Total in S6 : -0.021378 %
++pdf_N93
+++sys ttbb/ttjj in VS : 0.087232 %
+++sys Ttjj/Total in FS : -0.069254 %
+++sys Ttjj/Total in VS : -0.5378 %
+++sys Ttjj/Total in S6 : -0.5015 %
++pdf_N94
+++sys ttbb/ttjj in VS : -1.042 %
+++sys Ttjj/Total in FS : -0.1321 %
+++sys Ttjj/Total in VS : 1.024 %
+++sys Ttjj/Total in S6 : 0.7795 %
++pdf_N95
+++sys ttbb/ttjj in VS : 0.1609 %
+++sys Ttjj/Total in FS : 0.01566 %
+++sys Ttjj/Total in VS : -0.087127 %
+++sys Ttjj/Total in S6 : 0.001606 %
++pdf_N96
+++sys ttbb/ttjj in VS : 0.097705 %
+++sys Ttjj/Total in FS : 0.059455 %
+++sys Ttjj/Total in VS : 0.035057 %
+++sys Ttjj/Total in S6 : 0.043145 %
++pdf_N97
+++sys ttbb/ttjj in VS : 0.69 %
+++sys Ttjj/Total in FS : 0.136 %
+++sys Ttjj/Total in VS : -0.6964 %
+++sys Ttjj/Total in S6 : -0.4121 %
++pdf_N98
+++sys ttbb/ttjj in VS : 0.010678 %
+++sys Ttjj/Total in FS : 0.062499 %
+++sys Ttjj/Total in VS : 0.3444 %
+++sys Ttjj/Total in S6 : 0.4241 %
++pdf_N99
+++sys ttbb/ttjj in VS : -0.5838 %
+++sys Ttjj/Total in FS : -0.1366 %
+++sys Ttjj/Total in VS : 0.4327 %
+++sys Ttjj/Total in S6 : 0.3035 %
+{'rVS': 0.010417169639270045, 'kS6': 0.013713366413241564, 'kFS': 0.00383541087984417, 'kVS': 0.013032054174118657}
