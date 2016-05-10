@@ -3,6 +3,9 @@
 def main():
   from pdfAllRun import roudV,sumV,printV,getSys,PrintSys,compareSYS
   from Q2scale import *
+  print "> python genMCsys.py > resultMCsys.txt"
+  print ""
+
   print 'POW'
   POW2=printV(POW,True)
   print ""
