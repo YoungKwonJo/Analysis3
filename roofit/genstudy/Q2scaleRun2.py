@@ -28,6 +28,8 @@ def PrintSys3(data,data2,isPrint):
 def main():
   from pdfAllRun import roudV,sumV,printV,getSys,PrintSys,compareSYS
   from Q2scale import *
+  print "> python Q2scaleRun2.py > resultQ2scaleSys.txt"
+  print ""
   print 'POW'
   POW2=printV(POW,True)
   print ""
