@@ -1,0 +1,100 @@
+POW
+total : 97994442.0
+dileptonic : 10285310.0, semileptonic : 42929174.0, hadroic : 44779958.0
+ratio ttjj/total FS: 3.97 %
+ratio ttjj/total VS: 0.6133 %
+Acceptance(VS/FS) ttbb : 0.1898, ttjj : 0.1544
+FS R(ttbb/ttjj) : 1.109 %
+VS R(ttbb/ttjj) : 1.363 %
+ratio ttjj/total S6: 0.00071443 %
+efficiency S6/S0 in VS
+ttbb : 26.92 %
+ttjj : 11.65 %
+
+
+Down
++Central Sample
+++Q2_Dw1
+++sys rVS : -0.521064 %
+++sys rFS : -0.837566 %
+++sys rTtjjTotalFS : -0.828622 %
+++sys rTtjjTotalVS : -0.985461 %
+++sys rTtjjTotalS6 : -1.816344 %
+++Q2_Dw2
+++sys rVS : -1.794516 %
+++sys rFS : -2.479479 %
+++sys rTtjjTotalFS : -1.812519 %
+++sys rTtjjTotalVS : -2.394455 %
+++sys rTtjjTotalS6 : -3.723812 %
+++Q2_Dw3
+++sys rVS : -2.578696 %
+++sys rFS : -3.617718 %
+++sys rTtjjTotalFS : -2.821447 %
+++sys rTtjjTotalVS : -3.643651 %
+++sys rTtjjTotalS6 : -6.005018 %
+
++ME Down Sample
+++Q2_Dw1
+++sys rVS : -17.293081 %
+++sys rFS : -21.038069 %
+++sys rTtjjTotalFS : -2.957582 %
+++sys rTtjjTotalVS : -2.588511 %
+++sys rTtjjTotalS6 : 5.738 %
+++Q2_Dw2
+++sys rVS : -18.748975 %
+++sys rFS : -23.028575 %
+++sys rTtjjTotalFS : -3.99684 %
+++sys rTtjjTotalVS : -4.034319 %
+++sys rTtjjTotalS6 : 4.03 %
+++Q2_Dw3
+++sys rVS : -19.416344 %
+++sys rFS : -24.841076 %
+++sys rTtjjTotalFS : -4.990669 %
+++sys rTtjjTotalVS : -5.344401 %
+++sys rTtjjTotalS6 : 1.663 %
+dwPOWmax : {'rVS': 0.19416344444878714, 'kS6': 0.06005018193979406, 'kFS': 0.049906691035180036, 'kVS': 0.053444013884744526}
+
+Up
++Central Sample
+++Q2_Up1
+++sys rVS : 0.5547 %
+++sys rFS : 0.8321 %
+++sys rTtjjTotalFS : 0.758 %
+++sys rTtjjTotalVS : 0.913 %
+++sys rTtjjTotalS6 : 1.666 %
+++Q2_Up2
+++sys rVS : 1.229 %
+++sys rFS : 1.817 %
+++sys rTtjjTotalFS : 1.299 %
+++sys rTtjjTotalVS : 1.716 %
+++sys rTtjjTotalS6 : 2.641 %
+++Q2_Up3
+++sys rVS : 1.589 %
+++sys rFS : 2.438 %
+++sys rTtjjTotalFS : 1.949 %
+++sys rTtjjTotalVS : 2.471 %
+++sys rTtjjTotalS6 : 4.033 %
+
++ME Up Sample
+++Q2_Up1
+++sys rVS : 11.75 %
+++sys rFS : 12.79 %
+++sys rTtjjTotalFS : 3.767 %
+++sys rTtjjTotalVS : 4.593 %
+++sys rTtjjTotalS6 : 1.293 %
+++Q2_Up2
+++sys rVS : 12.25 %
+++sys rFS : 13.89 %
+++sys rTtjjTotalFS : 4.311 %
+++sys rTtjjTotalVS : 5.272 %
+++sys rTtjjTotalS6 : 2.381 %
+++Q2_Up3
+++sys rVS : 12.59 %
+++sys rFS : 14.28 %
+++sys rTtjjTotalFS : 4.92 %
+++sys rTtjjTotalVS : 6.029 %
+++sys rTtjjTotalS6 : 3.728 %
+upPOWmax : {'rVS': 0.12587229857610344, 'kS6': 0.040330012358003174, 'kFS': 0.049200720199115255, 'kVS': 0.06029042245408528}
+
+sysPOWmax:
+{'rVS': 0.19416344444878714, 'kS6': 0.06005018193979406, 'kFS': 0.049906691035180036, 'kVS': 0.06029042245408528}
