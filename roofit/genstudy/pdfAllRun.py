@@ -76,10 +76,10 @@ def PrintSys(data,data2):
   sysRtjtVS=getSys(data['rTtjjTotal']['VS'],data2['rTtjjTotal']['VS'])
   sysRtjtS6=getSys(data['rTtjjTotal']['S6'],data2['rTtjjTotal']['S6'])
 
-  print "sys rVS : "+str(roudV(sysRvs)*100)+" %"
-  print "sys rTtjjTotalFS : "+str(roudV(sysRtjtFS)*100)+" %"
-  print "sys rTtjjTotalVS : "+str(roudV(sysRtjtVS)*100)+" %"
-  print "sys rTtjjTotalS6 : "+str(roudV(sysRtjtS6)*100)+" %"
+  print "++sys ttbb/ttjj in VS : "+str(roudV(sysRvs)*100)+" %"
+  print "++sys Ttjj/Total in FS : "+str(roudV(sysRtjtFS)*100)+" %"
+  print "++sys Ttjj/Total in VS : "+str(roudV(sysRtjtVS)*100)+" %"
+  print "++sys Ttjj/Total in S6 : "+str(roudV(sysRtjtS6)*100)+" %"
   #print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
   #print "sys ttbb Eff : "+str(roudV(sysTtbbEff)*100)+" %"
   #print "sys ttjj Eff : "+str(roudV(sysTtjjEff)*100)+" %"
@@ -102,7 +102,8 @@ def compareSYS(data,data2):
 
 def main():
   from pdfAll import *
-
+  print "> python pdfAllRun.py > resultPDFSys.txt"
+  print ""
   print 'POW'
   POW2=printV(POW,True)
   print ""
@@ -112,6 +113,7 @@ def main():
   #for i in range(0,212):
   for i in range(0,100):
     bbb= 'pdf_N'+str(i)
+    print "+"+str(bbb)
     pdfI = eval(bbb)
     aaa=printV(pdfI[bbb]['POW'],False)
     ccc=PrintSys(POW2,aaa)
