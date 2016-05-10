@@ -1,3 +1,5 @@
+> python Q2scaleRun2.py > resultQ2scaleSys.txt
+
 POW
 total : 97994442.0
 dileptonic : 10285310.0, semileptonic : 42929174.0, hadroic : 44779958.0
