@@ -13,11 +13,11 @@ def PrintSys3(data,data2,isPrint):
   sysRtjtVS=getSys(data['rTtjjTotal']['VS'],data2['rTtjjTotal']['VS'])
   sysRtjtS6=getSys(data['rTtjjTotal']['S6'],data2['rTtjjTotal']['S6'])
   if isPrint:
-    print "++sys rVS : "+str(roudV(sysRvs)*100)+" %"
-    print "++sys rFS : "+str(roudV(sysRfs)*100)+" %"
-    print "++sys rTtjjTotalFS : "+str(roudV(sysRtjtFS)*100)+" %"
-    print "++sys rTtjjTotalVS : "+str(roudV(sysRtjtVS)*100)+" %"
-    print "++sys rTtjjTotalS6 : "+str(roudV(sysRtjtS6)*100)+" %"
+    print "+++sys ttbb/ttjj in VS : "+str(roudV(sysRvs)*100)+" %"
+    print "+++sys ttbb/ttjj in FS : "+str(roudV(sysRfs)*100)+" %"
+    print "+++sys Ttjj/TotalFS : "+str(roudV(sysRtjtFS)*100)+" %"
+    print "+++sys Ttjj/TotalVS : "+str(roudV(sysRtjtVS)*100)+" %"
+    print "+++sys Ttjj/TotalS6 : "+str(roudV(sysRtjtS6)*100)+" %"
     #print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
     #print "sys ttbb Eff : "+str(roudV(sysTtbbEff)*100)+" %"
     #print "sys ttjj Eff : "+str(roudV(sysTtjjEff)*100)+" %"

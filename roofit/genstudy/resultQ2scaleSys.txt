@@ -15,85 +15,85 @@ ttjj : 11.65 %
 Down
 +Central Sample
 ++Q2_Dw1
-++sys rVS : -0.521064 %
-++sys rFS : -0.837566 %
-++sys rTtjjTotalFS : -0.828622 %
-++sys rTtjjTotalVS : -0.985461 %
-++sys rTtjjTotalS6 : -1.816344 %
++++sys ttbb/ttjj in VS : -0.521064 %
++++sys ttbb/ttjj in FS : -0.837566 %
++++sys Ttjj/TotalFS : -0.828622 %
++++sys Ttjj/TotalVS : -0.985461 %
++++sys Ttjj/TotalS6 : -1.816344 %
 ++Q2_Dw2
-++sys rVS : -1.794516 %
-++sys rFS : -2.479479 %
-++sys rTtjjTotalFS : -1.812519 %
-++sys rTtjjTotalVS : -2.394455 %
-++sys rTtjjTotalS6 : -3.723812 %
++++sys ttbb/ttjj in VS : -1.794516 %
++++sys ttbb/ttjj in FS : -2.479479 %
++++sys Ttjj/TotalFS : -1.812519 %
++++sys Ttjj/TotalVS : -2.394455 %
++++sys Ttjj/TotalS6 : -3.723812 %
 ++Q2_Dw3
-++sys rVS : -2.578696 %
-++sys rFS : -3.617718 %
-++sys rTtjjTotalFS : -2.821447 %
-++sys rTtjjTotalVS : -3.643651 %
-++sys rTtjjTotalS6 : -6.005018 %
++++sys ttbb/ttjj in VS : -2.578696 %
++++sys ttbb/ttjj in FS : -3.617718 %
++++sys Ttjj/TotalFS : -2.821447 %
++++sys Ttjj/TotalVS : -3.643651 %
++++sys Ttjj/TotalS6 : -6.005018 %
 
 +ME Down Sample
 ++Q2_Dw1
-++sys rVS : -17.293081 %
-++sys rFS : -21.038069 %
-++sys rTtjjTotalFS : -2.957582 %
-++sys rTtjjTotalVS : -2.588511 %
-++sys rTtjjTotalS6 : 5.738 %
++++sys ttbb/ttjj in VS : -17.293081 %
++++sys ttbb/ttjj in FS : -21.038069 %
++++sys Ttjj/TotalFS : -2.957582 %
++++sys Ttjj/TotalVS : -2.588511 %
++++sys Ttjj/TotalS6 : 5.738 %
 ++Q2_Dw2
-++sys rVS : -18.748975 %
-++sys rFS : -23.028575 %
-++sys rTtjjTotalFS : -3.99684 %
-++sys rTtjjTotalVS : -4.034319 %
-++sys rTtjjTotalS6 : 4.03 %
++++sys ttbb/ttjj in VS : -18.748975 %
++++sys ttbb/ttjj in FS : -23.028575 %
++++sys Ttjj/TotalFS : -3.99684 %
++++sys Ttjj/TotalVS : -4.034319 %
++++sys Ttjj/TotalS6 : 4.03 %
 ++Q2_Dw3
-++sys rVS : -19.416344 %
-++sys rFS : -24.841076 %
-++sys rTtjjTotalFS : -4.990669 %
-++sys rTtjjTotalVS : -5.344401 %
-++sys rTtjjTotalS6 : 1.663 %
++++sys ttbb/ttjj in VS : -19.416344 %
++++sys ttbb/ttjj in FS : -24.841076 %
++++sys Ttjj/TotalFS : -4.990669 %
++++sys Ttjj/TotalVS : -5.344401 %
++++sys Ttjj/TotalS6 : 1.663 %
 dwPOWmax : {'rVS': 0.19416344444878714, 'kS6': 0.06005018193979406, 'kFS': 0.049906691035180036, 'kVS': 0.053444013884744526}
 
 Up
 +Central Sample
 ++Q2_Up1
-++sys rVS : 0.5547 %
-++sys rFS : 0.8321 %
-++sys rTtjjTotalFS : 0.758 %
-++sys rTtjjTotalVS : 0.913 %
-++sys rTtjjTotalS6 : 1.666 %
++++sys ttbb/ttjj in VS : 0.5547 %
++++sys ttbb/ttjj in FS : 0.8321 %
++++sys Ttjj/TotalFS : 0.758 %
++++sys Ttjj/TotalVS : 0.913 %
++++sys Ttjj/TotalS6 : 1.666 %
 ++Q2_Up2
-++sys rVS : 1.229 %
-++sys rFS : 1.817 %
-++sys rTtjjTotalFS : 1.299 %
-++sys rTtjjTotalVS : 1.716 %
-++sys rTtjjTotalS6 : 2.641 %
++++sys ttbb/ttjj in VS : 1.229 %
++++sys ttbb/ttjj in FS : 1.817 %
++++sys Ttjj/TotalFS : 1.299 %
++++sys Ttjj/TotalVS : 1.716 %
++++sys Ttjj/TotalS6 : 2.641 %
 ++Q2_Up3
-++sys rVS : 1.589 %
-++sys rFS : 2.438 %
-++sys rTtjjTotalFS : 1.949 %
-++sys rTtjjTotalVS : 2.471 %
-++sys rTtjjTotalS6 : 4.033 %
++++sys ttbb/ttjj in VS : 1.589 %
++++sys ttbb/ttjj in FS : 2.438 %
++++sys Ttjj/TotalFS : 1.949 %
++++sys Ttjj/TotalVS : 2.471 %
++++sys Ttjj/TotalS6 : 4.033 %
 
 +ME Up Sample
 ++Q2_Up1
-++sys rVS : 11.75 %
-++sys rFS : 12.79 %
-++sys rTtjjTotalFS : 3.767 %
-++sys rTtjjTotalVS : 4.593 %
-++sys rTtjjTotalS6 : 1.293 %
++++sys ttbb/ttjj in VS : 11.75 %
++++sys ttbb/ttjj in FS : 12.79 %
++++sys Ttjj/TotalFS : 3.767 %
++++sys Ttjj/TotalVS : 4.593 %
++++sys Ttjj/TotalS6 : 1.293 %
 ++Q2_Up2
-++sys rVS : 12.25 %
-++sys rFS : 13.89 %
-++sys rTtjjTotalFS : 4.311 %
-++sys rTtjjTotalVS : 5.272 %
-++sys rTtjjTotalS6 : 2.381 %
++++sys ttbb/ttjj in VS : 12.25 %
++++sys ttbb/ttjj in FS : 13.89 %
++++sys Ttjj/TotalFS : 4.311 %
++++sys Ttjj/TotalVS : 5.272 %
++++sys Ttjj/TotalS6 : 2.381 %
 ++Q2_Up3
-++sys rVS : 12.59 %
-++sys rFS : 14.28 %
-++sys rTtjjTotalFS : 4.92 %
-++sys rTtjjTotalVS : 6.029 %
-++sys rTtjjTotalS6 : 3.728 %
++++sys ttbb/ttjj in VS : 12.59 %
++++sys ttbb/ttjj in FS : 14.28 %
++++sys Ttjj/TotalFS : 4.92 %
++++sys Ttjj/TotalVS : 6.029 %
++++sys Ttjj/TotalS6 : 3.728 %
 upPOWmax : {'rVS': 0.12587229857610344, 'kS6': 0.040330012358003174, 'kFS': 0.049200720199115255, 'kVS': 0.06029042245408528}
 
 sysPOWmax:
