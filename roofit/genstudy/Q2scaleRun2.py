@@ -51,7 +51,7 @@ def main():
     dwPOWsys=PrintSys2(POW2,dwPOW3)
     dwPOWmax=compareSYS(dwPOWmax,dwPOWsys)
 
-  print dwPOWmax
+  print "dwPOWmax : "+str(dwPOWmax)
 
   print ""
   print "Up"
@@ -73,9 +73,10 @@ def main():
     upPOWsys=PrintSys2(POW2,upPOW3)
     upPOWmax=compareSYS(upPOWmax,upPOWsys)
 
-  print upPOWmax
+  print "upPOWmax : "+str(upPOWmax)
 
-  print "total:"
+  print ""
+  print "sysPOWmax:"
   print compareSYS(upPOWmax,dwPOWmax)
 
 if __name__ == "__main__":
