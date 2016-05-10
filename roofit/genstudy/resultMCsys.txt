@@ -1,0 +1,65 @@
+> python genMCsys.py > resultMCsys.txt
+
+POW
+total : 97994442.0
+dileptonic : 10285310.0, semileptonic : 42929174.0, hadroic : 44779958.0
+ratio ttjj/total FS: 3.97 %
+ratio ttjj/total VS: 0.6133 %
+Acceptance(VS/FS) ttbb : 0.1898, ttjj : 0.1544
+FS R(ttbb/ttjj) : 1.109 %
+VS R(ttbb/ttjj) : 1.363 %
+ratio ttjj/total S6: 0.00071443 %
+efficiency S6/S0 in VS
+ttbb : 26.92 %
+ttjj : 11.65 %
+
+AMC
+total : 12698526.0
+dileptonic : 1409642.0, semileptonic : 5638266.0, hadroic : 5650618.0
+ratio ttjj/total FS: 4.68 %
+ratio ttjj/total VS: 0.6937 %
+Acceptance(VS/FS) ttbb : 0.183, ttjj : 0.1484
+FS R(ttbb/ttjj) : 1.058 %
+VS R(ttbb/ttjj) : 1.305 %
+ratio ttjj/total S6: 0.00076095 %
+efficiency S6/S0 in VS
+ttbb : 24.61 %
+ttjj : 10.97 %
+++sys ttbb/ttjj in VS : 4.249 %
+++sys Ttjj/Total in FS : -17.71 %
+++sys Ttjj/Total in VS : -13.11 %
+++sys Ttjj/Total in S6 : -6.512 %
+
+MG5
+total : 10215131.0
+dileptonic : 1134687.0, semileptonic : 4538129.0, hadroic : 4542315.0
+ratio ttjj/total FS: 4.49 %
+ratio ttjj/total VS: 0.7133 %
+Acceptance(VS/FS) ttbb : 0.1929, ttjj : 0.1589
+FS R(ttbb/ttjj) : 1.071 %
+VS R(ttbb/ttjj) : 1.3 %
+ratio ttjj/total S6: 0.00066822 %
+efficiency S6/S0 in VS
+ttbb : 20.91 %
+ttjj : 9.368 %
+++sys ttbb/ttjj in VS : 4.669 %
+++sys Ttjj/Total in FS : -12.97 %
+++sys Ttjj/Total in VS : -16.3 %
+++sys Ttjj/Total in S6 : 6.467 %
+
+POHP
+total : 19383463.0
+dileptonic : 2035532.0, semileptonic : 8489765.0, hadroic : 8858166.0
+ratio ttjj/total FS: 4.61 %
+ratio ttjj/total VS: 0.558 %
+Acceptance(VS/FS) ttbb : 0.1436, ttjj : 0.121
+FS R(ttbb/ttjj) : 0.7654 %
+VS R(ttbb/ttjj) : 0.908 %
+ratio ttjj/total S6: 0.00054748 %
+efficiency S6/S0 in VS
+ttbb : 23.12 %
+ttjj : 9.812 %
+++sys ttbb/ttjj in VS : 33.4 %
+++sys Ttjj/Total in FS : -16.05 %
+++sys Ttjj/Total in VS : 9.024 %
+++sys Ttjj/Total in S6 : 23.37 %
