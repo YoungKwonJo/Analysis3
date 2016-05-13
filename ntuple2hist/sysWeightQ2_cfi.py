@@ -1,7 +1,23 @@
 
 baseWeight2 = "puweight*mueffweight*eleffweight*tri*csvweights[0]"
 #baseWeight2 = "weight*puweight*lepweight*csvweights[0]"
-scaleweight = []
+#scaleweight = []
+aaaaaaaa="""
+  ,"Q2_Up1":"scaleWeightsUp[0]"
+  ,"Q2_Up2":"scaleWeightsUp[1]"
+  ,"Q2_Up3":"scaleWeightsUp[2]"
+  ,"Q2_Dw1":"scaleWeightsDown[0]"
+  ,"Q2_Dw2":"scaleWeightsDown[1]"
+  ,"Q2_Dw3":"scaleWeightsDown[2]"
+"""
+scaleweight=[
+{"name":"Q2_N1",       "var": "("+baseWeight2+"*scaleWeightsUp[0])"},
+{"name":"Q2_N2",       "var": "("+baseWeight2+"*scaleWeightsUp[1])"},
+{"name":"Q2_N3",       "var": "("+baseWeight2+"*scaleWeightsUp[2])"},
+{"name":"Q2_N4",       "var": "("+baseWeight2+"*scaleWeightsDown[0])"},
+{"name":"Q2_N5",       "var": "("+baseWeight2+"*scaleWeightsDown[1])"},
+{"name":"Q2_N6",       "var": "("+baseWeight2+"*scaleWeightsDown[2])"}
+]
 
 #pdfweight=[]
 for i in range(0,212):
