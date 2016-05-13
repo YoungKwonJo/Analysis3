@@ -107,18 +107,13 @@ gROOT.ProcessLine(".L tdrStyle.C")
 setTDRStyle()
 
 def loadHistogram(arg1, arg2, Step, Weight):
-  return loadHistogram2(arg1,arg2,Step,Weight,{"Up":[],"Down":[]})
+  return loadHistogram2(arg1,arg2,Step,Weight,0,{"Up":[],"Down":[]})
 
-def loadHistogram2(arg1, arg2, Step, Weight,Variation):
+def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
   HN = "jet3CSV_jet4CSV"                                                                                                          
   HN1 = "jet3CSV"
   HN2 = "jet4CSV"
-  import sys
-  sys.path.append('../plots')
-  from mcsample_cfi import mcsamples,datasamples 
-  #lumi = 2110. 
-  #Step = "S6csvweight"
-  #Step2 = "S6"
+  from mcsample_cfi import mcsamples 
   
   freeTTB  = False
   freeTTCC = False
@@ -134,43 +129,44 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   if int(arg2)==3 : GEN="POPY6"
   if int(arg2)==4 : GEN="upPOW"
   if int(arg2)==5 : GEN="dwPOW"
+  if int(arg2)==6 : GEN="AMC"
 
-#  if int(arg2)==2 : GEN="AMC"
-  
-  #histograms = ["name":"name","hist": ]
   histograms = {}
   histograms2 = {}
-  dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
-  #dy_ee_sf,dy_mm_sf = 1.14618572215,0.844371813284
-  #dy_ee_sf = 1.17764007675
-  #dy_mm_sf = 0.894244897143
+  #dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
 
   Weight1= Weight
-  if Weight is "Scale_Up":   Weight1="csvweight"
-  if Weight is "Scale_Down": Weight1="csvweight"
+  if Weight.find("Scale_Up")>-1:   Weight1="csvweight"
+  if Weight.find("Scale_Down")>-1: Weight1="csvweight"
   scale=""
-  if Weight is "Scale_Up":   scale="up"
-  if Weight is "Scale_Down": scale="dw"
+  if Weight.find("Scale_Up")>-1:   scale="up"
+  if Weight.find("Scale_Down")>-1: scale="dw"
 
-  f = TFile.Open(loc+"/hist_"+Weight1+".root")
-  for mc in mcsamples:
+  WeightTTbar= Weight1
+  #if Weight.find("Scale_UpU")>-1:   scale="up"
+  #if Weight.find("Scale_DownD")>-1: scale="dw"
+
+  #if Weight.find("Scale")>-1:
+  #  WeightTTbar ="Q2_N"+str(Q2index)
+
+  ttbarsamples = [x for x in mcsamples if x['name'].find('tt')>-1]
+  #bkgsamples = [x for x in mcsamples if x['name'].find('tt')==-1]
+
+  ###hist_Q2.root
+  TTbarFile = Weight1
+  #if WeightTTbar.find("Scale") :  TTbarFile="Q2"
+  f = TFile.Open(loc+"/hist_"+TTbarFile+".root")
+
+  for mc in ttbarsamples:
     name = mc['name']
-    #color = mc['ColorLabel']['color'] 
-    #histnameMM = "h2_"+name+"_"+HN+"_mm_"+Step
-    #print name
-    #print "FINAL2: "+name+"/"+Weight+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight
-    if f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1) == None : continue
+    if f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar) == None : continue
 
-    h1 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1).Clone("h2_"+name+"_"+Step+"LL"+"_"+Weight1)
-    h2 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+Weight1)
-    h3 = f.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+Weight1)
+    h1 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar).Clone("h2_"+name+"_"+Step+"LL"+"_"+WeightTTbar)
+    h2 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+WeightTTbar)
+    h3 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+WeightTTbar)
     if h1.Integral()>0 :  h1.Scale(mc['cx']*lumi)
     if h2.Integral()>0 :  h2.Scale(mc['cx']*lumi)
     if h3.Integral()>0 :  h3.Scale(mc['cx']*lumi)
-    if name.find("DYJets")>-1:
-      h1.Scale(dy_mm_sf)
-      h2.Scale(dy_ee_sf)
-
     h1.Add(h2)
     h1.Add(h3)
 
@@ -180,16 +176,9 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
       h11 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1).Clone("h11_"+name+"_"+Step+"LL"+"_"+Weight1)
       h21 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_ee_"+Step+"_"+Weight1)
       h31 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_em_"+Step+"_"+Weight1)
-      if name.find("DYJets")>-1:
-        h11.Scale(dy_mm_sf)
-        h21.Scale(dy_ee_sf)
       
       h11.Add(h21)
       h11.Add(h31)
-  
-    #ci = TColor.GetColor(mc['ColorLabel']['color'])  
-    #h11.SetLineColor(ci)
-    #h111.SetLineColor(ci)
   
     h1222 = "h1_"+name+"_"+HN2+"_mm_"+Step+"_"+Weight1
     h12 = TH1F(h1222,"",1,0,1)
@@ -202,72 +191,26 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
         h22.Scale(dy_ee_sf)
       h12.Add(h22)
       h12.Add(h32)
-  
-    #ci = TColor.GetColor(mc['ColorLabel']['color'])  
-    #h12.SetLineColor(ci)
-    #h122.SetLineColor(ci)
+
     if name in Variation["Up"]:
       h1.Scale(2.)
       h11.Scale(2.)
       h12.Scale(2.)
-      #print "FINAL2: "+name+" Up"
+
     if name in Variation["Down"]:
       h1.Scale(0.5)
       h11.Scale(0.5)
       h12.Scale(0.5)
-      #print "FINAL2: "+name+" Down"
- 
+
     histograms[name]={"h1":copy.deepcopy(h1),"exp":h1.Integral(),"h11":copy.deepcopy(h11),"h12":copy.deepcopy(h12)}
-    #print "FINAL2 "+name+"  "+str(histograms[name]["exp"])
+    #histograms[name]={"h1":copy.deepcopy(h1),"exp":h1.Integral()}
 
-
-  #print str(histograms.keys())
-  #print "closingg... f "
   f.Close()
-  #for datesmaples
-  #WeightData = Weight1.replace("csvweight_","")
-  #WeightData2 = Weight1
-  #if not Weight in ["JES_Up","JES_Down"]:
-  WeightData="CEN"
-  WeightData2="CEN"
-  f2 = TFile.Open(loc+"/hist_"+WeightData2+".root")
-  for i in range(1):
-    name_ = "DATA"
-    #color = mc['ColorLabel']['color'] 
-    print "MuMu1/"+WeightData+"/h2_MuMu1_"+HN+"_mm_"+Step+"_"+WeightData+""
 
-    h1 = f2.Get("MuMu1/"+WeightData+"/h2_MuMu1_"+HN+"_mm_"+Step+"_"+WeightData+"").Clone("h2_"+name_+"_"+Step+"LL"+"_"+WeightData+"")
-    h1.Reset()
-    for j in range(1,3):
-      h11 = f2.Get("MuMu"+str(j)+"/"+WeightData+"/h2_MuMu"+str(j)+"_"+HN+"_mm_"+Step+"_"+WeightData+"")
-      h2  = f2.Get("ElEl"+str(j)+"/"+WeightData+"/h2_ElEl"+str(j)+"_"+HN+"_ee_"+Step+"_"+WeightData+"")
-      h3  = f2.Get("MuEl"+str(j)+"/"+WeightData+"/h2_MuEl"+str(j)+"_"+HN+"_em_"+Step+"_"+WeightData+"")
-      h1.Add(h11)
-      h1.Add(h2)
-      h1.Add(h3)
-    histograms2[name_]={"h1":copy.deepcopy(h1),"exp":h1.Integral()}
-  f2.Close()
-  
   signals1= [GEN+'ttbb', GEN+'ttb',GEN+'tt2b']
   signals2= [GEN+'ttcc', GEN+'ttlf']#, GEN+'ttot']
   backgrounds1= [GEN+"ttot"]
-  backgrounds2= ['TTWqq', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
-  #backgrounds2= ['TTWlNu', 'TTWqq', 'TTZll', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
-  backgrounds3= [ 'DYJets','DYJets10']
-  higgs= ['ttH2non', 'ttH2bb']
  
-  #signals1up= ["up"+GEN+'ttbb', "up"+GEN+'ttb']
-  #signals1dw= ["dw"+GEN+'ttbb', "dw"+GEN+'ttb']
-  #signals2up = ["up"+GEN+'ttcc', "up"+GEN+'ttlf']
-  #signals2dw = ["dw"+GEN+'ttcc', "dw"+GEN+'ttlf']
-  #backgrounds1up= ["up"+GEN+"ttot"]
-  #backgrounds1dw= ["dw"+GEN+"ttot"]
-  #print "FINAL2 : histograms.keys() : "+str(histograms.keys())
-  bkghist = histograms[GEN+'ttot']["h1"].Clone("bkghist")
-  bkghist.Reset()
-  ddbkghist = histograms[GEN+'ttot']["h1"].Clone("ddbkghist")
-  ddbkghist.Reset()
-  
   ttcclfhist = histograms[GEN+'ttot']["h1"].Clone("ttcclfhist")
   ttcclfhist.Reset()
 
@@ -289,6 +232,56 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
     #h = histograms[hh]
     histograms2[GEN+"ttot"]=h
 
+  return loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation)
+
+def loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation):
+  HN = "jet3CSV_jet4CSV"                                                                                                          
+  HN1 = "jet3CSV"
+  HN2 = "jet4CSV"
+  from mcsample_cfi import mcsamples
+
+  dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
+
+  histograms = {}
+  #ttbarsamples = [x for x in mcsamples if x['name'].find('tt')>-1]
+  bkgsamples = [x for x in mcsamples if x['name'].find('tt')==-1]
+
+  f2 = TFile.Open(loc+"/hist_"+Weight1+".root")
+  for mc in bkgsamples:
+    name = mc['name']
+    if f2.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1) == None : continue
+
+    h1 = f2.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+Weight1).Clone("h2_"+name+"_"+Step+"LL"+"_"+Weight1)
+    h2 = f2.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+Weight1)
+    h3 = f2.Get(name+"/"+Weight1+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+Weight1)
+    if h1.Integral()>0 :  h1.Scale(mc['cx']*lumi)
+    if h2.Integral()>0 :  h2.Scale(mc['cx']*lumi)
+    if h3.Integral()>0 :  h3.Scale(mc['cx']*lumi)
+    if name.find("DYJets")>-1:
+      h1.Scale(dy_mm_sf)
+      h2.Scale(dy_ee_sf)
+
+    h1.Add(h2)
+    h1.Add(h3)
+
+    if name in Variation["Up"]:
+      h1.Scale(2.)
+    if name in Variation["Down"]:
+      h1.Scale(0.5)
+ 
+    histograms[name]={"h1":copy.deepcopy(h1),"exp":h1.Integral()}
+
+  f2.Close()
+
+  backgrounds2= ['TTWqq', 'TTZqq', 'STbt', 'STt', 'STbtW', 'STtW', 'WJets', 'WW', 'WZ', 'ZZ']
+  backgrounds3= [ 'DYJets','DYJets10']
+  higgs= ['ttH2non', 'ttH2bb']
+ 
+  bkghist = histograms2[GEN+'ttot']["h1"].Clone("bkghist")
+  bkghist.Reset()
+  ddbkghist = histograms2[GEN+'ttot']["h1"].Clone("ddbkghist")
+  ddbkghist.Reset()
+  
   for hh in backgrounds2:
     h = histograms[hh]["h1"]
     bkghist.Add(h)
@@ -301,6 +294,35 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
     #print "FINAL "+hh
   histograms2["ddbkg"]={"h1":copy.deepcopy(ddbkghist),"exp":ddbkghist.Integral()}
 
+  return loadHistogram23(freeTTB, freeTTCC,GEN, Step,histograms2)
+  
+def loadHistogram23(freeTTB, freeTTCC,GEN, Step, histograms2):
+  HN = "jet3CSV_jet4CSV"                                                                                                          
+  HN1 = "jet3CSV"
+  HN2 = "jet4CSV"
+ 
+  #histograms2 = {}
+  #for datesmaples
+  WeightData="CEN"
+  WeightData2="CEN"
+  f2 = TFile.Open(loc+"/hist_"+WeightData2+".root")
+  for i in range(1):
+    name_ = "DATA"
+    #color = mc['ColorLabel']['color'] 
+    print "MuMu1/"+WeightData+"/h2_MuMu1_"+HN+"_mm_"+Step+"_"+WeightData+""
+
+    h1 = f2.Get("MuMu1/"+WeightData+"/h2_MuMu1_"+HN+"_mm_"+Step+"_"+WeightData+"").Clone("h2_"+name_+"_"+Step+"LL"+"_"+WeightData+"")
+    h1.Reset()
+    for j in range(1,3):
+      h11 = f2.Get("MuMu"+str(j)+"/"+WeightData+"/h2_MuMu"+str(j)+"_"+HN+"_mm_"+Step+"_"+WeightData+"")
+      h2  = f2.Get("ElEl"+str(j)+"/"+WeightData+"/h2_ElEl"+str(j)+"_"+HN+"_ee_"+Step+"_"+WeightData+"")
+      h3  = f2.Get("MuEl"+str(j)+"/"+WeightData+"/h2_MuEl"+str(j)+"_"+HN+"_em_"+Step+"_"+WeightData+"")
+      h1.Add(h11)
+      h1.Add(h2)
+      h1.Add(h3)
+    histograms2[name_]={"h1":copy.deepcopy(h1),"exp":h1.Integral()}
+  f2.Close()
+  
   return histograms2, freeTTB, freeTTCC,GEN
 
 ##############################################
@@ -1240,7 +1262,7 @@ elif int(arg3)==3:
   sysSets.update( makeUpDown("TTV",[ 'TTWqq', 'TTZqq'])  )
   sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
   for sys in sysSets.keys():
-    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",0,sysSets[sys])
     histogramSys[sys] = copy.deepcopy(histograms2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
