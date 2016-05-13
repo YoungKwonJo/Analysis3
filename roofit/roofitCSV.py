@@ -132,6 +132,8 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   if int(arg2)==1 : GEN="POW"
   if int(arg2)==2 : GEN="POHP"
   if int(arg2)==3 : GEN="POPY6"
+  if int(arg2)==4 : GEN="upPOW"
+  if int(arg2)==5 : GEN="dwPOW"
 
 #  if int(arg2)==2 : GEN="AMC"
   
@@ -1169,11 +1171,22 @@ def getSys(a,b):
 POW={'semileptonic': 42929174.0, 'dileptonic': 10285310.0, 'S0': {'ttbbF': 43175.0, 'ttbF': 124142.0, 'ttlfF': 3637657.0, 'ttotF': 94065561.0, 'ttccF': 87638.0, 'ttb': 24712.0, 'ttlf': 546363.0, 'ttbb': 8194.0, 'ttot': 97393418.0, 'ttcc': 15362.0, 'tt2bF': 36269.0, 'tt2b': 6393.0}, 'S7': {'ttbbF': 1940.0, 'ttbF': 2537.0, 'ttlfF': 29941.0, 'ttotF': 915.0, 'ttccF': 1303.0, 'ttb': 2527.0, 'ttlf': 29159.0, 'ttbb': 1532.0, 'ttot': 2428.0, 'ttcc': 1209.0, 'tt2bF': 1207.0, 'tt2b': 988.0}, 'S6': {'ttbbF': 2838.0, 'ttbF': 4276.0, 'ttlfF': 62138.0, 'ttotF': 1874.0, 'ttccF': 3056.0, 'ttb': 4127.0, 'ttlf': 59498.0, 'ttbb': 2206.0, 'ttot': 6077.0, 'ttcc': 2659.0, 'tt2bF': 1905.0, 'tt2b': 1520.0}, 'etc': 0.0, 'hadroic': 44779958.0}
 MG5={'semileptonic': 4538129.0, 'etc': 0.0, 'S0': {'ttbbF': 4909.0, 'ttbb': 947.0, 'ttbF': 14552.0, 'ttlfF': 428550.0, 'ttotF': 9752453.0, 'ttccF': 10408.0, 'ttcc': 1881.0, 'tt2bF': 4259.0, 'tt2b': 787.0, 'ttb': 2969.0, 'ttlf': 66280.0, 'ttot': 10142267.0}, 'S7': {'ttbbF': 214.0, 'ttbb': 166.0, 'ttbF': 307.0, 'ttlfF': 3767.0, 'ttotF': 117.0, 'ttccF': 169.0, 'ttcc': 159.0, 'tt2bF': 161.0, 'tt2b': 132.0, 'ttb': 305.0, 'ttlf': 3669.0, 'ttot': 304.0}, 'S6': {'ttbbF': 333.0, 'ttbb': 198.0, 'ttbF': 520.0, 'ttlfF': 7859.0, 'ttotF': 233.0, 'ttccF': 303.0, 'ttcc': 264.0, 'tt2bF': 172.0, 'tt2b': 141.0, 'ttb': 407.0, 'ttlf': 5816.0, 'ttot': 570.0}, 'dileptonic': 1134687.0, 'hadroic': 4542315.0}
 AMC={'semileptonic': 5638266.0, 'etc': 0.0, 'S0': {'ttbbF': 6284.0, 'ttbb': 1150.0, 'ttbF': 17267.0, 'ttlfF': 556938.0, 'ttotF': 12100541.0, 'ttccF': 13274.0, 'ttcc': 2140.0, 'tt2bF': 4222.0, 'tt2b': 735.0, 'ttb': 3307.0, 'ttlf': 80763.0, 'ttot': 12610431.0}, 'S7': {'ttbbF': 257.0, 'ttbb': 177.0, 'ttbF': 275.0, 'ttlfF': 4158.0, 'ttotF': 125.0, 'ttccF': 173.0, 'ttcc': 157.0, 'tt2bF': 131.0, 'tt2b': 125.0, 'ttb': 298.0, 'ttlf': 4062.0, 'ttot': 300.0}, 'S6': {'ttbbF': 397.0, 'ttbb': 283.0, 'ttbF': 543.0, 'ttlfF': 8713.0, 'ttotF': 243.0, 'ttccF': 348.0, 'ttcc': 307.0, 'tt2bF': 220.0, 'tt2b': 186.0, 'ttb': 559.0, 'ttlf': 8328.0, 'ttot': 801.0}, 'dileptonic': 1409642.0, 'hadroic': 5650618.0}
+POHP={'semileptonic': 8489765.0, 'dileptonic': 2035532.0, 'S0': {'ttbbF': 6839.0, 'ttbF': 22130.0, 'ttlfF': 850216.0, 'ttotF': 18481078.0, 'ttccF': 14347.0, 'ttb': 3330.0, 'ttlf': 100634.0, 'ttbb': 982.0, 'ttot': 19275308.0, 'ttcc': 2027.0, 'tt2bF': 8853.0, 'tt2b': 1182.0}, 'S7': {'ttbbF': 272.0, 'ttbF': 336.0, 'ttlfF': 5526.0, 'ttotF': 166.0, 'ttccF': 145.0, 'ttb': 298.0, 'ttlf': 4420.0, 'ttbb': 159.0, 'ttot': 1534.0, 'ttcc': 113.0, 'tt2bF': 224.0, 'tt2b': 145.0}, 'S6': {'ttbbF': 398.0, 'ttbF': 587.0, 'ttlfF': 11883.0, 'ttotF': 346.0, 'ttccF': 421.0, 'ttb': 489.0, 'ttlf': 9379.0, 'ttbb': 227.0, 'ttot': 3386.0, 'ttcc': 286.0, 'tt2bF': 363.0, 'tt2b': 231.0}, 'etc': 0.0, 'hadroic': 8858166.0}
 
+dwPOW={'semileptonic': 4349284.0, 'dileptonic': 1042439.0, 'S0': {'ttbbF': 5347.0, 'ttbF': 15480.0, 'ttlfF': 369623.0, 'ttotF': 9525267.0, 'ttccF': 12558.0, 'ttb': 3092.0, 'ttlf': 54732.0, 'ttbb': 985.0, 'ttot': 9871017.0, 'ttcc': 2225.0, 'tt2bF': 4601.0, 'tt2b': 825.0}, 'S7': {'ttbbF': 204.0, 'ttbF': 279.0, 'ttlfF': 2518.0, 'ttotF': 61.0, 'ttccF': 147.0, 'ttb': 279.0, 'ttlf': 2472.0, 'ttbb': 157.0, 'ttot': 181.0, 'ttcc': 145.0, 'tt2bF': 137.0, 'tt2b': 112.0}, 'S6': {'ttbbF': 328.0, 'ttbF': 489.0, 'ttlfF': 5512.0, 'ttotF': 149.0, 'ttccF': 335.0, 'ttb': 491.0, 'ttlf': 5320.0, 'ttbb': 243.0, 'ttot': 499.0, 'ttcc': 308.0, 'tt2bF': 242.0, 'tt2b': 194.0}, 'etc': 0.0, 'hadroic': 4541153.0}
+
+upPOW={'semileptonic': 4343618.0, 'dileptonic': 1040881.0, 'S0': {'ttbbF': 3719.0, 'ttbF': 10824.0, 'ttlfF': 360691.0, 'ttotF': 9534748.0, 'ttccF': 6762.0, 'ttb': 2136.0, 'ttlf': 53991.0, 'ttbb': 709.0, 'ttot': 9861177.0, 'ttcc': 1199.0, 'tt2bF': 3032.0, 'tt2b': 564.0}, 'S7': {'ttbbF': 200.0, 'ttbF': 215.0, 'ttlfF': 3206.0, 'ttotF': 114.0, 'ttccF': 112.0, 'ttb': 219.0, 'ttlf': 3103.0, 'ttbb': 159.0, 'ttot': 277.0, 'ttcc': 104.0, 'tt2bF': 102.0, 'tt2b': 87.0}, 'S6': {'ttbbF': 278.0, 'ttbF': 370.0, 'ttlfF': 6504.0, 'ttotF': 240.0, 'ttccF': 245.0, 'ttb': 349.0, 'ttlf': 6198.0, 'ttbb': 219.0, 'ttot': 697.0, 'ttcc': 208.0, 'tt2bF': 170.0, 'tt2b': 136.0}, 'etc': 0.0, 'hadroic': 4535277.0}
+
+ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp"
+                    ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown"
+                  }
 
 #from .genstudy.pdfAllRun import roudV,sumV,printV,getSys,PrintSys,compareSYS
 POW2=printV(POW,True)
 MG52=printV(MG5,True)
+POHP2=printV(POHP,True)
+dwPOW2=printV(dwPOW,True)
+upPOW2=printV(upPOW,True)
 
 ##############################################################################
 ##############################################################################
@@ -1253,6 +1266,9 @@ elif int(arg3)==3:
 elif int(arg3)==2:
   SystematicUnc,SystematicUnck ={},{}
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
+  histogramsPOHP,freeTTBPOHP,freeTTCCPOHP,GENPOHP=loadHistogram("0", "2",Step,"csvweight")
+  histogramsupPOW,freeTTBupPOW,freeTTCCupPOW,GENupPOW=loadHistogram("0", "4",Step,"csvweight")
+  histogramsdwPOW,freeTTBdwPOW,freeTTCCdwPOW,GENdwPOW=loadHistogram("0", "5",Step,"csvweight")
   histogramSys = {}
   for sys in sysWeights:
     #print "FINAL2: loadhistogram "+sys 
@@ -1288,10 +1304,17 @@ elif int(arg3)==2:
   orig_r3,orig_err3,result3 = fitting(histograms, True, False, GEN,True,False)
   orig_r4,orig_err4,result4 = fitting(histograms, False, True, GEN,True,False)
   orig_r5,orig_err5,result5 = fitting(histogramsMG5, False, False, "MG5",True,False)
+  orig_r6,orig_err6,result6 = fitting(histogramsPOHP, False, False, "POHP",True,False)
+  orig_r7,orig_err7,result7 = fitting(histogramsupPOW, False, False, "upPOW",True,False)
+  orig_r8,orig_err8,result8 = fitting(histogramsdwPOW, False, False, "dwPOW",True,False)
+
   print "FINAL2: ----MG5 k="+str(result5["kVal"])
 
   eRMG5=MG52["Eff"]['ttjj']/MG52["Eff"]['ttbb']
   #acPMG5=MG52["Acc"]['ttjj']/MG52["Acc"]['ttbb']
+  eRPOHP=POHP2["Eff"]['ttjj']/POHP2["Eff"]['ttbb']
+  eRupPOW=upPOW2["Eff"]['ttjj']/upPOW2["Eff"]['ttbb']
+  eRdwPOW=dwPOW2["Eff"]['ttjj']/dwPOW2["Eff"]['ttbb']
  
   sysUnc3 = getSys(orig_r,orig_r3)
   sysUnc3k = getSys(kVal,result3["kVal"])
@@ -1300,6 +1323,16 @@ elif int(arg3)==2:
   sysUnc5 = (genR-orig_r5*eRMG5)/genR
   #sysUnc5 = (orig_r-orig_r5)/orig_r
   sysUnc5k = getSys(kVal,result5["kVal"])
+
+  sysUnc6 = (genR-orig_r6*eRPOHP)/genR
+  sysUnc6k = getSys(kVal,result6["kVal"])
+
+  sysUnc7 = (genR-orig_r7*eRupPOW)/genR
+  sysUnc7k = getSys(kVal,result7["kVal"])
+
+  sysUnc8 = (genR-orig_r8*eRdwPOW)/genR
+  sysUnc8k = getSys(kVal,result8["kVal"])
+
 
   sysUnc=0.
   for sys2 in StepSys2.keys():
@@ -1327,6 +1360,9 @@ elif int(arg3)==2:
   print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+" %"
   print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+" % ,     k="+str(roudV(sysUnc4k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc4,sysUnc4k])*100))+" %"
   print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+" % ,     k="+str(roudV(sysUnc5k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc5,sysUnc5k])*100))+" %"
+  print "FINAL2: "+("POHP").rjust(5)+" : "+str(roudV(sysUnc6*100))+" % ,     k="+str(roudV(sysUnc6k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc6,sysUnc6k])*100))+" %"
+  print "FINAL2: "+("upPOW").rjust(5)+" : "+str(roudV(sysUnc7*100))+" % ,     k="+str(roudV(sysUnc7k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc7,sysUnc7k])*100))+" %"
+  print "FINAL2: "+("dwPOW").rjust(5)+" : "+str(roudV(sysUnc8*100))+" % ,     k="+str(roudV(sysUnc8k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc8,sysUnc8k])*100))+" %"
   print "FINAL2: ---------------- "#+str(SystematicUnc)+"------"
   
 
