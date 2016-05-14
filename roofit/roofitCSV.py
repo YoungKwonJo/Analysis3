@@ -107,9 +107,9 @@ gROOT.ProcessLine(".L tdrStyle.C")
 setTDRStyle()
 
 def loadHistogram(arg1, arg2, Step, Weight):
-  return loadHistogram2(arg1,arg2,Step,Weight,0,{"Up":[],"Down":[]})
+  return loadHistogram2(arg1,arg2,Step,Weight,{"Up":[],"Down":[]})
 
-def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
+def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   HN = "jet3CSV_jet4CSV"                                                                                                          
   HN1 = "jet3CSV"
   HN2 = "jet4CSV"
@@ -136,31 +136,28 @@ def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
   #dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
 
   Weight1= Weight
-  if Weight.find("Scale_Up")>-1:   Weight1="csvweight"
-  if Weight.find("Scale_Down")>-1: Weight1="csvweight"
-  scale=""
-  if Weight.find("Scale_Up")>-1:   scale="up"
-  if Weight.find("Scale_Down")>-1: scale="dw"
+  if Weight.find("Q2")>-1:   Weight1="csvweight"
+  if Weight.find("Scale")>-1: Weight1="csvweight"
+  #scale=""
+  if Weight.find("Scale_Up")>-1:   GEN="upPOW"
+  if Weight.find("Scale_Down")>-1: GEN="dwPOW"
 
-  WeightTTbar= Weight1
-  #if Weight.find("Scale_UpU")>-1:   scale="up"
-  #if Weight.find("Scale_DownD")>-1: scale="dw"
-
-  #if Weight.find("Scale")>-1:
-  #  WeightTTbar ="Q2_N"+str(Q2index)
+  WeightTTbar= Weight
+  if Weight.find("Scale_Up")>-1:   WeightTTbar="csvweight"
+  if Weight.find("Scale_Down")>-1: WeightTTbar="csvweight"
 
   ttbarsamples = [x for x in mcsamples if x['name'].find('tt')>-1]
   #bkgsamples = [x for x in mcsamples if x['name'].find('tt')==-1]
 
   ###hist_Q2.root
   TTbarFile = Weight1
-  #if WeightTTbar.find("Scale") :  TTbarFile="Q2"
+  if WeightTTbar.find("Q2")>-1 :  TTbarFile="Q2"
   f = TFile.Open(loc+"/hist_"+TTbarFile+".root")
 
   for mc in ttbarsamples:
     name = mc['name']
     if f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar) == None : continue
-
+    #print "FINAL2:"+name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar
     h1 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar).Clone("h2_"+name+"_"+Step+"LL"+"_"+WeightTTbar)
     h2 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+WeightTTbar)
     h3 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+WeightTTbar)
@@ -171,7 +168,8 @@ def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
     h1.Add(h3)
 
     h1111 = "h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1
-    h11 = TH1F(h1111,"",1,0,1)
+    #print "FINAL2:"+h1111
+    h11 = TH1F(h1111,"",10,0,1)
     if None != f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1):
       h11 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1).Clone("h11_"+name+"_"+Step+"LL"+"_"+Weight1)
       h21 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN1+"_ee_"+Step+"_"+Weight1)
@@ -181,14 +179,12 @@ def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
       h11.Add(h31)
   
     h1222 = "h1_"+name+"_"+HN2+"_mm_"+Step+"_"+Weight1
-    h12 = TH1F(h1222,"",1,0,1)
+    #print "FINAL2:"+h1222
+    h12 = TH1F(h1222,"",10,0,1)
     if None != f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN2+"_mm_"+Step+"_"+Weight1):
       h12 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN2+"_mm_"+Step+"_"+Weight1).Clone("h12_"+name+"_"+Step+"LL"+"_"+Weight1)
       h22 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN2+"_ee_"+Step+"_"+Weight1)
       h32 = f.Get(name+"/"+Weight1+"/h1_"+name+"_"+HN2+"_em_"+Step+"_"+Weight1)
-      if name.find("DYJets")>-1:
-        h12.Scale(dy_mm_sf)
-        h22.Scale(dy_ee_sf)
       h12.Add(h22)
       h12.Add(h32)
 
@@ -215,20 +211,20 @@ def loadHistogram2(arg1, arg2, Step, Weight,Q2index,Variation):
   ttcclfhist.Reset()
 
   for hh in signals1:
-    h = histograms[scale+hh]
+    h = histograms[hh]
     #h = histograms[hh]
     histograms2[hh]=h 
  
   for hh in signals2:
-    h = histograms[scale+hh]["h1"]
+    h = histograms[hh]["h1"]
     #h = histograms[hh]["h1"]
-    h2 = histograms[scale+hh]
+    h2 = histograms[hh]
     ttcclfhist.Add(h)
     histograms2[hh]=h2
   histograms2[GEN+"ttcclf"]={"h1":copy.deepcopy(ttcclfhist),"exp":ttcclfhist.Integral()}
 
   for hh in backgrounds1:
-    h = histograms[scale+hh]
+    h = histograms[hh]
     #h = histograms[hh]
     histograms2[GEN+"ttot"]=h
 
@@ -241,6 +237,8 @@ def loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation):
   from mcsample_cfi import mcsamples
 
   dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
+
+  #print "FINAL2:--------------------"
 
   histograms = {}
   #ttbarsamples = [x for x in mcsamples if x['name'].find('tt')>-1]
@@ -1239,6 +1237,10 @@ sysWeights.append("Scale_Up")
 sysWeights.append("Scale_Down")
 Step="S6"
 
+from sysWeightQ2_cfi import scaleweight
+sysWeightsQ2 =  [i["name"] for i in scaleweight if i["name"].find("Q2")>-1 ]
+
+
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,Step,"csvweight")
 orig_r,orig_err = 0.,0. 
 Chi2Test2D(GEN,histograms)
@@ -1248,9 +1250,50 @@ Chi2Test2D(GEN,histograms)
 from math import *
 if int(arg3)==0:
   cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
+###################
+elif int(arg3)==4:
+  SystematicUnc,SystematicUnck ={},{}
+  histogramSys = {}
+  histogramSysGEN = {}
+  Q2sample = ["1","4","5"]
+  for Q2s in Q2sample:
+    for sys in sysWeightsQ2:
+      histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1,Q2s,Step,sys)
+      histogramSys[GEN2+sys] = copy.deepcopy(histograms2)
+      histogramSysGEN[GEN2+sys] = copy.deepcopy(GEN2)
+
+  orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
+
+  eRPOW=POW2["Eff"]['ttjj']/POW2["Eff"]['ttbb']
+  acPPOW=POW2["Acc"]['ttjj']/POW2["Acc"]['ttbb']
+  genR      = orig_r*eRPOW*acPPOW
+ 
+  eRupPOW=upPOW2["Eff"]['ttjj']/upPOW2["Eff"]['ttbb']
+  acPupPOW=upPOW2["Acc"]['ttjj']/upPOW2["Acc"]['ttbb']
+  eRdwPOW=dwPOW2["Eff"]['ttjj']/dwPOW2["Eff"]['ttbb']
+  acPdwPOW=dwPOW2["Acc"]['ttjj']/dwPOW2["Acc"]['ttbb']
+ 
+  kVal = result["kVal"] 
+  for sys in histogramSys.keys():
+    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
+    SFsys = eRPOW*acPPOW
+    if sys.find("up")>-1: SFsys=eRupPOW*acPupPOW
+    if sys.find("dw")>-1: SFsys=eRdwPOW*acPdwPOW
+
+    sysUnc = getSys(genR,orig_r2*SFsys)
+    sysUnck = getSys(kVal,result2["kVal"])
+    print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2*SFsys))+" "
+    #print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
+    #print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
+    SystematicUnc[sys]=copy.deepcopy(sysUnc)
+    SystematicUnck[sys]=copy.deepcopy(sysUnck)
+
+
+#################
 elif int(arg3)==3:
   SystematicUnc,SystematicUnck ={},{}
   histogramSys = {}
+  histogramSysGEN = {}
   #ttccUp={"Up":[GEN+'ttcc'],"Down":[]}
   #ttccDown={"Up":[],"Down":[GEN+'ttcc']}
   #sysSets = {"ttccUp":ttccUp,"ttccDown":ttccDown}
@@ -1262,13 +1305,14 @@ elif int(arg3)==3:
   sysSets.update( makeUpDown("TTV",[ 'TTWqq', 'TTZqq'])  )
   sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
   for sys in sysSets.keys():
-    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",0,sysSets[sys])
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
     histogramSys[sys] = copy.deepcopy(histograms2)
+    histogramSysGEN[sys] = copy.deepcopy(GEN2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
   kVal = result["kVal"] 
   for sys in sysSets.keys():
-    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
+    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
     sysUnc = getSys(orig_r,orig_r2)
     sysUnck = getSys(kVal,result2["kVal"])
     print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
@@ -1292,10 +1336,12 @@ elif int(arg3)==2:
   histogramsupPOW,freeTTBupPOW,freeTTCCupPOW,GENupPOW=loadHistogram("0", "4",Step,"csvweight")
   histogramsdwPOW,freeTTBdwPOW,freeTTCCdwPOW,GENdwPOW=loadHistogram("0", "5",Step,"csvweight")
   histogramSys = {}
+  histogramSysGEN = {}
   for sys in sysWeights:
     #print "FINAL2: loadhistogram "+sys 
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,Step,sys)
     histogramSys[sys] = copy.deepcopy(histograms2)
+    histogramSysGEN[sys] = copy.deepcopy(GEN2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 
@@ -1313,7 +1359,7 @@ elif int(arg3)==2:
   print "FINAL2: csvweight: k ="+str(roudV(result["kVal"]))+" $\pm$ "+str(roudV(result["kValerror"]))+" "
 
   for sys in sysWeights:
-    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, GEN,True,False)
+    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
     if orig_r==False or result2==False : continue
     sysUnc = getSys(orig_r,orig_r2)
     sysUnck = getSys(kVal,result2["kVal"])
