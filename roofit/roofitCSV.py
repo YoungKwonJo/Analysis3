@@ -107,9 +107,12 @@ gROOT.ProcessLine(".L tdrStyle.C")
 setTDRStyle()
 
 def loadHistogram(arg1, arg2, Step, Weight):
-  return loadHistogram2(arg1,arg2,Step,Weight,{"Up":[],"Down":[]})
+  return loadHistogram2(arg1,arg2,Step,0,Weight,{"Up":[],"Down":[]})
 
-def loadHistogram2(arg1, arg2, Step, Weight,Variation):
+def getTTbarNames(GEN):
+  return [ GEN+'ttbb', GEN+'ttot', GEN+'ttcc', GEN+'tt2b', GEN+'ttb', GEN+'ttlf']
+
+def loadHistogram2(arg1, arg2, Step,Q2, Weight,Variation):
   HN = "jet3CSV_jet4CSV"                                                                                                          
   HN1 = "jet3CSV"
   HN2 = "jet4CSV"
@@ -133,10 +136,10 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
 
   histograms = {}
   histograms2 = {}
-  #dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
 
   Weight1= Weight
   if Weight.find("Q2")>-1:   Weight1="csvweight"
+  if Weight.find("pdf")>-1:   Weight1="csvweight"
   if Weight.find("Scale")>-1: Weight1="csvweight"
   #scale=""
   if Weight.find("Scale_Up")>-1:   GEN="upPOW"
@@ -147,25 +150,37 @@ def loadHistogram2(arg1, arg2, Step, Weight,Variation):
   if Weight.find("Scale_Down")>-1: WeightTTbar="csvweight"
 
   ttbarsamples = [x for x in mcsamples if x['name'].find('tt')>-1]
-  #bkgsamples = [x for x in mcsamples if x['name'].find('tt')==-1]
+  ttbarsamples2 = {}
+  for x in ttbarsamples:
+    ttbarsamples2[x["name"]]=x
+  ttbarNames=getTTbarNames(GEN)
 
-  ###hist_Q2.root
-  TTbarFile = Weight1
-  if WeightTTbar.find("Q2")>-1 :  TTbarFile="Q2"
+  TTbarFile=Weight
+  if Weight.find("Q2")>-1 or Weight.find("pdf")>-1 :  TTbarFile="Q2pdf"
   f = TFile.Open(loc+"/hist_"+TTbarFile+".root")
 
-  for mc in ttbarsamples:
-    name = mc['name']
+  sumweightQ2={'dwPOW_csvweight': 9932876.0, 'POW_csvweight': 97994442.0, 'upPOW_Q2_N1': 9721877.978248205, 'upPOW_Q2_N3': 8656597.607850373, 'dwPOW_Q2_N6': 11328951.66248878, 'dwPOW_Q2_N5': 11099336.392136984, 'dwPOW_Q2_N4': 10193564.465720307, 'upPOW_csvweight': 9919776.0, 'upPOW_Q2_N2': 8878141.199428499, 'POW_Q2_N4': 100562130.05494703, 'POW_Q2_N5': 109501436.23855484, 'POW_Q2_N6': 111759839.10910639, 'POW_Q2_N1': 96043292.78107499, 'POW_Q2_N2': 87702904.5710082, 'POW_Q2_N3': 85517519.10829923}
+  sumweightPdf={'POW_pdf_N29': 98551830.6053606, 'POW_pdf_N28': 99598280.46658012, 'POW_pdf_N27': 98666952.35351756, 'POW_pdf_N26': 101748323.31598747, 'POW_pdf_N25': 96844004.09411715, 'POW_pdf_N24': 97782367.35702756, 'POW_pdf_N23': 95894214.21326047, 'POW_pdf_N22': 100464072.08043212, 'POW_pdf_N21': 95199979.48248267, 'POW_pdf_N20': 97438290.94294289, 'POW_csvweight': 97994442.0, 'POW_pdf_N38': 96112640.84684622, 'POW_pdf_N39': 96878566.76326233, 'POW_pdf_N34': 101802924.92296988, 'POW_pdf_N35': 98194634.1194146, 'POW_pdf_N36': 99978208.32182862, 'POW_pdf_N37': 97615407.85049275, 'POW_pdf_N30': 96354078.79097807, 'POW_pdf_N31': 96159101.61553779, 'POW_pdf_N32': 96855208.96789327, 'POW_pdf_N33': 95384641.85393983, 'POW_pdf_N89': 97077536.79626238, 'POW_pdf_N88': 100415986.17329398, 'POW_pdf_N81': 96598068.55737919, 'POW_pdf_N80': 97177967.20678662, 'POW_pdf_N83': 97868829.23414183, 'POW_pdf_N82': 100155203.41608378, 'POW_pdf_N85': 98297635.95897709, 'POW_pdf_N84': 98089342.36574581, 'POW_pdf_N87': 99099231.0502919, 'POW_pdf_N86': 99243157.29338214, 'POW_pdf_N16': 101465563.28766279, 'POW_pdf_N17': 99614508.97088099, 'POW_pdf_N14': 99784791.65061507, 'POW_pdf_N15': 98941630.87511921, 'POW_pdf_N12': 99399129.99975419, 'POW_pdf_N13': 99104851.3048476, 'POW_pdf_N10': 95246373.36174244, 'POW_pdf_N11': 98640001.53970493, 'POW_pdf_N18': 97870853.7345613, 'POW_pdf_N19': 99854268.63383387, 'POW_pdf_N98': 100124011.14032471, 'POW_pdf_N99': 100621514.92164667, 'POW_pdf_N96': 98344821.98690891, 'POW_pdf_N97': 97453028.60258128, 'POW_pdf_N94': 99867306.54921076, 'POW_pdf_N95': 98621622.84010206, 'POW_pdf_N92': 99161761.5299398, 'POW_pdf_N93': 98731070.7084023, 'POW_pdf_N90': 97504746.90689792, 'POW_pdf_N91': 97228630.26348674, 'POW_pdf_N4': 93180882.882662, 'POW_pdf_N5': 98926406.95481464, 'POW_pdf_N6': 97704373.55684854, 'POW_pdf_N7': 99036146.27863346, 'POW_pdf_N0': 95315260.08691841, 'POW_pdf_N1': 99000132.78099975, 'POW_pdf_N2': 99140427.20519423, 'POW_pdf_N3': 96196165.1015825, 'POW_pdf_N8': 98902352.81427607, 'POW_pdf_N9': 96520766.76980096, 'POW_pdf_N63': 99048180.3272661, 'POW_pdf_N62': 97874085.06152086, 'POW_pdf_N61': 97891405.4983091, 'POW_pdf_N60': 97827312.737427, 'POW_pdf_N67': 97837528.95441943, 'POW_pdf_N66': 101999082.6173971, 'POW_pdf_N65': 97066299.68566135, 'POW_pdf_N64': 98980833.69343676, 'POW_pdf_N69': 97689246.46488144, 'POW_pdf_N68': 97230505.25365736, 'POW_pdf_N70': 96151187.50086647, 'POW_pdf_N71': 97559564.75098796, 'POW_pdf_N72': 96383445.99381408, 'POW_pdf_N73': 98969681.46032143, 'POW_pdf_N74': 98005487.92826845, 'POW_pdf_N75': 94103628.09761263, 'POW_pdf_N76': 96000614.47217196, 'POW_pdf_N77': 99691472.68413058, 'POW_pdf_N78': 97437937.84729382, 'POW_pdf_N79': 97362872.35524903, 'POW_pdf_N45': 96649552.93303049, 'POW_pdf_N44': 96937117.18954912, 'POW_pdf_N47': 98379938.12413085, 'POW_pdf_N46': 98323349.32754843, 'POW_pdf_N41': 97339266.53237465, 'POW_pdf_N40': 97119962.57813382, 'POW_pdf_N43': 96981969.68850677, 'POW_pdf_N42': 95876936.95071954, 'POW_pdf_N49': 97561568.04547541, 'POW_pdf_N48': 98876572.8305867, 'POW_pdf_N58': 99367488.69632721, 'POW_pdf_N59': 97274244.5207445, 'POW_pdf_N52': 97110977.65266345, 'POW_pdf_N53': 98650389.20430166, 'POW_pdf_N50': 97065116.68381652, 'POW_pdf_N51': 97063435.94435525, 'POW_pdf_N56': 98931668.47177102, 'POW_pdf_N57': 97121701.34585664, 'POW_pdf_N54': 97211679.66039707, 'POW_pdf_N55': 98832916.00498164, 'POW_pdf_N101': 99037545.47031403, 'POW_pdf_N100': 96568415.54683125}
+
+  #for mc in ttbarsamples:
+  for name in ttbarNames:
+    #name = mc['name']
     if f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar) == None : continue
     #print "FINAL2:"+name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar
     h1 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_mm_"+Step+"_"+WeightTTbar).Clone("h2_"+name+"_"+Step+"LL"+"_"+WeightTTbar)
     h2 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_ee_"+Step+"_"+WeightTTbar)
     h3 = f.Get(name+"/"+WeightTTbar+"/h2_"+name+"_"+HN+"_em_"+Step+"_"+WeightTTbar)
-    if h1.Integral()>0 :  h1.Scale(mc['cx']*lumi)
-    if h2.Integral()>0 :  h2.Scale(mc['cx']*lumi)
-    if h3.Integral()>0 :  h3.Scale(mc['cx']*lumi)
+  
+    if h1.Integral()>0 :  h1.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h2.Integral()>0 :  h2.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h3.Integral()>0 :  h3.Scale(ttbarsamples2[name]['cx']*lumi)
     h1.Add(h2)
     h1.Add(h3)
+    if WeightTTbar.find("Q2")>-1 or WeightTTbar.find("pdf")>-1:
+      if Weight.find("pdf")>-1: h1.Scale(1./sumweightPdf['POW_'+WeightTTbar]*sumweightQ2['POW_csvweight'])
+      elif name.find("dw")>-1 : h1.Scale(1./sumweightQ2['dwPOW_'+WeightTTbar]*sumweightQ2['dwPOW_csvweight'])
+      elif name.find("up")>-1 : h1.Scale(1./sumweightQ2['upPOW_'+WeightTTbar]*sumweightQ2['upPOW_csvweight'])
+      else                    : h1.Scale(1./sumweightQ2['POW_'+WeightTTbar]*sumweightQ2['POW_csvweight'])
 
     h1111 = "h1_"+name+"_"+HN1+"_mm_"+Step+"_"+Weight1
     #print "FINAL2:"+h1111
@@ -1267,13 +1282,13 @@ StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","
 
 from sysWeight_cfi import mceventweight
 sysWeights =  [i["name"] for i in mceventweight]
-sysWeights.append("Scale_Up")
-sysWeights.append("Scale_Down")
+#sysWeights.append("Scale_Up")
+#sysWeights.append("Scale_Down")
 Step="S6"
 
 from sysWeightQ2_cfi import scaleweight
 sysWeightsQ2 =  [i["name"] for i in scaleweight if i["name"].find("Q2")>-1 ]
-
+print "FINAL2: "+str(sysWeightsQ2)
 
 histograms,freeTTB,freeTTCC,GEN=loadHistogram(arg1, arg2,Step,"csvweight")
 orig_r,orig_err = 0.,0. 
@@ -1286,15 +1301,22 @@ if int(arg3)==0:
   cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
 ###################
 elif int(arg3)==4:
+  sumweightQ2={'dwPOW_csvweight': 9932876.0, 'POW_csvweight': 97994442.0, 'upPOW_Q2_N1': 9721877.978248205, 'upPOW_Q2_N3': 8656597.607850373, 'dwPOW_Q2_N6': 11328951.66248878, 'dwPOW_Q2_N5': 11099336.392136984, 'dwPOW_Q2_N4': 10193564.465720307, 'upPOW_csvweight': 9919776.0, 'upPOW_Q2_N2': 8878141.199428499, 'POW_Q2_N4': 100562130.05494703, 'POW_Q2_N5': 109501436.23855484, 'POW_Q2_N6': 111759839.10910639, 'POW_Q2_N1': 96043292.78107499, 'POW_Q2_N2': 87702904.5710082, 'POW_Q2_N3': 85517519.10829923}
   SystematicUnc,SystematicUnck ={},{}
   histogramSys = {}
   histogramSysGEN = {}
   Q2sample = ["1","4","5"]
   for Q2s in Q2sample:
-    for sys in sysWeightsQ2:
-      histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1,Q2s,Step,sys)
-      histogramSys[GEN2+sys] = copy.deepcopy(histograms2)
-      histogramSysGEN[GEN2+sys] = copy.deepcopy(GEN2)
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, Q2s,Step,0,"csvweight",{"Up":[],"Down":[]})
+    histogramSys[GEN2+"_csvweight"] = copy.deepcopy(histograms2)
+    histogramSysGEN[GEN2+"_csvweight"] = copy.deepcopy(GEN2)
+    for i,sys in enumerate(sysWeightsQ2):
+      if i<3 and Q2s == "5": continue
+      if i>2 and Q2s == "4": continue
+      histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, Q2s,Step,i+1,sys,{"Up":[],"Down":[]})
+      #histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1,Q2s,Step,sys)
+      histogramSys[GEN2+"_"+sys] = copy.deepcopy(histograms2)
+      histogramSysGEN[GEN2+"_"+sys] = copy.deepcopy(GEN2)
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 
@@ -1307,7 +1329,9 @@ elif int(arg3)==4:
   eRdwPOW=dwPOW2["Eff"]['ttjj']/dwPOW2["Eff"]['ttbb']
   acPdwPOW=dwPOW2["Acc"]['ttjj']/dwPOW2["Acc"]['ttbb']
  
-  kVal = result["kVal"] 
+  kVal = result["kVal"]
+  maxRsys=0.
+  maxKsys=0.
   for sys in histogramSys.keys():
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
     SFsys = eRPOW*acPPOW
@@ -1317,10 +1341,46 @@ elif int(arg3)==4:
     sysUnc = getSys(genR,orig_r2*SFsys)
     sysUnck = getSys(kVal,result2["kVal"])
     print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2*SFsys))+" "
-    #print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
-    #print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
+    print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
+    print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
+    maxRsys= max(maxRsys,abs(sysUnc))
+    maxKsys= max(maxKsys,abs(sysUnck))
+
+  print ""
+  print "FINAL2: Q2scale : r: "+str(roudV(maxRsys*100))+" %, k:"+str(roudV(maxKsys*100))+" %"
+
+elif int(arg3)==5:
+  SystematicUnc,SystematicUnck ={},{}
+  histogramSys = {}
+  histogramSysGEN = {}
+  for i in range(0,102):
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, "1",Step,0,"pdf_N"+str(i),{"Up":[],"Down":[]})
+    histogramSys[GEN2+"_pdf"+str(i)] = copy.deepcopy(histograms2)
+    histogramSysGEN[GEN2+"_pdf"+str(i)] = copy.deepcopy(GEN2)
+
+  orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
+
+  kVal = result["kVal"]
+  maxRsys=0.
+  maxKsys=0.
+  for sys in histogramSys.keys():
+    orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
+    sysUnc = getSys(orig_r,orig_r2)
+    sysUnck = getSys(kVal,result2["kVal"])
+    print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
+    print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
+    print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
+    SystematicUnc[sys]=copy.deepcopy(sysUnc)
+    SystematicUnck[sys]=copy.deepcopy(sysUnck)
+    maxRsys= max(maxRsys,abs(sysUnc))
+    maxKsys= max(maxKsys,abs(sysUnck))
+
+  print ""
+  print "FINAL2: pdf : r: "+str(roudV(maxRsys*100))+" %, k:"+str(roudV(maxKsys*100))+" %"
+
+
 
 
 #################
@@ -1339,7 +1399,7 @@ elif int(arg3)==3:
   sysSets.update( makeUpDown("TTV",[ 'TTWqq', 'TTZqq'])  )
   sysSets.update( makeUpDown("ttot",[GEN+"ttot"])  )
   for sys in sysSets.keys():
-    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,"csvweight",sysSets[sys])
+    histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram2(arg1, arg2,Step,0,"csvweight",sysSets[sys])
     histogramSys[sys] = copy.deepcopy(histograms2)
     histogramSysGEN[sys] = copy.deepcopy(GEN2)
 
