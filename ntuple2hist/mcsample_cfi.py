@@ -167,7 +167,6 @@ data = loadJson('../ntuple2hist/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}
-"""
 sumWeights['DYJets']=76816262.0
 sumWeights['DYJets_10to50']=22606898.5977
 sumWeights['DYJets_MG']=9004328.0
@@ -193,10 +192,10 @@ sumWeights['ZZ']=985600.0
 sumWeights['ttH_bb']=0.0
 sumWeights['ttH_nonbb']=0.0
 sumWeights['ttWJetsToQQ']=429599.0
-sumWeights['ttWJetsToLNu']=0.0
-sumWeights['ttZToLLNuNu']=0.0
+sumWeights['ttWJetsToLNu']=129001.0
+sumWeights['ttZToLLNuNu']=183200.0
 sumWeights['ttZToQQ']=350106.0
-"""
+
 
 #############
 if len(sumWeights.keys()) is 0 : 
