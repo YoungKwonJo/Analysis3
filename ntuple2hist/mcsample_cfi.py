@@ -4,7 +4,7 @@ from os.path import isfile, join
 
 
 ###################################################################
-loc = "/store/user/youngjo/Cattools/v7-6-4v1/"
+loc = "/store/user/youngjo/Cattools/v7-6-4v2/"
 z  ="v1" # bkg
 zz ="v1" # data
 zzz="v1" # ttbar
@@ -167,6 +167,7 @@ data = loadJson('../ntuple2hist/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}
+"""
 sumWeights['DYJets']=76816262.0
 sumWeights['DYJets_10to50']=22606898.5977
 sumWeights['DYJets_MG']=9004328.0
@@ -195,7 +196,7 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=0.0
 sumWeights['ttZToLLNuNu']=0.0
 sumWeights['ttZToQQ']=350106.0
-
+"""
 
 #############
 if len(sumWeights.keys()) is 0 : 
