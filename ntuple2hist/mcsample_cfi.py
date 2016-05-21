@@ -231,8 +231,8 @@ ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "
                    ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" 
                 }
 #ttbarMCsamples = {"MG5":"TTJets_MG5","AMC","TTJets_aMC","POW":"TT_powheg","upPOW":"TT_powheg_scaleup","dwPOW":"TT_powheg_scaledown","POHP":"TT_powheg-herwigpp","POPY6":"TT_powheg_pythia6" }
-#bkgMCsamples = {"TTWlNu":"ttWJetsToLNu",  "TTWqq":"ttWJetsToQQ", "TTZll":"ttZToLLNuNu",   "TTZqq":"ttZToQQ",
-bkgMCsamples = {  "TTWqq":"ttWJetsToQQ",  "TTZqq":"ttZToQQ",
+bkgMCsamples = {"TTWlNu":"ttWJetsToLNu",  "TTWqq":"ttWJetsToQQ", "TTZll":"ttZToLLNuNu",   "TTZqq":"ttZToQQ",
+#bkgMCsamples = {  "TTWqq":"ttWJetsToQQ",  "TTZqq":"ttZToQQ",
                 "STbt":"SingleTbar_t",    "STt":"SingleTop_t",   "STbtW":"SingleTbar_tW", "STtW":"SingleTop_tW",
                 "WW":"WW",       "WZ":"WZ",         "ZZ":"ZZ",
                 "WJets":"WJets", "DYJets":"DYJets", "DYJets10":"DYJets_10to50"
