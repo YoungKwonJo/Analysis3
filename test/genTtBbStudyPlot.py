@@ -151,5 +151,6 @@ c1.cd(6), l1.Draw()
 c1.Print("plots/genjet2.eps")
 """
 
+h1="h1"
 makeoutput("genjet.root", allsummary,h1)
 
