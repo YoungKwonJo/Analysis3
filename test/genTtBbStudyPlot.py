@@ -78,8 +78,8 @@ def drawS(histograms,h1,l1,scale,ymin):
 def makeoutput(outputname, h,h1):
   fout = TFile(""+outputname,"RECREATE")
   for a in h.keys():
-    dirA = fout.mkdir(a)
-    dirA.cd()
+    #dirA = fout.mkdir(a)
+    #dirA.cd()
     for b in h[a].keys():
       h[a][b][h1].Write()
   fout.Write()
@@ -119,15 +119,30 @@ ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "
 #ttbarMCsamples = {  "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" }
 colors = ["#FF0000", "#0000FF", "#008000", "#00FFFF", "#800080", "#FF00FF", "#00FF00", "#000000", "#808080", "#FFA500", "#008080", "#000080", "#DDA0DD", "#FFE4C4", "#B0C4DE", "#ffd700"]
 
+
+import sys
+if len(sys.argv) < 2:
+  sys.exit()
+
+arg1 = sys.argv[1] # 0,10
+arg2 = sys.argv[2] # 0,5
+
 for j,y in enumerate(infos.keys()):
   summary={}
   info_ = infos[y] 
-  for i,x in enumerate(ttbarMCsamples.keys()):
-    fileList=files(ttbarMCsamples[x]+"v1")
-    makeHistogram(x,fileList,weights2["nom"],colors[i],info_,summary)
+  if j==int(arg1):
+    for i,x in enumerate(ttbarMCsamples.keys()):
+      if i==int(arg2):
+        fileList=files(ttbarMCsamples[x]+"v1")
+        makeHistogram(x,fileList,weights2["nom"],colors[i],info_,summary)
+      else : continue
+  else : continue
   allsummary[j]=summary
 
 #print allsummary
+h1="h1"
+outputname="genJet"+arg1+"_"+arg2+".root"
+makeoutput(outputname, allsummary,h1)
 
 """"
 l1 = make_legend(0.29,0.26,0.73,0.88)
@@ -151,6 +166,4 @@ c1.cd(6), l1.Draw()
 c1.Print("plots/genjet2.eps")
 """
 
-h1="h1"
-makeoutput("genjet.root", allsummary,h1)
 
