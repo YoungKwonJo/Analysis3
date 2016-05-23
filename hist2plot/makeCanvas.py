@@ -21,6 +21,13 @@ def make_legend(xmin,ymin,xmax,ymax):
   leg.SetBorderSize(1), leg.SetLineStyle(1), leg.SetLineWidth(1),  leg.SetLineColor(0)
   return leg
 
+def make_legend2(xmin,ymin,xmax,ymax):
+  #leg = TLegend(0.65,0.7, 0.89,0.89)
+  leg = TLegend(xmin,ymin,xmax,ymax)
+  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62),  leg.SetTextSize(0.03)
+  leg.SetBorderSize(1), leg.SetLineStyle(1), leg.SetLineWidth(1),  leg.SetLineColor(0)
+  return leg
+
 def addLegendLumi():#lumi):
   #lumi2 = str(round(lumi/100)/10)
   title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.2 fb^{-1}")
@@ -278,6 +285,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   MCtot1gr =  myHist2TGraphError(MCtot1)
   MCtot2 =  AddHist(decay,histograms2["MCtot2"])
   MCtot3 =  AddHist(decay,histograms2["MCtot3"])
+  MCtot4 =  AddHist(decay,histograms2["MCtot4"])
 
   isPrint =  (mon["name"] is "Stat")
   #if isPrint : print "channel : "+str(decay)+", Step:"+str(step)+" "+str(mon["name"])
@@ -301,7 +309,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
       if ttbbMuMu.GetBinContent(i)>0 and minY>ttbbMuMu.GetBinContent(i): minY=ttbbMuMu.GetBinContent(i)
 
     DATA.SetMaximum(maxY*10000)
-    if maxY*10000 < scale*140 : DATA.SetMaximum(scale*140)
+    if maxY*10000 < scale*340 : DATA.SetMaximum(scale*340)
     if   minY>1     :  DATA.SetMinimum( 4.0 )
     elif minY>0.4   :  DATA.SetMinimum( 0.4 )
     elif minY>0.04  :  DATA.SetMinimum( 0.04 )
@@ -313,7 +321,9 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   myDataHistStyleUp(DATA)
   DATA.GetYaxis().SetTitle("Events")
   DATA.GetXaxis().SetTitle("")
-  DATA.Draw(), hs.Draw("same,hist"), MCtot1gr.Draw("e2same"), MCtot2.Draw("same"), MCtot3.Draw("same")
+  DATA.Draw(), hs.Draw("same,hist") 
+  MCtot1gr.Draw("e2same"), MCtot2.Draw("same"), MCtot3.Draw("same")
+  MCtot4.Draw("same")
   DATA.Draw("same")
 
   ########################
@@ -327,7 +337,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   legx2 = 0.67
   leg  = make_legend(legx1,0.64, legx1+wid,0.88)
   leg2 = make_legend(legx2,0.68, legx2+wid,0.88)
-  leg3 = make_legend(legx1,0.56, legx1+wid,0.63)
+  leg3 = make_legend2(legx2,0.52, legx1+wid*0.9,0.63)
   #leg3 = make_legend(legx1,0.54, legx1+wid,0.63)
   for aa in plotSet["ttbars"]:
     if len(histograms2[aa]["h1"].keys())>0:
@@ -349,9 +359,11 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ########################
   ########################
   ratio3,ratio2,ratio1 = DATA.Clone("AMC"),DATA.Clone("MG5"),DATA.Clone("POW")
+  ratio4 = DATA.Clone("POHP")
   ratio1.Divide(MCtot1),  copyStyleUp(ratio1, MCtot1) 
   ratio2.Divide(MCtot2),  copyStyleUp(ratio2, MCtot2) 
   ratio3.Divide(MCtot3),  copyStyleUp(ratio3, MCtot3) 
+  ratio4.Divide(MCtot4),  copyStyleUp(ratio4, MCtot4) 
   styleBottomUp(ratio1)
   ratio1.GetXaxis().SetTitle(mon['unit'])
   ratio1.Draw()
@@ -360,6 +372,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ratio1.Draw("e1SAME")
   ratio2.Draw("histSAME")
   ratio3.Draw("histSAME")
+  ratio4.Draw("histSAME")
 
   ########################
   ########################
@@ -367,7 +380,11 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   c1.cd(), c1.Modified(), c1.cd()
   if isLogy : c1.Print("plots/TH1_"+canvasname+".eps")
   else      : c1.Print("plots/TH1_"+canvasname+"_Li.eps")
-  c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst]
+
+  #if isLogy : c1.Print("plots_fit/TH1_"+canvasname+".eps")
+  #else      : c1.Print("plots_fit/TH1_"+canvasname+"_Li.eps")
+ 
+  c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst,ratio4,MCtot4]
   return c1set,Stats,plotSet
 
 ##################################
@@ -379,30 +396,36 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
 ##################################
 ##################################
 def printStats(StatsAll,plotSet):
-  s1,s2=10,25
+  s1,s2=40,25
   for mc in plotSet["mg5"]:
-    aaa=(" "+mc+" ").ljust(s1)
+    label = plotSet["labels"][mc]
+    aaa=(" "+label+" ").ljust(s1)
     for step in sorted(StatsAll.keys()):
       aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
     aaa+="  \\\\"
     print aaa
+  print "\\hline\\hline"
   for mc in plotSet["ttbars"]:
-    aaa=(" "+mc+" ").ljust(s1)
+    label = plotSet["labels"][mc]
+    aaa=(" "+label+" ").ljust(s1)
     for step in sorted(StatsAll.keys()):
       aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
     aaa+="  \\\\"
     print aaa
+  print "\\hline"
   for mc in plotSet["bkg"]:
-    aaa=(" "+mc+" ").rjust(s1)
+    label = plotSet["labels"][mc]
+    aaa=(" "+label+" ").rjust(s1)
     for step in sorted(StatsAll.keys()):
       aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
     aaa+="  \\\\"
     print aaa
+  print "\\hline\\hline"
   for mc in ["MC","DATA"]:
     aaa=(" "+mc+" ").rjust(s1)
     for step in sorted(StatsAll.keys()):
       aaa+=(" & "+StatsAll[step][mc]).ljust(s2)
-    aaa+="  \\\\"
+    aaa+="  \\\\\\hline"
     print aaa
 
 
@@ -445,13 +468,13 @@ def main():#step, moni):
   # 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet4Eta',   #20-23
   # 'jet1Phi', 'jet2Phi', 'jet3Phi', 'jet4Phi',   #24-27
   # 'jet1CSV', 'jet2CSV', 'jet3CSV', 'jet4CSV']   #28-31
-  #SFbyFitting={'ttbbSF':1.64378687774,'ttcclfSF':0.914691520079,'k':0.851874148474}
+  #SFbyFitting={'ttbbSF':1.64402972843,'ttcclfSF':0.914659387146,'k':0.846953639575}
   SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
   mon = monitors[moni]
   if runStat : mon = monitors[0]
   else :
     #step="S2"
-    weight="csvweight"
+    weight="CEN"#csvweight"
     isLogy = True
     aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
     aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)

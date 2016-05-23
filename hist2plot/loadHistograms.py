@@ -12,7 +12,8 @@ sys.path.append('../ntuple2hist')
 
 #lumi = 2260.0
 lumi = 2262.376
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/"
+#loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160520_ttbb_764v2/hist20160520/"
 
 def loadHistogramMC(mc, mon, Step, Weight,DYsf,SFbyFitting):
   HN = mon["name"]
