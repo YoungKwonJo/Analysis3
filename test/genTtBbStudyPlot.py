@@ -5,7 +5,7 @@ from ROOT import *
 import os,commands
 import subprocess
 
-loc = "/afs/cern.ch/user/y/youngjo/eos/cms/store/user/youngjo/Cattools/v7-6-4/"
+loc = "/afs/cern.ch/user/y/youngjo/eos/cms/store/user/youngjo/Cattools/v7-6-4v2/"
 
 def files(path):
   return [os.path.join(loc+path,f) for f in os.listdir(loc+path) if os.path.isfile(os.path.join(loc+path,f))]
@@ -75,6 +75,15 @@ def drawS(histograms,h1,l1,scale,ymin):
     #  mc[h1].Draw("e1SAME")
     else   : mc[h1].Draw("same")
 
+def makeoutput(outputname, h,h1):
+  fout = TFile(""+outputname,"RECREATE")
+  for a in h.keys():
+    dirA = fout.mkdir(a)
+    dirA.cd()
+    for b in h[a].keys():
+      h[a][b][h1].Write()
+  fout.Write()
+  fout.Close()
 
 #########################################################
 #########################################################
@@ -87,12 +96,12 @@ infos ={
  "NaddbJets"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets","xtitle":"# of additional bJet"},
  "NaddbJets20"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets20","xtitle":"# of additional bJet20"},
 
-# "dRaddbJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJets","xtitle":"DR of additional bJet"},
-# "dRaddcJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJets","xtitle":"DR of additional cJet"},
-# "dRcJets"     :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJets","xtitle":"DR of  cJet"},
-# "dRaddbJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJetsHad","xtitle":"DR of additional bHJet"},
-# "dRaddcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJetsHad","xtitle":"DR of additional cHJet"},
-# "dRcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJetsHad","xtitle":"DR of cHJet"},
+ "dRaddbJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJets","xtitle":"DR of additional bJet"},
+ "dRaddcJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJets","xtitle":"DR of additional cJet"},
+ "dRcJets"     :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJets","xtitle":"DR of  cJet"},
+ "dRaddbJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJetsHad","xtitle":"DR of additional bHJet"},
+ "dRaddcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJetsHad","xtitle":"DR of additional cHJet"},
+ "dRcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJetsHad","xtitle":"DR of cHJet"},
 
 }
 allsummary = {}
@@ -120,6 +129,7 @@ for j,y in enumerate(infos.keys()):
 
 #print allsummary
 
+""""
 l1 = make_legend(0.29,0.26,0.73,0.88)
 l2 = make_legend(0.39,0.46,0.73,0.88)
 
@@ -136,7 +146,10 @@ c1.cd(2).SetLogy(), drawS(allsummary[1],h1, l2,scale,ymin)
 c1.cd(3).SetLogy(), drawS(allsummary[2],h1, l2,scale,ymin)
 c1.cd(4).SetLogy(), drawS(allsummary[3],h1, l2,scale,ymin)
 c1.cd(5).SetLogy(), drawS(allsummary[4],h1, l2,scale,ymin)
+c1.cd(6).SetLogy(), drawS(allsummary[5],h1, l2,scale,ymin)
 c1.cd(6), l1.Draw()
-c1.Print("plots/genjet.eps")
+c1.Print("plots/genjet2.eps")
+"""
 
+makeoutput("genjet.root", allsummary,h1)
 
