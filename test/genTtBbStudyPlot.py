@@ -86,22 +86,33 @@ def makeoutput(outputname, h,h1):
   fout.Close()
 
 #########################################################
+def loadHistogram(afile,info_,ttbar,colors,allsummary):
+  f = TFile.Open(afile)
+  import copy
+  for i,nn in enumerate(info_.keys()):
+    summary={}
+    for j,tt in enumerate(ttbar.keys()):
+      name = tt+"_"+info_[nn]["value"]
+      print name
+      h1 = f.Get(name).Clone("h1_"+name)
+      summary[name] = {"name":name,"h1":copy.deepcopy(h1),"color":colors[j] }
+    allsummary[i]=summary
 #########################################################
 #########################################################
 infos ={
- "Nbjet"  :{"Nbin":10,"min":0.,"max":10.,"value":"NbJets","xtitle":"# of bJet"},
- "Nbjet20":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets20","xtitle":"# of bJet20"},
- "Nbjet30":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets30","xtitle":"# of bJet30"},
+ "Nbjet1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NbJets1","xtitle":"# of bJet"},
+ "Nbjet201":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets201","xtitle":"# of bJet20"},
+ "Nbjet301":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets301","xtitle":"# of bJet30"},
 
- "NaddbJets"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets","xtitle":"# of additional bJet"},
- "NaddbJets20"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets20","xtitle":"# of additional bJet20"},
+ "NaddbJets1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets1","xtitle":"# of additional bJet"},
+ "NaddbJets201"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets201","xtitle":"# of additional bJet20"},
 
- "dRaddbJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJets","xtitle":"DR of additional bJet"},
- "dRaddcJets"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJets","xtitle":"DR of additional cJet"},
- "dRcJets"     :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJets","xtitle":"DR of  cJet"},
- "dRaddbJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddbJetsHad","xtitle":"DR of additional bHJet"},
- "dRaddcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRaddcJetsHad","xtitle":"DR of additional cHJet"},
- "dRcJetsHad"  :{"Nbin":10,"min":0.,"max":2.,"value":"dRcJetsHad","xtitle":"DR of cHJet"},
+# "dRaddbJets"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddbJets","xtitle":"DR of additional bJet"},
+# "dRaddcJets"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddcJets","xtitle":"DR of additional cJet"},
+# "dRcJets"     :{"Nbin":40,"min":0.,"max":1.,"value":"dRcJets","xtitle":"DR of  cJet"},
+# "dRaddbJetsHad"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddbJetsHad","xtitle":"DR of additional bHJet"},
+# "dRaddcJetsHad"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddcJetsHad","xtitle":"DR of additional cHJet"},
+# "dRcJetsHad"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRcJetsHad","xtitle":"DR of cHJet"},
 
 }
 allsummary = {}
@@ -121,49 +132,51 @@ colors = ["#FF0000", "#0000FF", "#008000", "#00FFFF", "#800080", "#FF00FF", "#00
 
 
 import sys
-if len(sys.argv) < 2:
-  sys.exit()
+if len(sys.argv) > 1:
+  #sys.exit()
 
-arg1 = sys.argv[1] # 0,10
-arg2 = sys.argv[2] # 0,5
+  arg1 = sys.argv[1] # 0,10
+  arg2 = sys.argv[2] # 0,5
 
-for j,y in enumerate(infos.keys()):
-  summary={}
-  info_ = infos[y] 
-  if j==int(arg1):
-    for i,x in enumerate(ttbarMCsamples.keys()):
-      if i==int(arg2):
-        fileList=files(ttbarMCsamples[x]+"v1")
-        makeHistogram(x,fileList,weights2["nom"],colors[i],info_,summary)
-      else : continue
-  else : continue
-  allsummary[j]=summary
+  print "arg1 : "+arg1+", arg2:"+arg2
 
-#print allsummary
-h1="h1"
-outputname="genJet"+arg1+"_"+arg2+".root"
-makeoutput(outputname, allsummary,h1)
+  for j,y in enumerate(infos.keys()):
+    summary={}
+    info_ = infos[y] 
+    if j==int(arg1):
+      for i,x in enumerate(ttbarMCsamples.keys()):
+        if i==int(arg2):
+          fileList=files(ttbarMCsamples[x]+"v1")
+          makeHistogram(x,fileList,weights2["nom"],colors[i],info_,summary)
+        else : continue
+    else : continue
+    allsummary[j]=summary
 
-""""
-l1 = make_legend(0.29,0.26,0.73,0.88)
-l2 = make_legend(0.39,0.46,0.73,0.88)
+  #print allsummary
+  h1="h1"
+  outputname="genJet"+arg1+"_"+arg2+".root"
+  makeoutput(outputname, allsummary,h1)
+else:
 
-c1 = TCanvas("c1","",900,600)
-c1.Divide(3,2)
-h1="h1"
-#hh=int(arg1)+1
-#if hh==2: h1="h2"
-scale=100.
-ymin=0.0000001
+  loadHistogram("genJetAll.root",infos,ttbarMCsamples,colors,allsummary)
+  l1 = make_legend(0.29,0.26,0.73,0.88)
+  l2 = make_legend(0.39,0.46,0.73,0.88)
 
-c1.cd(1).SetLogy(), drawS(allsummary[0],h1, l1,scale,ymin)
-c1.cd(2).SetLogy(), drawS(allsummary[1],h1, l2,scale,ymin)
-c1.cd(3).SetLogy(), drawS(allsummary[2],h1, l2,scale,ymin)
-c1.cd(4).SetLogy(), drawS(allsummary[3],h1, l2,scale,ymin)
-c1.cd(5).SetLogy(), drawS(allsummary[4],h1, l2,scale,ymin)
-c1.cd(6).SetLogy(), drawS(allsummary[5],h1, l2,scale,ymin)
-c1.cd(6), l1.Draw()
-c1.Print("plots/genjet2.eps")
-"""
+  c1 = TCanvas("c1","",900,600)
+  c1.Divide(3,2)
+  h1="h1"
+  #hh=int(arg1)+1
+  #if hh==2: h1="h2"
+  scale=100.
+  ymin=0.0000001
+
+  c1.cd(1).SetLogy(), drawS(allsummary[0],h1, l1,scale,ymin)
+  c1.cd(2).SetLogy(), drawS(allsummary[1],h1, l2,scale,ymin)
+  c1.cd(3).SetLogy(), drawS(allsummary[2],h1, l2,scale,ymin)
+  c1.cd(4).SetLogy(), drawS(allsummary[3],h1, l2,scale,ymin)
+  c1.cd(5).SetLogy(), drawS(allsummary[4],h1, l2,scale,ymin)
+  c1.cd(6).SetLogy(), drawS(allsummary[5],h1, l2,scale,ymin)
+  c1.cd(6), l1.Draw()
+  c1.Print("plots/genjet2.eps")
 
 
