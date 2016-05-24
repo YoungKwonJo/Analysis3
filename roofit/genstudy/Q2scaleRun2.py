@@ -23,10 +23,10 @@ def PrintSys3(data,data2,isPrint):
     #print "+++sys Ttjj/TotalVS : "+str(roudV(sysRtjtVS)*100)+" %"
     #print "+++sys Ttjj/TotalS6 : "+str(roudV(sysRtjtS6)*100)+" %"
     #print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
-    print "sys ttbb Eff : "+str(roudV(sysTtbbEff)*100)+" %"
-    print "sys ttjj Eff : "+str(roudV(sysTtjjEff)*100)+" %"
-    print "sys ttbb Acc : "+str(roudV(sysTtbbAcc)*100)+" %"
-    print "sys ttjj Acc : "+str(roudV(sysTtjjAcc)*100)+" %"
+    print "value(sys) ttbb Eff :"+str(roudV(data2['Eff']['ttbb']))+" ("+str(roudV(sysTtbbEff)*100)+" % )"
+    print "value(sys) ttjj Eff :"+str(roudV(data2['Eff']['ttjj']))+" ("+str(roudV(sysTtjjEff)*100)+" % )"
+    print "value(sys) ttbb Acc :"+str(roudV(data2['Acc']['ttbb']))+" ("+str(roudV(sysTtbbAcc)*100)+" % )"
+    print "value(sys) ttjj Acc :"+str(roudV(data2['Acc']['ttjj']))+" ("+str(roudV(sysTtjjAcc)*100)+" % )"
 
 
   return {"rFS":abs(sysRfs),"rVS":abs(sysRvs),"kFS":abs(sysRtjtFS),"kVS":abs(sysRtjtVS),"kS6":abs(sysRtjtS6),"Acc":{"ttbb":sysTtbbAcc,"ttjj":sysTtjjAcc },"Eff":{"ttbb":sysTtbbEff,"ttjj":sysTtjjEff}}

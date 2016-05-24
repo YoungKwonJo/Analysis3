@@ -52,6 +52,34 @@ def makeHistogram(filename,filelist,weight,color,info_,summary):
   info ={"name":filename+"_"+info_["value"],"Nbin":info_["Nbin"],"min":info_["min"],"max":info_["max"],"value":info_["value"],"xtitle":info_["xtitle"]}
   summary[filename] = {"name":filename,"h1":copy.deepcopy(draw(tree,info,weight,"(1)")),"color":color }
 
+def drawDivide(histograms,h1,l1,scale,ymin,histograms2):
+  ii,jj=0,0
+  cen=[histograms[x] for x in histograms if histograms[x]["name"].find("POW")==0]
+  cenh1 = cen[0][h1]
+  cenh1.Scale(1/cenh1.Integral())
+  for i,mc1 in enumerate(histograms.keys()):
+    mc = histograms[mc1]
+   
+    mc[h1].Scale(1/mc[h1].Integral())
+
+    cenAh1 = cenh1.Clone(mc["name"]+"New"+mc[h1].GetName())
+    cenAh1.Divide(mc[h1])
+    histograms2[mc1]=cenAh1
+    if not(mc["name"].find("POW")==0) :
+      cenAh1.SetLineColor(TColor.GetColor(mc["color"]))
+    else :
+      cenAh1.SetMarkerStyle(20)
+      cenAh1.SetFillColor(kGray)
+ 
+    l1.AddEntry(cenAh1,mc["name"],"lp")
+    if i==0:
+      cenAh1.GetYaxis().SetTitle("")
+      cenAh1.SetMaximum(4.0)
+      cenAh1.SetMinimum(0.1)
+      cenAh1.Draw()
+    else   : cenAh1.Draw("same")
+    #import copy
+    #histograms2[mc1]={"h2":copy.deepcopy(cenAh1)}
 
 def drawS(histograms,h1,l1,scale,ymin):
   ii,jj=0,0
@@ -182,8 +210,16 @@ else:
   c1.cd(3).SetLogy(), drawS(allsummary[2],h1, l2,scale,ymin)
   c1.cd(4).SetLogy(), drawS(allsummary[3],h1, l2,scale,ymin)
   c1.cd(5).SetLogy(), drawS(allsummary[4],h1, l2,scale,ymin)
-  c1.cd(6).SetLogy(), drawS(allsummary[5],h1, l2,scale,ymin)
+  #c1.cd(6).SetLogy(), drawS(allsummary[5],h1, l2,scale,ymin)
+  histogram20,histogram21,histogram22,histogram23,histogram24={},{},{},{},{}
+  #c1.cd(1), drawDivide(allsummary[0],h1, l1,scale,ymin,histogram20)
+  #c1.cd(2), drawDivide(allsummary[1],h1, l2,scale,ymin,histogram21)
+  #c1.cd(3), drawDivide(allsummary[2],h1, l2,scale,ymin,histogram22)
+  #c1.cd(4), drawDivide(allsummary[3],h1, l2,scale,ymin,histogram23)
+  #c1.cd(5), drawDivide(allsummary[4],h1, l2,scale,ymin,histogram24)
+  #c1.cd(6).SetLogy(), drawDivide(allsummary[5],h1, l2,scale,ymin)
+ 
   c1.cd(6), l1.Draw()
-  c1.Print("plots/genjet2.eps")
+  c1.Print("plots/genjet1.eps")
 
 
