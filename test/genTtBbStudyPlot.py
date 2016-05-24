@@ -100,12 +100,19 @@ def loadHistogram(afile,info_,ttbar,colors,allsummary):
 #########################################################
 #########################################################
 infos ={
- "Nbjet1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NbJets1","xtitle":"# of bJet"},
- "Nbjet201":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets201","xtitle":"# of bJet20"},
- "Nbjet301":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets301","xtitle":"# of bJet30"},
+ "Nbjet"  :{"Nbin":10,"min":0.,"max":10.,"value":"NbJets","xtitle":"# of bJet"},
+ "Nbjet20":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets20","xtitle":"# of bJet20"},
+ "Nbjet30":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets30","xtitle":"# of bJet30"},
 
- "NaddbJets1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets1","xtitle":"# of additional bJet"},
- "NaddbJets201"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets201","xtitle":"# of additional bJet20"},
+ "NaddbJets"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets","xtitle":"# of additional bJet"},
+ "NaddbJets20"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets20","xtitle":"# of additional bJet20"},
+
+# "Nbjet1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NbJets1","xtitle":"# of bJet"},
+# "Nbjet201":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets201","xtitle":"# of bJet20"},
+# "Nbjet301":{"Nbin":10,"min":0.,"max":10.,"value":"NbJets301","xtitle":"# of bJet30"},
+
+# "NaddbJets1"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets1","xtitle":"# of additional bJet"},
+# "NaddbJets201"  :{"Nbin":10,"min":0.,"max":10.,"value":"NaddbJets201","xtitle":"# of additional bJet20"},
 
 # "dRaddbJets"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddbJets","xtitle":"DR of additional bJet"},
 # "dRaddcJets"  :{"Nbin":40,"min":0.,"max":1.,"value":"dRaddcJets","xtitle":"DR of additional cJet"},
