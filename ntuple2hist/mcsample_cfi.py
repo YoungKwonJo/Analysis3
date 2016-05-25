@@ -62,6 +62,8 @@ def sumWeight(files):
     chain.Add(afile)
   tree = chain
   htemp = TH1D("htempSS","",1,-2,2)
+  #tree.Project("htempSS","1","weight*puweight")
+  #tree.Project("htempSS","1","weight*puweight*mueffweight*eleffweight*tri")
   tree.Project("htempSS","1","weight")
   return htemp.GetBinContent(1) 
  
@@ -195,7 +197,6 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=129001.0
 sumWeights['ttZToLLNuNu']=183200.0
 sumWeights['ttZToQQ']=350106.0
-
 
 #############
 if len(sumWeights.keys()) is 0 : 
