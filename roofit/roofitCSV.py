@@ -1427,7 +1427,9 @@ elif int(arg3)==3:
   backgrounds3= [ 'DYJets','DYJets10']
   higgs= ['ttH2non', 'ttH2bb']
   """
-
+###############################################################################
+###############################################################################
+###############################################################################
 elif int(arg3)==2:
   SystematicUnc,SystematicUnck ={},{}
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
@@ -1436,12 +1438,14 @@ elif int(arg3)==2:
   histogramsdwPOW,freeTTBdwPOW,freeTTCCdwPOW,GENdwPOW=loadHistogram("0", "5",Step,"csvweight")
   histogramSys = {}
   histogramSysGEN = {}
+
   for sys in sysWeights:
-    #print "FINAL2: loadhistogram "+sys 
+    #print "FINAL2: loadhistogram..... "+sys 
     histograms2,freeTTB2,freeTTCC2,GEN2=loadHistogram(arg1, arg2,Step,sys)
     histogramSys[sys] = copy.deepcopy(histograms2)
     histogramSysGEN[sys] = copy.deepcopy(GEN2)
 
+  #print "FINAL2: "+str(sysWeights)
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
 
   #print "FINAL2: csvweight: R = "+ str(roudV(orig_r))+" \pm "+str(roudV(orig_err))+"$"
@@ -1457,7 +1461,11 @@ elif int(arg3)==2:
   print "FINAL2: csvweight: full gen R = "+ str(roudV(genRF))+" $\pm$ "+str(roudV(genRerrorF))+" "
   print "FINAL2: csvweight: k ="+str(roudV(result["kVal"]))+" $\pm$ "+str(roudV(result["kValerror"]))+" "
 
+  #print "FINAL2: loading.Sys.. "+str( histogramSys["LF_Down"])
+  #print "FINAL2: loading.GEN.. "+str( histogramSysGEN["LF_Down"])
+
   for sys in sysWeights:
+    #print "FINAL2: fitting..... "+sys 
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
     if orig_r==False or result2==False : continue
     sysUnc = getSys(orig_r,orig_r2)
@@ -1521,15 +1529,25 @@ elif int(arg3)==2:
 
     sysUnc = quardsum(sysUnc1)
     sysUnck = quardsum(sysUnc1k)
-    print "FINAL2: "+sys2.rjust(10)+": R : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" %, ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])*100))+" %"
+    #print "FINAL2: "+sys2.rjust(10)+": R : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" %, ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])*100))+" %"
+    print "FINAL2: "+sys2.rjust(10)+": & "+str(roudV(sysUnc*100))+"  & "+str(roudV(sysUnck*100))+" & "+str(roudV(quardsum([sysUnc,sysUnck])*100))+"  \\\\ "
     sysUnc = 0.
 
+  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+"  &  "+str(roudV(sysUnc3k*100))+"   &   "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+"   \\\\  "
+  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+"  &  "+str(roudV(sysUnc4k*100))+"   &   "+str(roudV(quardsum([sysUnc4,sysUnc4k])*100))+"   \\\\  "
+  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+"  &  "+str(roudV(sysUnc5k*100))+"   &   "+str(roudV(quardsum([sysUnc5,sysUnc5k])*100))+"   \\\\  "
+  print "FINAL2: "+("POHP").rjust(5)+" : "+str(roudV(sysUnc6*100))+"  &  "+str(roudV(sysUnc6k*100))+"   &   "+str(roudV(quardsum([sysUnc6,sysUnc6k])*100))+"   \\\\  "
+  print "FINAL2: "+("upPOW").rjust(5)+" : "+str(roudV(sysUnc7*100))+"  &  "+str(roudV(sysUnc7k*100))+"   &   "+str(roudV(quardsum([sysUnc7,sysUnc7k])*100))+"   \\\\  "
+  print "FINAL2: "+("dwPOW").rjust(5)+" : "+str(roudV(sysUnc8*100))+"  &  "+str(roudV(sysUnc8k*100))+"   &   "+str(roudV(quardsum([sysUnc8,sysUnc8k])*100))+"   \\\\  "
+ 
+  """
   print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+" %"
   print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+" % ,     k="+str(roudV(sysUnc4k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc4,sysUnc4k])*100))+" %"
   print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+" % ,     k="+str(roudV(sysUnc5k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc5,sysUnc5k])*100))+" %"
   print "FINAL2: "+("POHP").rjust(5)+" : "+str(roudV(sysUnc6*100))+" % ,     k="+str(roudV(sysUnc6k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc6,sysUnc6k])*100))+" %"
   print "FINAL2: "+("upPOW").rjust(5)+" : "+str(roudV(sysUnc7*100))+" % ,     k="+str(roudV(sysUnc7k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc7,sysUnc7k])*100))+" %"
   print "FINAL2: "+("dwPOW").rjust(5)+" : "+str(roudV(sysUnc8*100))+" % ,     k="+str(roudV(sysUnc8k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc8,sysUnc8k])*100))+" %"
+  """
   print "FINAL2: ---------------- "#+str(SystematicUnc)+"------"
   
 
