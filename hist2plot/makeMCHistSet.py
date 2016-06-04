@@ -40,7 +40,7 @@ def makeMCHistSet(histograms):
   histograms2["tt2b"] = { "h1":histograms["POWtt2b"],   "FillColor":"#ffee00", "LineColor":"#000000",  "label":"t#bar{t}+2b        "    ,  "label2":"$t\\bar{t}+2b$"         }
   histograms2["ttcc"] = { "h1":histograms["POWttcc"],   "FillColor":"#cc6600", "LineColor":"#000000",  "label":"t#bar{t}+c#bar{c}      ",  "label2":"$t\\bar{t}+c\\bar{c}$"  }
   histograms2["ttlf"] = { "h1":histograms["POWttlf"],   "FillColor":"#ff0000", "LineColor":"#000000",  "label":"t#bar{t}+lf       "     ,  "label2":"$t\\bar{t}+lf$"         }
-  histograms2["ttot"] = { "h1":histograms["POWttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"        ,  "label2":"$t\\bar{t} others$"     }
+  histograms2["ttot"] = { "h1":histograms["POWttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"        ,  "label2":"$t\\bar{t}$ others"     }
   #histograms2["ttall"] = {"h1":histograms["POWttal"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} all"          ,  "label2":"$t#bar{t$} all"            }
 
   histograms2["MG5ttbb"] = { "h1":histograms["MG5ttbb"],   "FillColor":"#660000", "LineColor":"#000000",  "label":"t#bar{t}+b#bar{b}      " ,  "label2":"$t\\bar{t}+b\\bar{b}$:MG5" }
@@ -48,7 +48,7 @@ def makeMCHistSet(histograms):
   histograms2["MG5tt2b"] = { "h1":histograms["MG5tt2b"],   "FillColor":"#ffee00", "LineColor":"#000000",  "label":"t#bar{t}+2b        "     ,  "label2":"$t\\bar{t}+2b$:MG5"        }
   histograms2["MG5ttcc"] = { "h1":histograms["MG5ttcc"],   "FillColor":"#cc6600", "LineColor":"#000000",  "label":"t#bar{t}+c#bar{c}      " ,  "label2":"$t\\bar{t}+c\\bar{c}$:MG5" }
   histograms2["MG5ttlf"] = { "h1":histograms["MG5ttlf"],   "FillColor":"#ff0000", "LineColor":"#000000",  "label":"t#bar{t}+lf       "      ,  "label2":"$t\\bar{t}+lf$:MG5"        }
-  histograms2["MG5ttot"] = { "h1":histograms["MG5ttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"         ,  "label2":"$t\\bar{t} others$:MG5"    }
+  histograms2["MG5ttot"] = { "h1":histograms["MG5ttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"         ,  "label2":"$t\\bar{t}$ others:MG5"    }
 
   histograms2["Singlet"] = {"h1":mergesHistograms(ST,    histograms),    "FillColor":"#ff00ff",  "LineColor":"#000000", "label":"Single t"            , "label2":"Single top-${\\rm t}W$"           } 
   histograms2["VV"]      = {"h1":mergesHistograms(VV,    histograms),    "FillColor":"#ffffff",  "LineColor":"#000000", "label":"VV            "      , "label2":"VV"     }

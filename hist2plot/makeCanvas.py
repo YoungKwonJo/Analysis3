@@ -30,7 +30,7 @@ def make_legend2(xmin,ymin,xmax,ymax):
 
 def addLegendLumi():#lumi):
   #lumi2 = str(round(lumi/100)/10)
-  title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.2 fb^{-1}")
+  title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.3 fb^{-1}")
   title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.20),      title.SetY(0.83)
   title.SetTextFont(42)#, title.SetTextSize(0.05),  title.SetTextSizePixels(24)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
@@ -308,8 +308,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
     for i in range(1, ttbbMuMu.GetNbinsX()+2):
       if ttbbMuMu.GetBinContent(i)>0 and minY>ttbbMuMu.GetBinContent(i): minY=ttbbMuMu.GetBinContent(i)
 
-    DATA.SetMaximum(maxY*10000)
-    if maxY*10000 < scale*340 : DATA.SetMaximum(scale*340)
+    DATA.SetMaximum(maxY*100000)
+    if maxY*100000 < scale*340 : DATA.SetMaximum(scale*340)
     if   minY>1     :  DATA.SetMinimum( 4.0 )
     elif minY>0.4   :  DATA.SetMinimum( 0.4 )
     elif minY>0.04  :  DATA.SetMinimum( 0.04 )
@@ -378,11 +378,12 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ########################
   pad2.Modified()
   c1.cd(), c1.Modified(), c1.cd()
-  if isLogy : c1.Print("plots/TH1_"+canvasname+".eps")
-  else      : c1.Print("plots/TH1_"+canvasname+"_Li.eps")
-
-  #if isLogy : c1.Print("plots_fit/TH1_"+canvasname+".eps")
-  #else      : c1.Print("plots_fit/TH1_"+canvasname+"_Li.eps")
+  if SFbyFitting['ttbbSF']==1.0:
+    if isLogy : c1.Print("plots/TH1_"+canvasname+".eps")
+    else      : c1.Print("plots/TH1_"+canvasname+"_Li.eps")
+  else : 
+    if isLogy : c1.Print("plots_fit/TH1_"+canvasname+".eps")
+    else      : c1.Print("plots_fit/TH1_"+canvasname+"_Li.eps")
  
   c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst,ratio4,MCtot4]
   return c1set,Stats,plotSet
@@ -468,13 +469,14 @@ def main():#step, moni):
   # 'jet1Eta', 'jet2Eta', 'jet3Eta', 'jet4Eta',   #20-23
   # 'jet1Phi', 'jet2Phi', 'jet3Phi', 'jet4Phi',   #24-27
   # 'jet1CSV', 'jet2CSV', 'jet3CSV', 'jet4CSV']   #28-31
-  #SFbyFitting={'ttbbSF':1.64402972843,'ttcclfSF':0.914659387146,'k':0.846953639575}
+  #SFbyFitting={'ttbbSF':1.64035858441,'ttcclfSF':0.915145850803,'k':0.82474951077}
   SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
   mon = monitors[moni]
   if runStat : mon = monitors[0]
   else :
     #step="S2"
-    weight="CEN"#csvweight"
+    #weight="CEN"#csvweight"
+    weight="csvweight"
     isLogy = True
     aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
     aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)
@@ -487,11 +489,13 @@ def main():#step, moni):
     if moni==1 : decay = "MM"
     if moni==2 : decay = "ME"
     if moni==3 : decay = "EE"
-    aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,"csvweight",SFbyFitting)
-    aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,"csvweight",SFbyFitting)
-    aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,"csvweight",SFbyFitting)
-    aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,"csvweight",SFbyFitting)
-    aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,"csvweight",SFbyFitting)
+    weight="csvweight"
+    #weight="CEN"
+    aaa[4],StatsAll["S2"],plotSet=aCanvas(mon,"S2",decay,True,weight,SFbyFitting)
+    aaa[4],StatsAll["S3"],plotSet=aCanvas(mon,"S3",decay,True,weight,SFbyFitting)
+    aaa[4],StatsAll["S4"],plotSet=aCanvas(mon,"S4",decay,True,weight,SFbyFitting)
+    aaa[4],StatsAll["S5"],plotSet=aCanvas(mon,"S5",decay,True,weight,SFbyFitting)
+    aaa[4],StatsAll["S6"],plotSet=aCanvas(mon,"S6",decay,True,weight,SFbyFitting)
     
     #print str(StatsAll)
     printStats(StatsAll,plotSet)  

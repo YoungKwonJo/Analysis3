@@ -11,7 +11,8 @@ import sys
 sys.path.append('../ntuple2hist')
 
 
-lumi = 2262.376
+#lumi = 2262.376
+lumi = 2318.278305882
 loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160520_ttbb_764v2/hist20160520/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/MET/"
@@ -252,7 +253,9 @@ def loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation):
   HN2 = "jet4CSV"
   from mcsample_cfi import mcsamples
 
-  dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
+  #dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
+  dy_ee_sf,dy_mm_sf = 1.19890070419,0.892877376661
+
 
   #print "FINAL2:--------------------"
 
@@ -1098,17 +1101,17 @@ def resultPrint3(result, genInfo):
 
   print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
   print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"
-  print "FINAL2:Reco  R = "+ str(roudV(recoR))+" \pm "+str(roudV(recoRerror))+" "
-  print "FINAL2:vis   R = "+ str(roudV(genR))+" \pm "+str(roudV(genRerror))+" "
+  print "FINAL2:Reco  R = "+ str(roudV(recoR))+" $\pm$ "+str(roudV(recoRerror))+" "
+  print "FINAL2:vis   R = "+ str(roudV(genR))+" $\pm$ "+str(roudV(genRerror))+" "
   fullR    = (genR*ttjjAcp/ttbbAcp)
   fullRerr = (genR*ttjjAcp/ttbbAcp)*(genRerror/genR)
-  print "FINAL2:full  R = "+ str(roudV(fullR))+" \pm "+str(roudV(fullRerr))+" "
+  print "FINAL2:full  R = "+ str(roudV(fullR))+" $\pm$ "+str(roudV(fullRerr))+" "
 
-  print "FINAL2:vis   ttbb :"+str(roudV(NewCXttbbvis))+" pb"
-  print "FINAL2:vis   ttjj :"+str(roudV(NewCXttjjvis))+" pb"
+  print "FINAL2:vis   ttbb :"+str(roudV(NewCXttbbvis))+" $\pm$ "+str(roudV(NewCXttbbvis*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+" pb"
+  print "FINAL2:vis   ttjj :"+str(roudV(NewCXttjjvis))+" $\pm$ "+str(roudV(NewCXttjjvis*(result["kValerror"]/result["kVal"])))+" pb"
 
-  print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" pb"
-  print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" pb"
+  print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" $\pm$ "+str(roudV(NewCXttbbfull*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+" pb"
+  print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" $\pm$ "+str(roudV(NewCXttjjfull*(result["kValerror"]/result["kVal"])))+" pb"
   RdilepPOW=genInfo["data"]['dileptonic']/genInfo["total"]
   print "FINAL2:ll r : "+str(roudV(RdilepPOW))
   print "FINAL2:full   ttbb :"+str(roudV(NewCXttbbfull/RdilepPOW))+" pb"
@@ -1194,7 +1197,7 @@ def printV(data,isPrint):
 
   if isPrint : print data["name"]+" & "+str(roudV(rFS)*100)+" \% & "+str(roudV(rVS)*100)+" \% & "+str(roudV(ttjjAcc)*100)+" \% & "+str(roudV(ttbbAcc)*100)+" \% & "+str(roudV(ttjjEff)*100)+" \% & "+str(roudV(ttbbEff)*100)+" \% \\"
 
-  return {"name":data["name"],"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6},"data":data,"total":total}
+  return {"name":data["name"],"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6},"data":data,"total":total,"ttjjVS":ttjj,"ttjjFS":ttjjF,"ttjjS6":ttjjS6}
 
 def printV2(data,data2):
   name = data2["name"]
