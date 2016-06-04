@@ -1100,19 +1100,28 @@ def resultPrint3(result, genInfo):
   ttbbSF = recoR/rttbb
   ttcclfSF = 1.0-n_ttbAll*(recoR/rttbb -1.0)/n_ttcclf
 
+  ##################### 2016.06.04 v765
+  RSysVS=0.293901088804
+  ttjjSysVS=0.184561371906
+  ttbbSysVS=0.348243937492
+  RSysFS=0.299949829138
+  ttjjSysFS=0.210478597487
+  ttbbSysFS=0.366785114202
+  #######################
+
   print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
   print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"
   print "FINAL2:Reco  R = "+ str(roudV(recoR))+" $\pm$ "+str(roudV(recoRerror))+" "
-  print "FINAL2:vis   R = "+ str(roudV(genR))+" $\pm$ "+str(roudV(genRerror))+" "
+  print "FINAL2:vis   R = "+ str(roudV(genR))+" $\pm$ "+str(roudV(genRerror))+"(stat.) $\pm$ "+str(roudV(genR*RSysVS))+"(syst.) "
   fullR    = (genR*ttjjAcp/ttbbAcp)
   fullRerr = (genR*ttjjAcp/ttbbAcp)*(genRerror/genR)
-  print "FINAL2:full  R = "+ str(roudV(fullR))+" $\pm$ "+str(roudV(fullRerr))+" "
+  print "FINAL2:full  R = "+ str(roudV(fullR))+" $\pm$ "+str(roudV(fullRerr))+"(stat.) $\pm$ "+str(roudV(fullR*RSysFS))+"(syst.)"
 
-  print "FINAL2:vis   ttbb :"+str(roudV(NewCXttbbvis))+" $\pm$ "+str(roudV(NewCXttbbvis*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+" pb"
-  print "FINAL2:vis   ttjj :"+str(roudV(NewCXttjjvis))+" $\pm$ "+str(roudV(NewCXttjjvis*(result["kValerror"]/result["kVal"])))+" pb"
+  print "FINAL2:vis   ttbb :"+str(roudV(NewCXttbbvis))+" $\pm$ "+str(roudV(NewCXttbbvis*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+"(stat.) $\pm$ "+str(roudV(NewCXttbbvis*ttbbSysVS))+"(syst.) pb"
+  print "FINAL2:vis   ttjj :"+str(roudV(NewCXttjjvis))+" $\pm$ "+str(roudV(NewCXttjjvis*(result["kValerror"]/result["kVal"])))+"(syst.) $\pm$ "+str(roudV(NewCXttjjvis*ttjjSysVS))+"(syst.) pb"
 
-  print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" $\pm$ "+str(roudV(NewCXttbbfull*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+" pb"
-  print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" $\pm$ "+str(roudV(NewCXttjjfull*(result["kValerror"]/result["kVal"])))+" pb"
+  print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" $\pm$ "+str(roudV(NewCXttbbfull*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+"(syst.) $\pm$ "+str(roudV(NewCXttbbfull*ttbbSysFS))+"(syst.) pb"
+  print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" $\pm$ "+str(roudV(NewCXttjjfull*(result["kValerror"]/result["kVal"])))+"(stat.) $\pm$ "+str(roudV(NewCXttjjfull*ttjjSysFS))+"(syst.) pb"
   RdilepPOW=genInfo["data"]['dileptonic']/genInfo["total"]
   print "FINAL2:ll r : "+str(roudV(RdilepPOW))
   print "FINAL2:full   ttbb :"+str(roudV(NewCXttbbfull/RdilepPOW))+" pb"
