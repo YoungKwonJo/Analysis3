@@ -4,7 +4,7 @@ from os.path import isfile, join
 
 
 ###################################################################
-loc = "/store/user/youngjo/Cattools/v7-6-4v2/"
+loc = "/store/user/youngjo/Cattools/v7-6-5v1/"
 z  ="v1" # bkg
 zz ="v1" # data
 zzz="v1" # ttbar
@@ -40,19 +40,6 @@ def files(path):
     return llll
     #return l, size
 
-"""
-def getEntries(mypath):
-  lcgls="lcg-ls -v -b -T srmv2 -D srmv2 --vo cms srm://cms-se.sdfarm.kr:8443/srm/v2/server?SFN="
-  aaa = (lcgls_+mypath)
-  aaa2= commands.getoutput(aaa)
-
-  bbb = (lcgls_+"/000"+str(Idx_)+"/ | grep -c catTuple ")
-  #print bbb
-  ddd= commands.getoutput(bbb)
-  ddd2= int(ddd)
-  if ddd2==999: ddd2+=getEntries(lcgls_,Idx_+1)
-  return ddd2
-"""
 
 def sumWeight(files):
   chain = TChain("cattree/nom")
@@ -169,6 +156,35 @@ data = loadJson('../ntuple2hist/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}
+sumWeights['DYJets']=81236727.0
+sumWeights['DYJets_10to50']=22482569.0
+sumWeights['DYJets_MG']=9004328.0
+sumWeights['DYJets_MG_5to50']=8771481.0
+sumWeights['WJets']=16521036.0
+sumWeights['TTJets_MG5']=10215131.0
+sumWeights['TTJets_aMC']=12771412.0
+sumWeights['TTJets_scaleup']=14150600.0
+sumWeights['TTJets_scaledown']=12798823.0
+sumWeights['TT_powheg']=97994442.0
+sumWeights['TT_powheg_scaledown']=9932876.0
+sumWeights['TT_powheg_scaleup']=9919776.0
+sumWeights['TT_powheg-herwigpp']=19383463.0
+sumWeights['TT_powheg_pythia6']=0.0
+sumWeights['SingleTbar_tW']=999400.0
+sumWeights['SingleTop_tW']=1000000.0
+sumWeights['SingleTbar_t']=0.0
+sumWeights['SingleTop_t']=0.0
+sumWeights['SingleTop_s']=0.0
+sumWeights['WW']=988418.0
+sumWeights['WZ']=1000000.0
+sumWeights['ZZ']=985600.0
+sumWeights['ttH_bb']=0.0
+sumWeights['ttH_nonbb']=0.0
+sumWeights['ttWJetsToQQ']=429599.0
+sumWeights['ttWJetsToLNu']=129001.0
+sumWeights['ttZToLLNuNu']=183200.0
+sumWeights['ttZToQQ']=350106.0
+"""
 sumWeights['DYJets']=76816262.0
 sumWeights['DYJets_10to50']=22606898.5977
 sumWeights['DYJets_MG']=9004328.0
@@ -197,6 +213,7 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=129001.0
 sumWeights['ttZToLLNuNu']=183200.0
 sumWeights['ttZToQQ']=350106.0
+"""
 
 #############
 if len(sumWeights.keys()) is 0 : 
@@ -257,102 +274,4 @@ for data in dataSamples.keys():
   datasamples +=dataSet(data,dataSamples[data])
 
 
-old="""
-mcsamples=[
-{"name":"MG5ttbb",  "selection": ttbb,       "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-{"name":"MG5ttb",   "selection": ttb,        "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-{"name":"MG5tt2b",  "selection": tt2b,       "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-{"name":"MG5ttcc",  "selection": ttcc,       "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-{"name":"MG5ttlf",  "selection": ttlf,       "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-{"name":"MG5ttot",  "selection": ttothers,   "file": fileList["TTJets_MG5"], "cx":cx[ttbarMG5]  ,"sumWeight": sumWeights["TTJets_MG5"]  },
-                                                                                                                                         
-{"name":"AMCttbb",  "selection": ttbb,       "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
-{"name":"AMCttb",   "selection": ttb,        "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
-{"name":"AMCtt2b",  "selection": tt2b,       "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
-{"name":"AMCttcc",  "selection": ttcc,       "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
-{"name":"AMCttlf",  "selection": ttlf,       "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
-{"name":"AMCttot",  "selection": ttothers,   "file": fileList["TTJets_aMC"], "cx":cx[ttbarAMC]  ,"sumWeight": sumWeights["TTJets_aMC"]  },
 
-{"name":"upPOWAll",   "selection": "(1)",    "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"]  },
-{"name":"upPOWttbb",  "selection": ttbb,     "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-{"name":"upPOWttb",   "selection": ttb,      "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-{"name":"upPOWtt2b",  "selection": tt2b,     "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-{"name":"upPOWttcc",  "selection": ttcc,     "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-{"name":"upPOWttlf",  "selection": ttlf,     "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-{"name":"upPOWttot",  "selection": ttothers, "file": fileList["TT_powheg_scaleup"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaleup"] },
-
-{"name":"dwPOWAll",   "selection": "(1)",    "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"]  },
-{"name":"dwPOWttbb",  "selection": ttbb,     "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-{"name":"dwPOWttb",   "selection": ttb,      "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-{"name":"dwPOWtt2b",  "selection": tt2b,     "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-{"name":"dwPOWttcc",  "selection": ttcc,     "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-{"name":"dwPOWttlf",  "selection": ttlf,     "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-{"name":"dwPOWttot",  "selection": ttothers, "file": fileList["TT_powheg_scaledown"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_scaledown"] },
-
-{"name":"sysPOWAll","selection": "(1)",      "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWttbb",  "selection": ttbb,       "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWttb",   "selection": ttb,        "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWtt2b",   "selection": tt2b,      "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWttcc",  "selection": ttcc,       "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWttlf",  "selection": ttlf,       "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-{"name":"POWttot",  "selection": ttothers,   "file": fileList["TT_powheg"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg"] },
-
-{"name":"sysPOHPAll","selection": "(1)",      "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPttbb",  "selection": ttbb,       "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPttb",   "selection": ttb,        "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPtt2b",   "selection": tt2b,      "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPttcc",  "selection": ttcc,       "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPttlf",  "selection": ttlf,       "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-{"name":"POHPttot",  "selection": ttothers,   "file": fileList["TT_powheg-herwigpp"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg-herwigpp"] },
-
-{"name":"sysPOPY6All","selection": "(1)",      "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6ttbb",  "selection": ttbb,       "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6ttb",   "selection": ttb,        "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6tt2b",   "selection": tt2b,      "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6ttcc",  "selection": ttcc,       "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6ttlf",  "selection": ttlf,       "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-{"name":"POPY6ttot",  "selection": ttothers,   "file": fileList["TT_powheg_pythia6"], "cx":cx[ttbarPOW]  ,"sumWeight": sumWeights["TT_powheg_pythia6"] },
-
-
-{"name":"TTWlNu", "selection": "(1)", "file": fileList["ttWJetsToLNu"],  "cx":cx["ttWJetsToLNu"]   ,"sumWeight": sumWeights["ttWJetsToLNu"]   },
-{"name":"TTWqq",  "selection": "(1)", "file": fileList["ttWJetsToQQ"],   "cx":cx["ttWJetsToQQ"]    ,"sumWeight": sumWeights["ttWJetsToQQ"]    },
-{"name":"TTZll",  "selection": "(1)", "file": fileList["ttZToLLNuNu"],   "cx":cx["ttZToLLNuNu"]    ,"sumWeight": sumWeights["ttZToLLNuNu"]    },
-{"name":"TTZqq",  "selection": "(1)", "file": fileList["ttZToQQ"],       "cx":cx["ttZToQQ"]        ,"sumWeight": sumWeights["ttZToQQ"]        },
-                                                                                                                                                                                     
-{"name":"STbt",   "selection": "(1)", "file": fileList["SingleTbar_t"],  "cx":cx["SingleTbar_t"]    ,"sumWeight": sumWeights["SingleTbar_t"]   },
-{"name":"STt",    "selection": "(1)", "file": fileList["SingleTop_t"],   "cx":cx["SingleTop_t"]     ,"sumWeight": sumWeights["SingleTop_t"]    },
-{"name":"STbtW",  "selection": "(1)", "file": fileList["SingleTbar_tW"], "cx":cx["SingleTbar_tW"]   ,"sumWeight": sumWeights["SingleTbar_tW"]  },
-{"name":"STtW",   "selection": "(1)", "file": fileList["SingleTop_tW"],  "cx":cx["SingleTop_tW"]    ,"sumWeight": sumWeights["SingleTop_tW"]   },
-{"name":"WW",     "selection": "(1)", "file": fileList["WW"],            "cx":cx["WW"]              ,"sumWeight": sumWeights["WW"]             },
-{"name":"WZ",     "selection": "(1)", "file": fileList["WZ"],            "cx":cx["WZ"]              ,"sumWeight": sumWeights["WZ"]             },
-{"name":"ZZ",     "selection": "(1)", "file": fileList["ZZ"],            "cx":cx["ZZ"]              ,"sumWeight": sumWeights["ZZ"]             },
-                                                                                                                                               
-{"name":"WJets",  "selection": "(1)", "file": fileList["WJets"],         "cx":cx["WJets"]           ,"sumWeight": sumWeights["WJets"]          },
-                                                                                                                                               
-{"name":"DYJets", "selection": "(1)", "file": fileList["DYJets"],        "cx":cx["DYJets"]          ,"sumWeight": sumWeights["DYJets"]         },
-{"name":"DYJets10", "selection": "(1)","file": fileList["DYJets_10to50"],"cx":cx["DYJets_10to50"]   ,"sumWeight": sumWeights["DYJets_10to50"]  },
-
-{"name":"ttH2non", "selection": "(1)", "file": fileList["ttH_nonbb"],  "cx":cx["ttH_nonbb"]         ,"sumWeight": sumWeights["ttH_nonbb"] },
-{"name":"ttH2bb",  "selection": "(1)", "file": fileList["ttH_bb"],     "cx":cx["ttH_bb"]            ,"sumWeight": sumWeights["ttH_bb"]    },
-]
-
-#mcsamples = [ x for x in mcsamples if x["name"].find("POHP")>-1 or x["name"].find("POPY6")>-1 ]
-
-mcsamples2=[
-{"name":"DYJets", "selection": "(1)", "file": fileList["DYJets"],         "cx":cx["DYJets"]         ,"sumWeight": sumWeights["DYJets"]           },
-{"name":"DYJets10", "selection": "(1)", "file": fileList["DYJets_10to50"],"cx":cx["DYJets_10to50"]  ,"sumWeight": sumWeights["DYJets_10to50"]    },
-]
-#datasamples=[]
-datasamples=[
-
-{"name":"MuMu1", "selection": "(1)", "file": fileList["DoubleMuon_Run2015C"]   },
-{"name":"MuMu2", "selection": "(1)", "file": fileList["DoubleMuon_Run2015D"]   },
-
-{"name":"ElEl1", "selection": "(1)", "file": fileList["DoubleEG_Run2015C"]     },
-{"name":"ElEl2", "selection": "(1)", "file": fileList["DoubleEG_Run2015D"]     },
-
-{"name":"MuEl1", "selection": "(1)", "file": fileList["MuonEG_Run2015C"]       },
-{"name":"MuEl2", "selection": "(1)", "file": fileList["MuonEG_Run2015D"]       },
-
-]
-"""

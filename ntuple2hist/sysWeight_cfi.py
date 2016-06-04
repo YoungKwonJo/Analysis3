@@ -33,8 +33,12 @@ mceventweight=[
 {"name":"Mu_Up",     "var": "(weight*puweight*mueffweight_up*eleffweight*tri*csvweights[0])"},
 {"name":"Mu_Down",   "var": "(weight*puweight*mueffweight_dn*eleffweight*tri*csvweights[0])"},
 {"name":"El_Up",     "var": "(weight*puweight*mueffweight*eleffweight_up*tri*csvweights[0])"},
-{"name":"El_Down",   "var": "(weight*puweight*mueffweight*eleffweight_dn*tri*csvweights[0])"}
+{"name":"El_Down",   "var": "(weight*puweight*mueffweight*eleffweight_dn*tri*csvweights[0])"},
+#
+{"name":"Trig_Up",   "var": "(weight*puweight*mueffweight*eleffweight*tri_up*csvweights[0])"},
+{"name":"Trig_Down",   "var": "(weight*puweight*mueffweight*eleffweight*tri_dn*csvweights[0])"}
 ]
+
 
 mceventweightMG5 = [{'name':i['name'],'var':i['var'].replace("(weight*","(").replace('*weight*','*')} for i in mceventweight]
 
