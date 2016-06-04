@@ -470,7 +470,9 @@ def main():#step, moni):
   # 'jet1Phi', 'jet2Phi', 'jet3Phi', 'jet4Phi',   #24-27
   # 'jet1CSV', 'jet2CSV', 'jet3CSV', 'jet4CSV']   #28-31
   #SFbyFitting={'ttbbSF':1.64035858441,'ttcclfSF':0.915145850803,'k':0.82474951077}
-  SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
+  SFbyFitting={'ttbbSF':1.62796470428,'ttcclfSF':0.916707908424,'k':0.842498214663}
+
+  #SFbyFitting={'ttbbSF':1.0,'ttcclfSF':1.0,'k':1.0}
   mon = monitors[moni]
   if runStat : mon = monitors[0]
   else :

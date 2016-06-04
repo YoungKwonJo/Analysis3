@@ -13,7 +13,8 @@ sys.path.append('../ntuple2hist')
 
 #lumi = 2262.376
 lumi = 2318.278305882
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160520_ttbb_764v2/hist20160520/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160604_ttbb_765/hist_20160604/"
+#loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160520_ttbb_764v2/hist20160520/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/"
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160415_ttbb_764/hist20160418_ctag/MET/"
 
@@ -254,8 +255,8 @@ def loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation):
   from mcsample_cfi import mcsamples
 
   #dy_ee_sf,dy_mm_sf = 1.22852835616,0.914936584631
-  dy_ee_sf,dy_mm_sf = 1.19890070419,0.892877376661
-
+  #dy_ee_sf,dy_mm_sf = 1.19890070419,0.892877376661
+  dy_ee_sf,dy_mm_sf = 1.20526185054,1.01010320942
 
   #print "FINAL2:--------------------"
 
@@ -1282,7 +1283,7 @@ if len(sys.argv) > 3:
 
 
 #StepSys = ["JES_Up","JES_Down","JER_NOM","JER_Up","JER_Down","LF_Up", "LF_Down", "HF_Up", "HF_Down", "HF_Stats1_Up","HF_Stats1_Down","HF_Stats2_Up","HF_Stats2_Down","LF_Stats1_Up","LF_Stats1_Down","LF_Stats2_Up","LF_Stats2_Down","CQ_Err1_Up", "CQ_Err1_Down", "CQ_Err2_Up", "CQ_Err2_Down","PW_Up","PW_Down"]
-StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","LF_Stats1","LF_Stats2"],"CQ":["CQ_Err1","CQ_Err2"],"pileup":["PW"],"lepton":["Mu","El"]}
+StepSys2 = {"JES":["JES","JER"],"LF":["LF","HF_Stats1","HF_Stats2"],"HF":["HF","LF_Stats1","LF_Stats2"],"CQ":["CQ_Err1","CQ_Err2"],"pileup":["PW"],"lepton":["Mu","El"],"Trigger":["Trig"]}
 
 from sysWeight_cfi import mceventweight
 sysWeights =  [i["name"] for i in mceventweight]
