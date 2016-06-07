@@ -351,14 +351,14 @@ def resultPrint(result, freeTTB, freeTTCC, GEN):
   return resultPrintNew2(result, freeTTB, freeTTCC, GEN, True)
 
 def resultPrintNew2(result, freeTTB, freeTTCC, GEN, isPrint):
-  if isPrint : print "FINAL: ----------------------   "
-  if isPrint : print "FINAL: MC:"+ str(GEN)
+  if isPrint : print "FINAL3: ----------------------   "
+  if isPrint : print "FINAL3: MC:"+ str(GEN)
   fsig = result["fsig"]
   rttbb = result["rttbb"]
   recoR      = fsig.getVal()
   recoRerror = fsig.getError()
-  if isPrint : print "FINAL: prefit: R="+str(roudV(rttbb))
-  if isPrint : print "FINAL: R = "+ str(roudV(recoR))+" $\pm$ "+str(roudV(recoRerror))+" "
+  if isPrint : print "FINAL3: prefit: R="+str(roudV(rttbb))
+  if isPrint : print "FINAL3: R = "+ str(roudV(recoR))+" $\pm$ "+str(roudV(recoRerror))+" "
   #return false
 
   #"""
@@ -367,7 +367,7 @@ def resultPrintNew2(result, freeTTB, freeTTCC, GEN, isPrint):
   recoR2error=0.0
   recoR3error=0.0
   if freeTTB:
-    if isPrint : print "FINAL: freeTTB : "+str(freeTTB)
+    if isPrint : print "FINAL3: freeTTB : "+str(freeTTB)
     fsig2 = result["fsig2"]
     fsig3 = result["fsig3"]
     rttb = result["rttb"]
@@ -376,12 +376,12 @@ def resultPrintNew2(result, freeTTB, freeTTCC, GEN, isPrint):
     recoR3      = fsig3.getVal()
     recoR2error = fsig2.getError()
     recoR3error = fsig3.getError()
-    if isPrint : print "FINAL: prefit: R2="+str(roudV(rttb))
-    if isPrint : print "FINAL: $R2 = "+ str(roudV(recoR2))+" \pm "+str(roudV(recoR2error))+"$"
-    if isPrint : print "FINAL: prefit: R3="+str(roudV(rtt2b))
-    if isPrint : print "FINAL: $R3 = "+ str(roudV(recoR3))+" \pm "+str(roudV(recoR3error))+"$"
+    if isPrint : print "FINAL3: prefit: R2="+str(roudV(rttb))
+    if isPrint : print "FINAL3: $R2 = "+ str(roudV(recoR2))+" \pm "+str(roudV(recoR2error))+"$"
+    if isPrint : print "FINAL3: prefit: R3="+str(roudV(rtt2b))
+    if isPrint : print "FINAL3: $R3 = "+ str(roudV(recoR3))+" \pm "+str(roudV(recoR3error))+"$"
   else:
-    if isPrint : print "FINAL: freeTTB : "+str(freeTTB)
+    if isPrint : print "FINAL3: freeTTB : "+str(freeTTB)
     fsig2con = result["fsig2con"]
     fsig3con = result["fsig3con"]
     recoR2      = fsig2con.getVal()
@@ -389,34 +389,34 @@ def resultPrintNew2(result, freeTTB, freeTTCC, GEN, isPrint):
     rttb = result["rttb"]
     rtt2b = result["rtt2b"]
     #recoR2error = fsig2con.getError()
-    if isPrint : print "FINAL: prefit: R2="+str(roudV(rttb))
-    if isPrint : print "FINAL: $R2 = "+ str(roudV(recoR2))#+" \pm "+str(roudV(recoR2error))+"$"
-    if isPrint : print "FINAL: prefit: R3="+str(roudV(rtt2b))
-    if isPrint : print "FINAL: $R3 = "+ str(roudV(recoR3))#+" \pm "+str(roudV(recoR3error))+"$"
+    if isPrint : print "FINAL3: prefit: R2="+str(roudV(rttb))
+    if isPrint : print "FINAL3: $R2 = "+ str(roudV(recoR2))#+" \pm "+str(roudV(recoR2error))+"$"
+    if isPrint : print "FINAL3: prefit: R3="+str(roudV(rtt2b))
+    if isPrint : print "FINAL3: $R3 = "+ str(roudV(recoR3))#+" \pm "+str(roudV(recoR3error))+"$"
   
   recoRcc=1.
   recoRccerror=0.0
   if freeTTCC:
-    if isPrint : print "FINAL: freeTTCC : "+str(freeTTCC)
+    if isPrint : print "FINAL3: freeTTCC : "+str(freeTTCC)
     fsigcc = result["fsigcc"]
     rttcc = result["rttcc"]
     recoRcc      = fsigcc.getVal()
     recoRccerror = fsigcc.getError()
-    if isPrint : print "FINAL: prefit: Rcc="+str(roudV(rttcc))
-    if isPrint : print "FINAL: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
+    if isPrint : print "FINAL3: prefit: Rcc="+str(roudV(rttcc))
+    if isPrint : print "FINAL3: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
   else:
-    if isPrint : print "FINAL: freeTTCC : "+str(freeTTCC)
+    if isPrint : print "FINAL3: freeTTCC : "+str(freeTTCC)
     #recoRcc      = fsigcc.getVal()
     #recoRccerror = fsigcc.getError()
     rttcc = result["rttcc"]
-    if isPrint : print "FINAL: prefit: Rcc="+str(roudV(rttcc))
-    #if isPrint : print "FINAL: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
+    if isPrint : print "FINAL3: prefit: Rcc="+str(roudV(rttcc))
+    #if isPrint : print "FINAL3: $Rcc = "+ str(roudV(recoRcc))+" \pm "+str(roudV(recoRccerror))+"$"
   
   
   k = result["k"]
   kVal      = k.getVal()
   kValerror = k.getError()
-  if isPrint : print "FINAL: $k = "+str(roudV(kVal))+" \pm "+str(roudV(kValerror))+"$"
+  if isPrint : print "FINAL3: $k = "+str(roudV(kVal))+" \pm "+str(roudV(kValerror))+"$"
   result2 = {
       "recoR":copy.deepcopy(recoR), "recoRerror":copy.deepcopy(recoRerror),
       "recoR2":copy.deepcopy(recoR2), "recoR2error":copy.deepcopy(recoR2error),
