@@ -77,9 +77,9 @@ def PrintSys(data,data2):
   sysRtjtS6=getSys(data['rTtjjTotal']['S6'],data2['rTtjjTotal']['S6'])
 
   print "++sys ttbb/ttjj in VS : "+str(roudV(sysRvs)*100)+" %"
-  print "++sys Ttjj/Total in FS : "+str(roudV(sysRtjtFS)*100)+" %"
-  print "++sys Ttjj/Total in VS : "+str(roudV(sysRtjtVS)*100)+" %"
-  print "++sys Ttjj/Total in S6 : "+str(roudV(sysRtjtS6)*100)+" %"
+  #print "++sys Ttjj/Total in FS : "+str(roudV(sysRtjtFS)*100)+" %"
+  #print "++sys Ttjj/Total in VS : "+str(roudV(sysRtjtVS)*100)+" %"
+  #print "++sys Ttjj/Total in S6 : "+str(roudV(sysRtjtS6)*100)+" %"
   #print "sys rFS : "+str(roudV(sysRfs)*100)+" %"
   #print "sys ttbb Eff : "+str(roudV(sysTtbbEff)*100)+" %"
   #print "sys ttjj Eff : "+str(roudV(sysTtjjEff)*100)+" %"

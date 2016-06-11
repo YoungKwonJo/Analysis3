@@ -207,9 +207,9 @@ def loadHistogram2(arg1, arg2, Step,Q2, Weight,Variation):
       h12.Add(h32)
 
     if name in Variation["Up"]:
-      h1.Scale(2.)
-      h11.Scale(2.)
-      h12.Scale(2.)
+      h1.Scale(1.5)
+      h11.Scale(1.5)
+      h12.Scale(1.5)
 
     if name in Variation["Down"]:
       h1.Scale(0.5)
@@ -493,9 +493,10 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   
   fsig   =RooRealVar(    "fsig",                "fsig",           rttbb, 0.0, 0.18) 
   fsig2con  =RooFormulaVar("fsig2con",          "fsig2","@0/@1*@2",RooArgList(fsig,RttbbReco,RttbReco) )  # constraint fsig2 with fsig
-  fsig3con  =RooFormulaVar("fsig3con",          "fsig3","@0/@1*@2",RooArgList(fsig,RttbbReco,Rtt2bReco) )  # constraint fsig2 with fsig
+  fsig3con  =RooFormulaVar("fsig3con",          "fsig3","@0/@1*@2",RooArgList(fsig,RttbbReco,Rtt2bReco) )  # constraint fsig3 with fsig
   fsig2  =RooRealVar(   "fsig2",                "fsig2",          rttb, 0.0, 0.3)  # free fsig2
   fsig3  =RooRealVar(   "fsig3",                "fsig3",          rtt2b, 0.0, 0.3)  # free fsig3
+  fsig32con  =RooFormulaVar(   "fsig32con",    "fsig32con", "@0/@1*@2",RooArgList(fsig2,RttbReco,Rtt2bReco))  # free fsig32 with fsig2
   fsigcc =RooRealVar(  "fsigcc",              "fsigcc",           rttcc, 0.0, 0.4)  # free fsigcc
   k      =RooRealVar(       "k","normalization factor",           1, 0.5, 1.5) 
   
@@ -540,7 +541,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ddbkgpdf     = RooHistPdf("ddbkgpdf",    "ddbkgpdf",     RooArgSet(RooArgList(x,y)), ddbkg)
   
   #for separate ttcc
-  if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig3))
+  #if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig3))
+  if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig32con))
   elif not freeTTB and freeTTCC: model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttccpdf, ttlfpdf), RooArgList(fsig,fsig2con,fsig3con, fsigcc))
   elif freeTTB and freeTTCC    : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttccpdf, ttlfpdf), RooArgList(fsig,fsig2,fsig3, fsigcc))
   else                         : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2con,fsig3con))
@@ -555,6 +557,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
       "fsig":copy.deepcopy(fsig), 
       "fsig2":copy.deepcopy(fsig2), 
       "fsig3":copy.deepcopy(fsig3), 
+      "fsig32con":copy.deepcopy(fsig32con), 
       "fsig2con":copy.deepcopy(fsig2con), 
       "fsig3con":copy.deepcopy(fsig3con), 
       "fsigcc":copy.deepcopy(fsigcc), 
@@ -1101,13 +1104,28 @@ def resultPrint3(result, genInfo):
   ttcclfSF = 1.0-n_ttbAll*(recoR/rttbb -1.0)/n_ttcclf
 
   ##################### 2016.06.04 v765
-  RSysVS=0.293901088804
-  ttjjSysVS=0.184561371906
-  ttbbSysVS=0.348243937492
-  RSysFS=0.299949829138
-  ttjjSysFS=0.210478597487
-  ttbbSysFS=0.366785114202
-  #######################
+  #RSysVS=0.293901088804
+  #ttjjSysVS=0.184561371906
+  #ttbbSysVS=0.348243937492
+  #RSysFS=0.299949829138
+  #ttjjSysFS=0.210478597487
+  #ttbbSysFS=0.366785114202
+
+  ##################### 2016.06.07 v765
+  #RSysVS=0.295461621873
+  #ttjjSysVS=0.186268864816
+  #ttbbSysVS=0.348729522696
+  #RSysFS=0.299769728292
+  #ttjjSysFS=0.212804793179
+  #ttbbSysFS=0.367060703427
+  ####################### 2016. 06.11 v765
+  RSysVS=0.281609658925
+  ttjjSysVS=0.186850207385
+  ttbbSysVS=0.337921588538
+  RSysFS=0.285952793307
+  ttjjSysFS=0.210059515376
+  ttbbSysFS=0.35324354205
+
 
   print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
   print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"
