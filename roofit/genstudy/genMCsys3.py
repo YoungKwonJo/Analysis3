@@ -26,12 +26,13 @@ def main():
   #print "AMC"
   AMCSys=printSys(POW3,AMC['nom']['AMC'],RFit,NttjjFit,lumi)
   printAccEff("AMC",AMCSys,POW4)
-
+  print AMCSys["data2"]
 
   #print ""
   #print "MG5"
   MG5Sys= printSys(POW3,MG5['nom']['MG5'],RFit,NttjjFit,lumi)
   printAccEff("MG5",MG5Sys,POW4)
+  print MG5Sys["data2"]
 
   #print ""
   #print "POHP"
