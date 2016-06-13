@@ -29,5 +29,9 @@ AMC_ttbbAcc = AMC2["ttbb"]/AMC2["ttbbF"]
 AMC_ttjjAcc = AMC2["ttjj"]/AMC2["ttjjF"]
 print "AMC & "+str(AMC_ttbbAcc)+" & "+str(AMC_ttjjAcc)
 
+POWAcc={"ttbb":POW_ttbbAcc,"ttjj":POW_ttjjAcc,"data":POW2 }
+AMCAcc={"ttbb":AMC_ttbbAcc,"ttjj":AMC_ttjjAcc,"data":AMC2 }
+MG5Acc={"ttbb":MG5_ttbbAcc,"ttjj":MG5_ttjjAcc,"data":MG52 }
+
 
 

@@ -1132,10 +1132,14 @@ def resultPrint3(result, genInfo):
   RSysVS=0.281609658925
   ttjjSysVS=0.186850207385
   ttbbSysVS=0.337921588538
-  RSysFS=0.285952793307
-  ttjjSysFS=0.210059515376
-  ttbbSysFS=0.35324354205
 
+  #RSysFS=0.285952793307
+  #ttjjSysFS=0.210059515376
+  #ttbbSysFS=0.35324354205
+  ######## FPS all decays 2016. 06. 13. v765
+  RSysFS=0.291293666255
+  ttjjSysFS=0.202281981402
+  ttbbSysFS=0.348651688652
 
   print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
   print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"

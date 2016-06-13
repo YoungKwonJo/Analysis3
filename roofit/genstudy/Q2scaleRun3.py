@@ -1,5 +1,40 @@
 
-from pdfAllRun import roudV,printV
+from pdfAllRun import roudV,printV,sumV,roudV
+
+def printV2(data,data2,isPrint):
+  total = sumV(data,"",['dileptonic','semileptonic','hadroic'])
+  if isPrint : print "total : "+str(total)
+  if isPrint : print "dileptonic : "+str(data['dileptonic'])+", semileptonic : "+str(data['semileptonic'])+", hadroic : "+str(data['hadroic'])
+  VS = ["ttbb","tt2b","ttb","ttcc","ttlf"]# "ttot"
+  FS = ["ttbbF","tt2bF","ttbF","ttccF","ttlfF"]
+  ttbb = data['S0']['ttbb']
+  ttbbF = data2['data']['ttbbF']
+  ttjj = sumV(data,'S0',VS)
+  ttjjF = sumV(data2["data"],"",FS)
+  ttbbAcc=data2["ttbb"]#ttbb/ttbbF
+  ttjjAcc=data2["ttjj"] #ttjj/ttjjF
+  rFS = ttbbF/ttjjF
+  rVS = ttbb/ttjj
+  rTtjjTotalFS=ttjjF/total
+  rTtjjTotalVS=ttjj/total
+
+  if isPrint : print "ratio ttjj/total FS: "+str(roudV(rTtjjTotalFS*100))+" %"
+  if isPrint : print "ratio ttjj/total VS: "+str(roudV(rTtjjTotalVS*100))+" %"
+  if isPrint : print "Acceptance(VS/FS) ttbb : "+str(roudV(ttbbAcc))+", ttjj : "+str(roudV(ttjjAcc))
+  if isPrint : print "FS R(ttbb/ttjj) : "+str(roudV(rFS)*100)+" %"
+  if isPrint : print "VS R(ttbb/ttjj) : "+str(roudV(rVS)*100)+" %"
+  ttbbS6 = data['S6']['ttbb']
+  ttjjS6 = sumV(data,"S6",["ttbb","tt2b","ttb","ttcc","ttlf"])
+  ttbbEff= ttbbS6/ttbb
+  ttjjEff= ttjjS6/ttjj
+  rTtjjTotalS6=ttjjS6/total
+  if isPrint : print "ratio ttjj/total S6: "+str(roudV(rTtjjTotalS6))+" %"
+  if isPrint : print "efficiency S6/S0 in VS"
+  if isPrint : print "ttbb : "+str(roudV(ttbbEff)*100)+" %"
+  if isPrint : print "ttjj : "+str(roudV(ttjjEff)*100)+" %"
+
+  return {"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6}}
+
 
 def getRttjjttbb(sample,RFit,NttjjFit,lumi):
   Rvps = RFit*sample["Eff"]["ttjj"]/sample["Eff"]["ttbb"]
@@ -19,9 +54,10 @@ def getSys(sample, sample2,key):
   ttbb=(sample[key]["Sigma"]["ttbb"]-sample2[key]["Sigma"]["ttbb"])/sample[key]["Sigma"]["ttbb"]
   return {"R":R,"ttbb":ttbb,"ttjj":ttjj}
 
-def printSys(POW3,sample,RFit,NttjjFit,lumi):
+def printSys(POW3,sample,data2,RFit,NttjjFit,lumi):
 
-  sample2=printV(sample,False)
+  #sample2=printV(sample,False)
+  sample2=printV2(sample,data2,False)
   sample3=getRttjjttbb(sample2,RFit,NttjjFit,lumi)
   vps=getSys(POW3,sample3,"vps")
   fps=getSys(POW3,sample3,"fps")
@@ -40,8 +76,8 @@ def compareSYS(data,data2):
   return dataAll
 
 def SysVal(Sys,CEN):
-  #return abs( (1./CEN)-(1./Sys))/(1./CEN) 
-  return abs( (CEN)-(Sys))/(CEN) 
+  return abs( (1./CEN)-(1./Sys))/(1./CEN) 
+  #return abs( (CEN)-(Sys))/(CEN) 
 
 
 def roudV2(val2):
@@ -97,6 +133,7 @@ def printAccEff(name,Sys,CEN):
 
 def main():
   from Q2scale import *
+  from Q2scaleFPS_Run import dwPOW_Acc,POW_Acc,upPOW_Acc
 
   RFit = 0.0557405348697
   NttjjFit = 926.771624879
@@ -105,8 +142,10 @@ def main():
   #print "> python Q2scaleRun2.py > resultQ2scaleSys.txt"
   #print ""
   #print 'POW'
-  POW2=printV(POW,False)
+  POW2=printV2(POW,POW_Acc["nom"],False)
   POW3=getRttjjttbb(POW2,RFit,NttjjFit,lumi)
+  print "POW"
+  print POW3
   POW4={}
   POW4["data"]=POW2
   POW4["data2"]=POW3
@@ -128,26 +167,35 @@ def main():
   PSs["upPOW"]="$PS_{up}$ "
 
 
-  maxSys=printSys(POW3,POW,RFit,NttjjFit,lumi)
+  maxSys=printSys(POW3,POW,POW_Acc["nom"],RFit,NttjjFit,lumi)
   #print "Down"
   #print str(POW3)
   #print "+Central Sample"
   for i in range(1,4):
-    Sys=printSys(POW3,POWsys['Q2_Dw'+str(i)],RFit,NttjjFit,lumi)
+    Sys=printSys(POW3,POWsys['Q2_Dw'+str(i)],POW_Acc['Q2_Dw'+str(i)],RFit,NttjjFit,lumi)
     printAccEff(PSs["POW"]+MEs["Dw"+str(i)],Sys,POW4)
     maxSys=compareSYS(maxSys,Sys)
 
   #print maxSys
-
+  #print "+Central Sample"
+  for i in range(1,4):
+    #print "++Q2_Up"+str(i)
+    Sys=printSys(POW3,POWsys['Q2_Up'+str(i)],upPOW_Acc['Q2_Up'+str(i)],RFit,NttjjFit,lumi)
+    printAccEff(PSs["POW"]+MEs["Up"+str(i)],Sys,POW4)
+    maxSys=compareSYS(maxSys,Sys)
+    
+  #print maxSys
   #print "+Down Sample, nom"
-  dwSys=printSys(POW3,dwPOW['nom']['dwPOW'],RFit,NttjjFit,lumi)
+  #print dwPOW_Acc["nom"]
+
+  dwSys=printSys(POW3,dwPOW['nom']['dwPOW'],dwPOW_Acc["nom"],RFit,NttjjFit,lumi)
   printAccEff(PSs["dwPOW"]+MEs["nom"],dwSys,POW4)
 
   #print ""
   #print "+ME Down Sample"
   for i in range(1,4):
     #print "++Q2_Dw"+str(i)
-    Sys=printSys(POW3,dwPOW['Q2_Dw'+str(i)]['dwPOW'],RFit,NttjjFit,lumi)
+    Sys=printSys(POW3,dwPOW['Q2_Dw'+str(i)]['dwPOW'],dwPOW_Acc['Q2_Dw'+str(i)],RFit,NttjjFit,lumi)
     printAccEff(PSs["dwPOW"]+MEs["Dw"+str(i)],Sys,POW4)
     maxSys=compareSYS(maxSys,Sys)
  
@@ -156,17 +204,8 @@ def main():
   #print maxSys
   #print ""
   #print "Up"
- 
-  #print "+Central Sample"
-  for i in range(1,4):
-    #print "++Q2_Up"+str(i)
-    Sys=printSys(POW3,POWsys['Q2_Up'+str(i)],RFit,NttjjFit,lumi)
-    printAccEff(PSs["POW"]+MEs["Up"+str(i)],Sys,POW4)
-    maxSys=compareSYS(maxSys,Sys)
-    
-  #print maxSys
 
-  upSys=printSys(POW3,upPOW['nom']['upPOW'],RFit,NttjjFit,lumi)
+  upSys=printSys(POW3,upPOW['nom']['upPOW'],upPOW_Acc['nom'],RFit,NttjjFit,lumi)
   maxSys=compareSYS(maxSys,upSys)
   printAccEff(PSs["upPOW"]+MEs["nom"],upSys,POW4)
 
@@ -174,7 +213,7 @@ def main():
   #print "+ME Up Sample"
   for i in range(1,4):
     #print "++Q2_Up"+str(i)
-    Sys=printSys(POW3,upPOW['Q2_Up'+str(i)]['upPOW'],RFit,NttjjFit,lumi)
+    Sys=printSys(POW3,upPOW['Q2_Up'+str(i)]['upPOW'],upPOW_Acc['Q2_Up'+str(i)],RFit,NttjjFit,lumi)
     printAccEff(PSs["upPOW"]+MEs["Up"+str(i)],Sys,POW4)
     maxSys=compareSYS(maxSys,Sys)
 
