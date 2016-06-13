@@ -2,7 +2,7 @@ from ROOT import *
 
 import sys
 sys.path.append('../ntuple2hist')
-from mcsample_cfi import fileList,ttbarSelections,ttbarMCsamples,mAND
+from mcsample_cfi import fileList,ttbarSelections,ttbarMCsamples,mAND,op_
 from cut_cfi import cut_maker,ll_cuts
 
 def getIt(tree,htemp, weight, sel):
@@ -18,7 +18,17 @@ def loadTree(files):
     if None == f: continue
     chain.Add(afile)
   return chain
-
+def ttbarSelectionsFPS():
+   fullphase ="(NaddJets20 >= 2)"
+   #TTJJ = "(NaddJets20 >= 2 && diLeptonicM1==1)"
+   ttbb = "(NaddbJets20 >= 2 && diLeptonicM1==1)"
+   ttb = "(NaddJets20 >= 2 && NaddbJets20 == 1 && diLeptonicM1==1 && !(genTtbarId%100==52))"
+   tt2b = "(NaddJets20 >= 2 && NaddbJets20 == 1 && diLeptonicM1==1 && (genTtbarId%100==52))"
+   ttcc = "(NaddJets20 >= 2 && NaddcJets20 >= 2 && NaddbJets20==0 && diLeptonicM1==1)"
+   ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
+   ##ttlf = "( !"+ttbb+" && !"+ttb+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
+   ttot = op_(fullphase)
+   return ttbb,ttb,tt2b,ttcc,ttlf,ttot
 def ntuple2entries(filename,weight):
   #####selection
   hadronic,semileptonic,dileptonic     = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
@@ -27,13 +37,15 @@ def ntuple2entries(filename,weight):
   allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
 
   ttbb,ttb,tt2b,ttcc,ttlf,ttot = ttbarSelections(True)
-  ttbbF,ttbF,tt2bF,ttccF,ttlfF,ttotF = ttbarSelections(False)
+
+  ttbbF,ttbF,tt2bF,ttccF,ttlfF,ttotF = ttbarSelectionsFPS()
   ttNN = { 
      "ttbb":ttbb, "ttb":ttb,  "tt2b":tt2b, "ttcc":ttcc, "ttlf":ttlf, "ttot":ttot, 
      "ttbbF":ttbbF,"ttbF":ttbF, "tt2bF":tt2bF, "ttccF":ttccF, "ttlfF":ttlfF, "ttotF":ttotF, 
   }
   S0,S6,S7=cut_maker(ll_cuts,0)['cut']["S0"],cut_maker(ll_cuts,6)['cut']["S6"],cut_maker(ll_cuts,7)['cut']["S7"]
-  ttEff = {"S0":S0,"S6":S6,"S7":S7}
+  #ttEff = {"S0":S0,"S6":S6,"S7":S7}
+  ttEff = {"S0":S0}#,"S6":S6,"S7":S7}
 
   tree = loadTree(fileList[filename])
   htemp = TH1D("htempD","",1,-20,20)
@@ -65,7 +77,8 @@ weights = {"nom":"weight"
 }
 weights2 = {"nom":"1","weight":"weight"}
 #ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" }
-ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
+#ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
+ttbarMCs=['POW', 'AMC', 'MG5']
 
 import sys
 if len(sys.argv) < 1:
@@ -76,10 +89,10 @@ x = ttbarMCs[xx]
 
 if x.find("MG5")>-1 : weights=weights2
 
-for y in weights.keys():
+for y in weights2.keys():
   allsummaryA = {}
   #for x in ttbarMCsamples.keys():
-  allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
+  allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights2[y])
   allsummary[y]=allsummaryA
 
 print x+"="+str(allsummary)
