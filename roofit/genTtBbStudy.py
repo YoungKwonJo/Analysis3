@@ -82,19 +82,21 @@ ttbarMCs=['dwPOW', 'POW', 'upPOW']
 #ttbarMCs=['POW', 'AMC', 'MG5']
 
 import sys
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
   print "no argument.."
   sys.exit()
 xx = int(sys.argv[1])
+yy = int(sys.argv[2])
 x = ttbarMCs[xx]
 
 #if x.find("MG5")>-1 : weights=weights2
 
-for y in weights.keys():
-  allsummaryA = {}
-  #for x in ttbarMCsamples.keys():
-  allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[y])
-  allsummary[y]=allsummaryA
+for y,yyy in enumerate(weights.keys()):
+  if y==yy:
+    allsummaryA = {}
+    #for x in ttbarMCsamples.keys():
+    allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[yyy])
+    allsummary[y]=allsummaryA
 
 print x+"="+str(allsummary)
 

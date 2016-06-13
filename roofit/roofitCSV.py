@@ -1051,8 +1051,18 @@ def resultPrint3(result, genInfo):
 
   #eR = genInfo["eR"]
   #acP = genInfo["acP"]
-  ttjjAcp = genInfo["Acc"]["ttjj"]
-  ttbbAcp = genInfo["Acc"]["ttbb"]
+  #ttjjAcp = genInfo["Acc"]["ttjj"]
+  #ttbbAcp = genInfo["Acc"]["ttbb"]
+
+  #Acc :  ttbbVPS_DiLeptonic / ttbbFPS_Alldecay , 2016. June 13
+  #POW & 0.0160401846363 & 0.0176910436472
+  #$MG5 & 0.0168631361516 & 0.0192072020681
+  #AMC & 0.0160596740749 & 0.0177292239969
+
+  ttjjAcp = 0.0176910436472
+  ttbbAcp = 0.0160401846363
+
+
 
   ttjjEff = genInfo["Eff"]["ttjj"]
   ttbbEff = genInfo["Eff"]["ttbb"]
