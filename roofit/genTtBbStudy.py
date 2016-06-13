@@ -96,7 +96,7 @@ for y,yyy in enumerate(weights.keys()):
     allsummaryA = {}
     #for x in ttbarMCsamples.keys():
     allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[yyy])
-    allsummary[y]=allsummaryA
+    allsummary[yyy]=allsummaryA
 
 print x+"="+str(allsummary)
 
