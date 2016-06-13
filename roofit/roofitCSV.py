@@ -1196,7 +1196,7 @@ def printV(data,isPrint):
   if isPrint : print "total : "+str(total)
   if isPrint : print "dileptonic : "+str(data['dileptonic'])+", semileptonic : "+str(data['semileptonic'])+", hadroic : "+str(data['hadroic'])
   VS = ["ttbb","tt2b","ttb","ttcc","ttlf"]# "ttot"
-  FS = ["ttbbF","ttbF","ttccF","ttlfF"]
+  FS = ["ttbbF","tt2bF","ttbF","ttccF","ttlfF"]
   ttbb = data['S0']['ttbb']
   ttbbF = data['S0']['ttbbF']
   ttjj = sumV(data,'S0',VS)

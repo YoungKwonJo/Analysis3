@@ -21,11 +21,11 @@ def loadTree(files):
 def ttbarSelectionsFPS():
    fullphase ="(NaddJets20 >= 2)"
    #TTJJ = "(NaddJets20 >= 2 && diLeptonicM1==1)"
-   ttbb = "(NaddbJets20 >= 2 && diLeptonicM1==1)"
-   ttb = "(NaddJets20 >= 2 && NaddbJets20 == 1 && diLeptonicM1==1 && !(genTtbarId%100==52))"
-   tt2b = "(NaddJets20 >= 2 && NaddbJets20 == 1 && diLeptonicM1==1 && (genTtbarId%100==52))"
-   ttcc = "(NaddJets20 >= 2 && NaddcJets20 >= 2 && NaddbJets20==0 && diLeptonicM1==1)"
-   ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
+   ttbb = "(NaddbJets20 >= 2 )"#&& diLeptonicM1==1)"
+   ttb = "(NaddJets20 >= 2 && NaddbJets20 == 1  && !(genTtbarId%100==52))"
+   tt2b = "(NaddJets20 >= 2 && NaddbJets20 == 1 && (genTtbarId%100==52))"
+   ttcc = "(NaddJets20 >= 2 && NaddcJets20 >= 2 && NaddbJets20==0 )"
+   ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2 )"
    ##ttlf = "( !"+ttbb+" && !"+ttb+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
    ttot = op_(fullphase)
    return ttbb,ttb,tt2b,ttcc,ttlf,ttot
