@@ -1051,17 +1051,17 @@ def resultPrint3(result, genInfo):
 
   #eR = genInfo["eR"]
   #acP = genInfo["acP"]
-  #ttjjAcp = genInfo["Acc"]["ttjj"]
-  #ttbbAcp = genInfo["Acc"]["ttbb"]
+  dilepBr = 0.10705984
+  ttbarCX = 831.76 
+  ttjjAcp = genInfo["Acc"]["ttjj"]*dilepBr
+  ttbbAcp = genInfo["Acc"]["ttbb"]*dilepBr
 
   #Acc :  ttbbVPS_DiLeptonic / ttbbFPS_Alldecay , 2016. June 13
   #POW & 0.0160401846363 & 0.0176910436472
   #$MG5 & 0.0168631361516 & 0.0192072020681
   #AMC & 0.0160596740749 & 0.0177292239969
-
-  ttjjAcp = 0.0176910436472
-  ttbbAcp = 0.0160401846363
-
+  #ttjjAcp = 0.0176910436472
+  #ttbbAcp = 0.0160401846363
 
 
   ttjjEff = genInfo["Eff"]["ttjj"]
@@ -1092,8 +1092,30 @@ def resultPrint3(result, genInfo):
 
   print "FINAL2: ---genInfo---------------------------------"
 
-  print "FINAL2: R full : "+str(roudV(genInfo["rFS"]*100))+" % "
-  print "FINAL2: R_vis : " +str(roudV(genInfo["rVS"]*100))+" % "
+  ttbbScaleSysVS=0.1295530779
+  ttjjScaleSysVS=0.101
+  rScaleSysVS=0.1024890238
+
+  ttbbScaleSysFS = 0.1333604139
+  ttjjScaleSysFS = 0.1101635148
+  rScaleSysFS = 0.114629839
+
+  NttbbVS = genInfo["ttbbVS"]/genInfo["total"]*ttbarCX
+  NttjjVS = genInfo["ttjjVS"]/genInfo["total"]*ttbarCX
+  NttbbFS = genInfo["ttbbFS"]/genInfo["total"]/dilepBr*ttbarCX
+  NttjjFS = genInfo["ttjjFS"]/genInfo["total"]/dilepBr*ttbarCX
+
+  rFS = genInfo["rFS"]
+  rVS = genInfo["rVS"]
+
+  print "FINAL2: R full : "+str(roudV(rFS))+" $\pm$  "+str(roudV(rFS*rScaleSysFS))
+  print "FINAL2: R_vis : " +str(roudV(rVS))+" $\pm$  "+str(roudV(rVS*rScaleSysVS))
+
+  print "FINAL2: ttbb vis : "+str(roudV(NttbbVS))+" $\pm$ "+str(roudV(NttbbVS*ttbbScaleSysVS ))
+  print "FINAL2: ttjj vis : "+str(roudV(NttjjVS))+" $\pm$ "+str(roudV(NttjjVS*ttjjScaleSysVS ))
+
+  print "FINAL2: ttbb full : "+str(roudV(NttbbFS))+" $\pm$ "+str(roudV(NttbbFS*ttbbScaleSysFS )) 
+  print "FINAL2: ttjj full : "+str(roudV(NttjjFS))+" $\pm$ "+str(roudV(NttjjFS*ttjjScaleSysFS ))
 
   print "FINAL2: Acceptance ttjj : "+str(roudV(ttjjAcp*100))+" % "
   print "FINAL2: Acceptance ttbb : "+str(roudV(ttbbAcp*100))+" % "
@@ -1133,13 +1155,13 @@ def resultPrint3(result, genInfo):
   ttjjSysVS=0.186850207385
   ttbbSysVS=0.337921588538
 
-  #RSysFS=0.285952793307
-  #ttjjSysFS=0.210059515376
-  #ttbbSysFS=0.35324354205
+  RSysFS=0.285952793307
+  ttjjSysFS=0.210059515376
+  ttbbSysFS=0.35324354205
   ######## FPS all decays 2016. 06. 13. v765
-  RSysFS=0.291293666255
-  ttjjSysFS=0.202281981402
-  ttbbSysFS=0.348651688652
+  #RSysFS=0.291293666255
+  #ttjjSysFS=0.202281981402
+  #ttbbSysFS=0.348651688652
 
   print "FINAL2:prefit Reco R = "+str(roudV(rttbb))
   print "FINAL2:newSF by fitting :"+"{'ttbbSF':"+str(ttbbSF)+",'ttcclfSF':"+str(ttcclfSF)+",'k':"+str(result['kVal'])+"}"
@@ -1154,10 +1176,7 @@ def resultPrint3(result, genInfo):
 
   print "FINAL2:full ll   ttbb :"+str(roudV(NewCXttbbfull))+" $\pm$ "+str(roudV(NewCXttbbfull*(sqrt((result["kValerror"]/result["kVal"])*(result["kValerror"]/result["kVal"])+(genRerror/genR)*(genRerror/genR)))))+"(syst.) $\pm$ "+str(roudV(NewCXttbbfull*ttbbSysFS))+"(syst.) pb"
   print "FINAL2:full ll  ttjj :"+str(roudV(NewCXttjjfull))+" $\pm$ "+str(roudV(NewCXttjjfull*(result["kValerror"]/result["kVal"])))+"(stat.) $\pm$ "+str(roudV(NewCXttjjfull*ttjjSysFS))+"(syst.) pb"
-  RdilepPOW=genInfo["data"]['dileptonic']/genInfo["total"]
-  print "FINAL2:ll r : "+str(roudV(RdilepPOW))
-  print "FINAL2:full   ttbb :"+str(roudV(NewCXttbbfull/RdilepPOW))+" pb"
-  print "FINAL2:full   ttjj :"+str(roudV(NewCXttjjfull/RdilepPOW))+" pb"
+  RdilepPOW=dilepBr #genInfo["data"]['dileptonic']/genInfo["total"]
   print "FINAL2: ----------------------------------------------"
  
 
@@ -1239,7 +1258,7 @@ def printV(data,isPrint):
 
   if isPrint : print data["name"]+" & "+str(roudV(rFS)*100)+" \% & "+str(roudV(rVS)*100)+" \% & "+str(roudV(ttjjAcc)*100)+" \% & "+str(roudV(ttbbAcc)*100)+" \% & "+str(roudV(ttjjEff)*100)+" \% & "+str(roudV(ttbbEff)*100)+" \% \\"
 
-  return {"name":data["name"],"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6},"data":data,"total":total,"ttjjVS":ttjj,"ttjjFS":ttjjF,"ttjjS6":ttjjS6}
+  return {"name":data["name"],"rFS":rFS,"rVS":rVS,"Acc":{"ttbb":ttbbAcc,"ttjj":ttjjAcc},"Eff":{"ttbb":ttbbEff,"ttjj":ttjjEff},"rTtjjTotal":{"FS":rTtjjTotalFS,"VS":rTtjjTotalVS,"S6":rTtjjTotalS6},"data":data,"total":total,"ttjjVS":ttjj,"ttjjFS":ttjjF,"ttjjS6":ttjjS6,"ttbbVS":ttbb, "ttbbFS":ttbbF, "ttbbS6":ttbbS6}
 
 def printV2(data,data2):
   name = data2["name"]
