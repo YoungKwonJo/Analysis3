@@ -21,20 +21,22 @@ def loadTree(files):
 def ttbarSelectionsFPS():
    fullphase ="(NaddJets20 >= 2)"
    #TTJJ = "(NaddJets20 >= 2 && diLeptonicM1==1)"
-   ttbb = "(NaddbJets20 >= 2 )"#&& diLeptonicM1==1)"
-   ttb = "(NaddJets20 >= 2 && NaddbJets20 == 1  && !(genTtbarId%100==52))"
-   tt2b = "(NaddJets20 >= 2 && NaddbJets20 == 1 && (genTtbarId%100==52))"
-   ttcc = "(NaddJets20 >= 2 && NaddcJets20 >= 2 && NaddbJets20==0 )"
-   ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2 )"
+   ttbb = "(NaddbJets20 >= 2 && diLeptonicP1==1)"
+   ttb = "(NaddJets20 >= 2 && diLeptonicP1==1 && NaddbJets20 == 1  && !(genTtbarId%100==52))"
+   tt2b = "(NaddJets20 >= 2 && diLeptonicP1==1 && NaddbJets20 == 1 && (genTtbarId%100==52))"
+   ttcc = "(NaddJets20 >= 2 && diLeptonicP1==1 && NaddcJets20 >= 2 && NaddbJets20==0 )"
+   ttlf = "( !"+ttbb+" && !"+ttb+" && !"+tt2b+" && !"+ttcc+"  && NaddJets20 >= 2  && diLeptonicP1==1 )"
    ##ttlf = "( !"+ttbb+" && !"+ttb+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
    ttot = op_(fullphase)
    return ttbb,ttb,tt2b,ttcc,ttlf,ttot
 def ntuple2entries(filename,weight):
   #####selection
   hadronic,semileptonic,dileptonic     = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
+  dileptonicP1,dileptonicP1not = "(semiLeptonicP1==1)","(semiLeptonicM1!=1)"
   #etc = "(!("+hadronic+"||"+semileptonic+"||"+dileptonic+"))"
   etc = "(!"+hadronic+"&& !"+semileptonic+"&& !"+dileptonic+")"
-  allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
+  #allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
+  allttbar = {"dileptonicP1":dileptonicP1, "dileptonicP1not":dileptonicP1not }
 
   ttbb,ttb,tt2b,ttcc,ttlf,ttot = ttbarSelections(True)
 
@@ -68,17 +70,18 @@ def ntuple2entries(filename,weight):
 #########################################################
 allsummary = {}
 weights = {"nom":"weight"
-  ,"Q2_Up1":"scaleWeightsUp[0]"
-  ,"Q2_Up2":"scaleWeightsUp[1]"
-  ,"Q2_Up3":"scaleWeightsUp[2]"
-  ,"Q2_Dw1":"scaleWeightsDown[0]"
-  ,"Q2_Dw2":"scaleWeightsDown[1]"
-  ,"Q2_Dw3":"scaleWeightsDown[2]"
+#  ,"Q2_Up1":"scaleWeightsUp[0]"
+#  ,"Q2_Up2":"scaleWeightsUp[1]"
+#  ,"Q2_Up3":"scaleWeightsUp[2]"
+#  ,"Q2_Dw1":"scaleWeightsDown[0]"
+#  ,"Q2_Dw2":"scaleWeightsDown[1]"
+#  ,"Q2_Dw3":"scaleWeightsDown[2]"
 }
 weights2 = {"nom":"1","weight":"weight"}
 #ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" }
 #ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
-ttbarMCs=['dwPOW', 'POW', 'upPOW']
+#ttbarMCs=['dwPOW', 'POW', 'upPOW']
+ttbarMCs=['POW']
 #ttbarMCs=['POW', 'AMC', 'MG5']
 
 import sys
