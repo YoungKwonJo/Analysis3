@@ -48,7 +48,7 @@ def ntuple2entries(filename,weight):
   }
   S0,S6,S7=cut_maker(ll_cuts,0)['cut']["S0"],cut_maker(ll_cuts,6)['cut']["S6"],cut_maker(ll_cuts,7)['cut']["S7"]
   #ttEff = {"S0":S0,"S6":S6,"S7":S7}
-  ttEff = {"S0":S0}#,"S6":S6,"S7":S7}
+  ttEff = {"S0":S0,"S6":S6,"S7":S7}
 
   tree = loadTree(fileList[filename])
   htemp = TH1D("htempD","",1,-20,20)
@@ -71,18 +71,18 @@ def ntuple2entries(filename,weight):
 #########################################################
 allsummary = {}
 weights = {"nom":"weight"
-#  ,"Q2_Up1":"scaleWeightsUp[0]"
-#  ,"Q2_Up2":"scaleWeightsUp[1]"
-#  ,"Q2_Up3":"scaleWeightsUp[2]"
-#  ,"Q2_Dw1":"scaleWeightsDown[0]"
-#  ,"Q2_Dw2":"scaleWeightsDown[1]"
-#  ,"Q2_Dw3":"scaleWeightsDown[2]"
+  ,"Q2_Up1":"scaleWeightsUp[0]"
+  ,"Q2_Up2":"scaleWeightsUp[1]"
+  ,"Q2_Up3":"scaleWeightsUp[2]"
+  ,"Q2_Dw1":"scaleWeightsDown[0]"
+  ,"Q2_Dw2":"scaleWeightsDown[1]"
+  ,"Q2_Dw3":"scaleWeightsDown[2]"
 }
 weights2 = {"nom":"1","weight":"weight"}
 #ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" }
-#ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
+ttbarMCs=['dwPOW', 'POW', 'AMC', 'POHP', 'MG5', 'upPOW']
 #ttbarMCs=['dwPOW', 'POW', 'upPOW']
-ttbarMCs=['POW']
+#ttbarMCs=['POW']
 #ttbarMCs=['POW', 'AMC', 'MG5']
 
 import sys
@@ -93,15 +93,17 @@ xx = int(sys.argv[1])
 yy = int(sys.argv[2])
 x = ttbarMCs[xx]
 
-#if x.find("MG5")>-1 : weights=weights2
+if x.find("MG5")>-1 : weights=weights2
 
+yyyy=""
 for y,yyy in enumerate(weights.keys()):
   if y==yy:
+    yyyy=yyy
     allsummaryA = {}
     #for x in ttbarMCsamples.keys():
     allsummaryA[x] = ntuple2entries(ttbarMCsamples[x],weights[yyy])
     allsummary[yyy]=allsummaryA
 
-print x+"="+str(allsummary)
+print x+"['"+str(yyyy)+"']="+str(allsummary)
 
 
