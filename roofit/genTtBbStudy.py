@@ -19,7 +19,7 @@ def loadTree(files):
     chain.Add(afile)
   return chain
 def ttbarSelectionsFPS():
-   fullphase ="(NaddJets20 >= 2)"
+   fullphase ="(NaddJets20 >= 2 && diLeptonicP1==1)"
    #TTJJ = "(NaddJets20 >= 2 && diLeptonicM1==1)"
    ttbb = "(NaddbJets20 >= 2 && diLeptonicP1==1)"
    ttb = "(NaddJets20 >= 2 && diLeptonicP1==1 && NaddbJets20 == 1  && !(genTtbarId%100==52))"
@@ -29,6 +29,7 @@ def ttbarSelectionsFPS():
    ##ttlf = "( !"+ttbb+" && !"+ttb+" && !"+ttcc+"  && NaddJets20 >= 2 && diLeptonicM1==1)"
    ttot = op_(fullphase)
    return ttbb,ttb,tt2b,ttcc,ttlf,ttot
+
 def ntuple2entries(filename,weight):
   #####selection
   hadronic,semileptonic,dileptonic     = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
