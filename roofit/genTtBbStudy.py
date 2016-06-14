@@ -32,9 +32,11 @@ def ttbarSelectionsFPS():
 def ntuple2entries(filename,weight):
   #####selection
   hadronic,semileptonic,dileptonic     = "(allHadronic==1)", "(semiLeptonicM1==1)","(diLeptonicM1==1)"
+  dileptonicP1,dileptonicP1not = "(semiLeptonicP1==1)","(semiLeptonicM1!=1)"
   #etc = "(!("+hadronic+"||"+semileptonic+"||"+dileptonic+"))"
   etc = "(!"+hadronic+"&& !"+semileptonic+"&& !"+dileptonic+")"
-  allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
+  #allttbar = {"hadroic":hadronic, "semileptonic":semileptonic, "dileptonic":dileptonic,"etc":etc }
+  allttbar = {"dileptonicP1":dileptonicP1, "dileptonicP1not":dileptonicP1not }
 
   ttbb,ttb,tt2b,ttcc,ttlf,ttot = ttbarSelections(True)
 

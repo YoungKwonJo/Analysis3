@@ -81,16 +81,23 @@ print "R:"+str(R)+", ttjj:"+str(ttjj)+", ttbb:"+str(ttbb)
 print "Rvs:"+str(Rvs)+", ttjj:"+str(ttjjvs)+", ttbb:"+str(ttbbvs)
 print "Rfs:"+str(Rfs)+", ttjj:"+str(ttjjfs)+", ttbb:"+str(ttbbfs)
 
-RvsTot = quardsum([R,Rvs])
-ttjjvsTot = quardsum([ttjj,ttjjvs])
-ttbbvsTot = quardsum([ttbb,ttbbvs])
+#RvsTot = quardsum([R,Rvs])
+#ttjjvsTot = quardsum([ttjj,ttjjvs])
+#ttbbvsTot = quardsum([ttbb,ttbbvs])
+
+RvsTot = quardsum(Rsys+RsysVS)
+ttjjvsTot = quardsum(ttjjsys+ttjjsysVS)
+ttbbvsTot = quardsum(ttbbsys+ttbbsysVS)
+
+
 
 RfsTot = quardsum([R,Rfs])
 ttjjfsTot = quardsum([ttjj,ttjjfs])
 ttbbfsTot = quardsum([ttbb,ttbbfs])
 
-print "RvsTot:"+str(RvsTot)+", ttjj:"+str(ttjjvsTot)+", ttbb:"+str(ttbbvsTot)
-print "RfsTot:"+str(RfsTot)+", ttjj:"+str(ttjjfsTot)+", ttbb:"+str(ttbbfsTot)
+print "ttbb:"+str(ttbbvsTot)+", ttjj:"+str(ttjjvsTot)+", RvsTot:"+str(RvsTot)
+                                                          
+print "ttbb:"+str(ttbbfsTot)+", ttjj:"+str(ttjjfsTot)+", RfsTot:"+str(RfsTot)
 
 
 

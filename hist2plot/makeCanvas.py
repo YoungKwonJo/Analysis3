@@ -272,7 +272,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   histograms2,plotSet=makeMCHistSet(histograms)
   StyleUp(histograms2)
 
-  canvasname=mon["name"]+step+decay+"_"+Weight
+  step2="_S"+str(int(step[1])-1)
+  canvasname=mon["name"]+step2+decay+"_"+Weight
   c1,pad1,pad2 = myCanvas(canvasname), myPad1(canvasname+"pad1"), myPad2(canvasname+"pad2")
   c1.Divide(1,2)
   pad1.Draw(), pad1.cd()
@@ -477,8 +478,8 @@ def main():#step, moni):
   if runStat : mon = monitors[0]
   else :
     #step="S2"
-    #weight="CEN"#csvweight"
-    weight="csvweight"
+    weight="CEN"#csvweight"
+    #weight="csvweight"
     isLogy = True
     aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
     aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)

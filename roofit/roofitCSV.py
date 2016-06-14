@@ -812,17 +812,24 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     preM.Draw()
     preM2 = TMarker(rttbb,rttb,20)
     preM2.SetMarkerColor(kBlack)
-  
+
+    
+    preM23 = TMarker(0.05554,0.09849,20)
+    preM23.SetMarkerColor(kBlue)
+    preM23.Draw()
+
     pt.Draw()
-    pt2.Draw()
+    #pt2.Draw()
     pt3.Draw()
   
-    l2 = make_legend(0.49,0.7,0.93,0.88)
-    l2.AddEntry(preM,"prefit: R="+str(roudV(rttbb)),"p")
-    l2.AddEntry(preM,"prefit: R2="+str(roudV(rttb)),"p")
+    l2 = make_legend(0.38,0.63,0.94,0.90)
+    l2.AddEntry(preM,"prefit: R="+str(roudV(rttbb*100)/100),"p")
+    l2.AddEntry(preM,"prefit: R2="+str(roudV(rttb*100)/100),"p")
+    l2.AddEntry(preM23,"fit(cen.): R="+str(roudV(0.0555))+str(" #pm 0.0077") ,"p")
+    l2.AddEntry(preM23,"fit(cen.): R2="+str(roudV(0.0985)),"p")
   
-    l2.AddEntry(preM2,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","p")
-    l2.AddEntry(preM2,"fit: R2="+str(roudV(recoR2))+" #pm "+str(roudV(recoR2error))+"","p")
+    l2.AddEntry(preM2,"fit: R="+str(roudV(recoR*100)/100)+" #pm "+str(roudV(recoRerror*100)/100)+"","p")
+    l2.AddEntry(preM2,"fit: R2="+str(roudV(recoR2*100)/100)+" #pm "+str(roudV(recoR2error*100)/100)+"","p")
     l2.SetTextSize(0.04)
     l2.SetFillColor(0)
     l2.SetLineColor(0)
@@ -1051,7 +1058,8 @@ def resultPrint3(result, genInfo):
 
   #eR = genInfo["eR"]
   #acP = genInfo["acP"]
-  dilepBr = 0.10705984
+  #dilepBr = 0.10705984
+  dilepBr = 0.1049580955
   ttbarCX = 831.76 
   ttjjAcp = genInfo["Acc"]["ttjj"]*dilepBr
   ttbbAcp = genInfo["Acc"]["ttbb"]*dilepBr
@@ -1096,9 +1104,12 @@ def resultPrint3(result, genInfo):
   ttjjScaleSysVS=0.101
   rScaleSysVS=0.1024890238
 
-  ttbbScaleSysFS = 0.1333604139
-  ttjjScaleSysFS = 0.1101635148
-  rScaleSysFS = 0.114629839
+  #ttbbScaleSysFS = 0.1333604139
+  #ttjjScaleSysFS = 0.1101635148
+  #rScaleSysFS = 0.114629839
+  ttbbScaleSysFS =  ttbbScaleSysVS
+  ttjjScaleSysFS =  ttjjScaleSysVS
+  rScaleSysFS =     rScaleSysVS
 
   NttbbVS = genInfo["ttbbVS"]/genInfo["total"]*ttbarCX
   NttjjVS = genInfo["ttjjVS"]/genInfo["total"]*ttbarCX
