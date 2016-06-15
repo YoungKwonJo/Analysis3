@@ -68,7 +68,7 @@ def makeMCHistSet(histograms):
   MG5ttbarlist = ["MG5ttbb","MG5ttb","MG5tt2b","MG5ttcc","MG5ttlf","MG5ttot"]
   bkglist=["ttV","Singlet","VV","WJets","ZJets"]
   fullmc =["MCtot1"]
-  others =["MCtot2","MCtot3",'MCtot4']
+  others =["MCtot2","MCtot4",'MCtot3']
   statlist= ttbarlist+MG5ttbarlist+bkglist+fullmc
   statlabels={}
   for x in histograms2.keys():

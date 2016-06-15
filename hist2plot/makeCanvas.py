@@ -99,8 +99,10 @@ def myDataHistStyleUp(hdata):
   hdata.GetYaxis().SetTitle("Events")
   hdata.GetYaxis().SetTitleOffset(1.2)
   hdata.GetYaxis().SetTitleSize(0.07)
+
   hdata.GetYaxis().SetLabelSize(0.055)
   hdata.GetYaxis().SetNdivisions(607)
+
   #hdata.GetYaxis().SetLabelSize(0.05)
   #hYaxis = hdata.GetYaxis()
   #hYaxis.SetMaxDigits(3)
@@ -139,13 +141,13 @@ def styleBottomUp(hdata):
   hdata.GetYaxis().CenterTitle()
   hdata.GetYaxis().SetTitleOffset(0.45)
   hdata.GetYaxis().SetTitleSize(0.16)
-  hdata.GetYaxis().SetLabelSize(0.15)
   hdata.GetYaxis().SetNdivisions(402)
   hdata.GetXaxis().SetNdivisions(509)
   hdata.GetXaxis().SetTitleOffset(1.1)
+  hdata.GetYaxis().SetLabelSize(0.15)
   hdata.GetXaxis().SetLabelSize(0.20)
   hdata.GetXaxis().SetTitleSize(0.16)
-  
+
   hdata.SetMinimum(0.6)
   hdata.SetMaximum(1.4)
 
@@ -478,8 +480,8 @@ def main():#step, moni):
   if runStat : mon = monitors[0]
   else :
     #step="S2"
-    weight="CEN"#csvweight"
-    #weight="csvweight"
+    #weight="CEN"#csvweight"
+    weight="csvweight"
     isLogy = True
     aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
     aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)
