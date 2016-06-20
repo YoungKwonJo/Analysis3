@@ -33,11 +33,13 @@ def makeMCHistSet(histograms):
   MCtot2 = MG5ttbar+Bkg1
   MCtot3 = AMCttbar+Bkg1
   MCtot4 = POHPttbar+Bkg1
+  ttbMerge = ["POWttb","POWtt2b"]
   
   histograms2 = {}
   histograms2["ttbb"] = { "h1":histograms["POWttbb"],   "FillColor":"#660000", "LineColor":"#000000",  "label":"t#bar{t}+b#bar{b}      ",  "label2":"$t\\bar{t}+b\\bar{b}$"  }
-  histograms2["ttb"]  = { "h1":histograms["POWttb"],    "FillColor":"#ffcc00", "LineColor":"#000000",  "label":"t#bar{t}+b        "     ,  "label2":"$t\\bar{t}+b$"          }
-  histograms2["tt2b"] = { "h1":histograms["POWtt2b"],   "FillColor":"#ffee00", "LineColor":"#000000",  "label":"t#bar{t}+2b        "    ,  "label2":"$t\\bar{t}+2b$"         }
+  histograms2["ttb"]  = { "h1":mergesHistograms(ttbMerge, histograms),    "FillColor":"#ffcc00", "LineColor":"#000000",  "label":"t#bar{t}+bj        "     ,  "label2":"$t\\bar{t}+bj$"          }
+  #histograms2["ttb"]  = { "h1":histograms["POWttb"],    "FillColor":"#ffcc00", "LineColor":"#000000",  "label":"t#bar{t}+b        "     ,  "label2":"$t\\bar{t}+b$"          }
+  #histograms2["tt2b"] = { "h1":histograms["POWtt2b"],   "FillColor":"#ffee00", "LineColor":"#000000",  "label":"t#bar{t}+2b        "    ,  "label2":"$t\\bar{t}+2b$"         }
   histograms2["ttcc"] = { "h1":histograms["POWttcc"],   "FillColor":"#cc6600", "LineColor":"#000000",  "label":"t#bar{t}+c#bar{c}      ",  "label2":"$t\\bar{t}+c\\bar{c}$"  }
   histograms2["ttlf"] = { "h1":histograms["POWttlf"],   "FillColor":"#ff0000", "LineColor":"#000000",  "label":"t#bar{t}+lf       "     ,  "label2":"$t\\bar{t}+lf$"         }
   histograms2["ttot"] = { "h1":histograms["POWttot"],   "FillColor":"#ff6565", "LineColor":"#000000",  "label":"t#bar{t} others"        ,  "label2":"$t\\bar{t}$ others"     }
@@ -64,7 +66,8 @@ def makeMCHistSet(histograms):
   histograms2["MCtot3"]  = {"h1":mergesHistograms(MCtot3,  histograms),  "LineColor":"#ff00ff",  "FillColor":"#ffffff",  "label":"aMC@NLO+PYTHIA8"   ,"LineStyle": 2,"label2":"MC Total(AMC)"    } 
   histograms2["MCtot4"]  = {"h1":mergesHistograms(MCtot4,  histograms),  "LineColor":"#0000ff",  "FillColor":"#ffffff",  "label":"POWHEG+HERWIG++"   ,"LineStyle": 5,"label2":"MC Total(POHP)"    } 
   #ttbarlist = ["ttbb","ttb","tt2b","ttcc","ttlf","ttot"]
-  ttbarlist = ["ttbb","tt2b","ttb","ttcc","ttlf","ttot"]
+  #ttbarlist = ["ttbb","tt2b","ttb","ttcc","ttlf","ttot"]
+  ttbarlist = ["ttbb","ttb","ttcc","ttlf","ttot"]
   MG5ttbarlist = ["MG5ttbb","MG5ttb","MG5tt2b","MG5ttcc","MG5ttlf","MG5ttot"]
   bkglist=["ttV","Singlet","VV","WJets","ZJets"]
   fullmc =["MCtot1"]

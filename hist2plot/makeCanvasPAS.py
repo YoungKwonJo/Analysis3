@@ -54,7 +54,8 @@ def addLegendPreliminary():
   #tex2 = TLatex(0.3715952,0.9146667,"Preliminary")
   tex2 = TLatex(-20.,50.,"Preliminary")
   tex2.SetNDC(),          tex2.SetTextAlign(12),  tex2.SetX(0.25),        tex2.SetY(0.93)
-  tex2.SetTextColor(2),   tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
+  #tex2.SetTextColor(2),
+  tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
   #tex2.SetTextColor(2),   tex2.SetTextFont(42),   tex2.SetTextSize(0.05), tex2.SetTextSizePixels(24)
   return tex2
 
@@ -64,8 +65,11 @@ def addDecayMode(ll):
   if ll.find("MM")>-1 : ll2="#mu^{#mp}#mu^{#pm} channel"
   if ll.find("EE")>-1 : ll2="e^{#mp}e^{#pm} channel"
   chtitle = TLatex(-20.,50.,ll2)
-  chtitle.SetNDC(),         chtitle.SetTextAlign(12),   chtitle.SetX(0.20),  chtitle.SetY(0.75)
+  chtitle.SetNDC(),         chtitle.SetTextAlign(12)
+  #chtitle.SetX(0.20),  chtitle.SetY(0.75)
+  chtitle.SetX(0.20),  chtitle.SetY(0.66)
   chtitle.SetTextFont(42) #,  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
+  chtitle.SetTextSizePixels(34)
   #chtitle.SetTextFont(42),  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
 
   return chtitle
@@ -140,7 +144,8 @@ def myDataHistStyleUp(hdata):
   #hdata.GetXaxis().SetTitle("")
 
   hdata.SetMarkerStyle(20)
-  hdata.SetMarkerSize(0.7)
+  #hdata.SetMarkerSize(0.7)
+  hdata.SetMarkerSize(1.0)
 
 def myHist2TGraphError(hist1):
   xx,xxer,yy,yyer=[],[],[],[]
@@ -159,7 +164,8 @@ def myHist2TGraphError(hist1):
 
 def styleBottomUp(hdata):
   hdata.SetMarkerStyle(20)
-  hdata.SetMarkerSize(0.5)
+  #hdata.SetMarkerSize(0.5)
+  hdata.SetMarkerSize(1.0)
   hdata.SetMarkerColor(1)
   hdata.SetLineColor(1)
   hdata.SetLineWidth(1)
@@ -259,7 +265,8 @@ def StackHist(channel, histograms2, plotSet,isPrint):
         Stats[aa]=aaa
       
       h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
-      hs.Add(copy.deepcopy(h[aa]))
+      #hs.Add(copy.deepcopy(h[aa]))
+      hs.Add(h[aa])
 
       if aa.find("ttbb")>-1:
         #print "histograms2.keys(): "+str(histograms2.keys())
@@ -272,7 +279,8 @@ def StackHist(channel, histograms2, plotSet,isPrint):
           else :
             hh['ttV'].Add(copy.deepcopy(aaaa[bb]))
         hh['ttV'].SetFillColor( TColor.GetColor(histograms2["ttV"]["FillColor"]) )
-        hs.Add(copy.deepcopy(hh["ttV"]))
+        #hs.Add(copy.deepcopy(hh["ttV"]))
+        hs.Add(hh["ttV"])
 
   for aa in plotSet["bkg"]:
     h={}
@@ -290,7 +298,8 @@ def StackHist(channel, histograms2, plotSet,isPrint):
         Stats[aa]=aaa
           
       h[aa].SetFillColor( TColor.GetColor(histograms2[aa]["FillColor"]) )
-      if aa.find("ttV")==-1: hs.Add(copy.deepcopy(h[aa]))
+      #if aa.find("ttV")==-1: hs.Add(copy.deepcopy(h[aa]))
+      if aa.find("ttV")==-1: hs.Add(h[aa])
 
   return hs,Stats
 
@@ -360,11 +369,11 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
       if ttbbMuMu.GetBinContent(i)>0 and minY>ttbbMuMu.GetBinContent(i): minY=ttbbMuMu.GetBinContent(i)
 
     if canvasname.find("CSV") is -1:
-      DATA.SetMaximum(maxY*10000000)
-      if maxY*10000000 < scale*340 : DATA.SetMaximum(scale*340)
+      DATA.SetMaximum(maxY*1000000)
+      if maxY*1000000 < scale*340 : DATA.SetMaximum(scale*340)
     else :
-      DATA.SetMaximum(maxY*50000)
-      if maxY*50000 < scale*340 : DATA.SetMaximum(scale*340)
+      DATA.SetMaximum(maxY*5000)
+      if maxY*5000 < scale*340 : DATA.SetMaximum(scale*340)
     if   minY>1     :  DATA.SetMinimum( 4.0 )
     elif minY>0.4   :  DATA.SetMinimum( 0.4 )
     elif minY>0.04  :  DATA.SetMinimum( 0.04 )
@@ -380,8 +389,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
     DATA.GetYaxis().SetTitle(mon["Ytitle"])
 
   DATA.Draw(), hs.Draw("same,hist") 
-  MCtot1gr.Draw("e2same"), MCtot2.Draw("same"), MCtot3.Draw("same")
-  MCtot4.Draw("same")
+  #MCtot1gr.Draw("e2same"), MCtot2.Draw("same"), MCtot3.Draw("same")
+  #MCtot4.Draw("same")
   DATA.Draw("same")
 
   ########################
@@ -392,7 +401,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
 
   pt,pt2,pt3,pt4 = addLegendCMS(),addLegendPreliminary(),addTitle(title),addLegendLumi()
   pt.Draw(),  pt2.Draw(),  pt3.Draw(), pt4.Draw()
-
+  pt5 = addDecayMode(decay)
+  pt5.Draw()
   ########################
   ########################
   #wid=0.15*0.98
@@ -402,7 +412,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   legx2 = 0.54
   legx3 = 0.39
 
-  leg  = make_legend(legx1,0.63, legx1+wid*0.9,0.86)
+  leg  = make_legend(legx1,0.68, legx1+wid*0.9,0.86)
   leg2 = make_legend(legx2,0.68, legx2+wid,0.86)
   leg22 = make_legend(legx3,0.68, legx3+wid,0.86)
   leg3 = make_legend2(legx3,0.54, legx3+wid,0.68)
@@ -413,7 +423,13 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   #debug
   #plotSet2= {'bkg': ['ttV', 'Singlet', 'VV', 'WJets', 'ZJets','ttot'], 'ttbars': ['ttbb', 'tt2b', 'ttb', 'ttcc', 'ttlf']}#, 'ttot']}
   #plotSet2= {'bkg2':['Singlet', 'VV', 'WJets', 'ZJets'],'bkg': ['ttcc','ttlf','ttot','ttV'], 'ttbars': ['ttbb', 'tt2b', 'ttb']}
-  plotSet2= {'bkg2':['ttV','Singlet','ZJets'],'bkg': ['ttcc','ttlf','ttot'], 'ttbars': ['ttbb', 'tt2b', 'ttb']}
+  plotSet2= {'bkg2':['Singlet','ZJets'],'bkg': ['ttlf','ttot',"ttV"], 'ttbars': ['ttbb',  'ttb', "ttcc"]}
+  #entry1=leg.AddEntry(histograms2["DATA"]["h1"]["hMM"], histograms2["DATA"]["label"], "ep")
+  entry1=leg.AddEntry(histograms2["DATA"]["h1"]["hMM"], "Data", "ep")
+  entry1.SetLineColor(1),    entry1.SetLineStyle(1)
+  entry1.SetLineWidth(1),    entry1.SetMarkerColor(1)
+  entry1.SetMarkerStyle(21), entry1.SetMarkerSize(1)
+  entry1.SetTextFont(62)
 
   for aa in plotSet2["ttbars"]:
     if len(histograms2[aa]["h1"].keys())>0:
@@ -439,13 +455,6 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
       entry.SetMarkerStyle(21), entry.SetMarkerSize(1)
       entry.SetTextFont(62)
 
-  #entry1=leg.AddEntry(histograms2["DATA"]["h1"]["hMM"], histograms2["DATA"]["label"], "ep")
-  entry1=leg.AddEntry(histograms2["DATA"]["h1"]["hMM"], "Data", "ep")
-  entry1.SetLineColor(1),    entry1.SetLineStyle(1)
-  entry1.SetLineWidth(1),    entry1.SetMarkerColor(1)
-  entry1.SetMarkerStyle(21), entry1.SetMarkerSize(1)
-  entry1.SetTextFont(62)
-
   leg3.SetTextSize(0.05)
 
   others= {'MCtot2':"Madgraph5 P8", 'MCtot3':"MG5_aMC@NLO P8", 'MCtot4':"Powheg H++"}
@@ -461,7 +470,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   #leg3.AddEntry(histograms2["ttH"]["h1"]["hMM"], histograms2["ttH"]["label"], "l")
   ###############
   leg22.Draw(),  leg2.Draw()#,  leg3.Draw()
-  leg3.Draw(), leg.Draw()
+  #leg3.Draw(),
+  leg.Draw()
   pad1.Modified()
   c1.cd(),  pad2.Draw(),  pad2.cd()
   ########################
@@ -476,13 +486,20 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ratio1.GetXaxis().SetTitle(mon['unit'])
   if mon["Xtitle"] is not None :
     ratio1.GetXaxis().SetTitle(mon["Xtitle"])
-  ratio1.Draw()
+  ratio1.Draw("ex0")
   ratioSyst=myRatioSyst(ratio1)
-  ratioSyst.Draw("e2")
-  ratio1.Draw("e1SAME")
-  ratio2.Draw("histSAME")
-  ratio3.Draw("histSAME")
-  ratio4.Draw("histSAME")
+  #ratioSyst.Draw("e2")
+  #ratio1.Draw("e1SAME")
+  #ratio2.Draw("histSAME")
+  #ratio3.Draw("histSAME")
+  #ratio4.Draw("histSAME")
+
+  line = TLine(0,1,ratio4.GetXaxis().GetXmax(),1)
+  ci = TColor.GetColor("#990000")
+  line.SetLineColor(ci)
+  line.SetLineWidth(2)
+  line.Draw()
+
 
   ########################
   ########################
@@ -607,9 +624,9 @@ def main():#step, moni):
     #weight="CEN"#csvweight"
     weight="csvweight"
     isLogy = True
-    #aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
-    #aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)
-    #aaa[3]=aCanvas(mon,step,"ME",isLogy,weight,SFbyFitting)
+    aaa[1]=aCanvas(mon,step,"MM",isLogy,weight,SFbyFitting)
+    aaa[2]=aCanvas(mon,step,"EE",isLogy,weight,SFbyFitting)
+    aaa[3]=aCanvas(mon,step,"ME",isLogy,weight,SFbyFitting)
     aaa[4]=aCanvas(mon,step,"LL",isLogy,weight,SFbyFitting)
     
   return aaa
