@@ -32,8 +32,8 @@ def getNumbers(aaa,key,key2):
   ttbarCX=831.76
   ttjjFSCX = ttbarCX/llratio*ttjjFS/total
   ttbbFSCX = ttbarCX/llratio*ttbbFS/total
-  ttjjVSCX = ttbarCX/llratio*ttjjVS/total
-  ttbbVSCX = ttbarCX/llratio*ttbbVS/total
+  ttjjVSCX = ttbarCX*ttjjVS/total
+  ttbbVSCX = ttbarCX*ttbbVS/total
 
   output = {"key":key,"key2":key2,"ttbbFS": ttbbFS, "ttjjFS":ttjjFS, "ttbbVS":ttbbVS, "ttjjVS":ttjjVS, "llratio":llratio,"ttjjAcc": ttjjVS/ttjjFS*llratio, "ttbbAcc":ttbbVS/ttbbFS*llratio,"total":total, "ttbbS6":ttbbS6, "ttjjS6":ttjjS6, "ttbbEff":ttbbS6/ttbbVS, "ttjjEff":ttjjS6/ttjjVS, "ttjjFSCX":ttjjFSCX,"ttbbFSCX":ttbbFSCX,"ttjjVSCX":ttjjVSCX,"ttbbVSCX":ttbbVSCX }
   return output
