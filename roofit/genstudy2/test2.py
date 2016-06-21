@@ -1,6 +1,6 @@
 from ROOT import *
 
-#from q2Weight_Run  import POW2, dwPOW2, upPOW2, AMC2, MG52, POHP2 
+from q2Weight_Run  import POW2, dwPOW2, upPOW2, AMC2, MG52, POHP2 
 
 def addLegendLumi():#lumi):
   #lumi2 = str(round(lumi/100)/10)
@@ -65,14 +65,15 @@ def drawCXWithError(cen,err,yc):
   #l1.Draw(), l2.Draw()
   return gr,l1,l2
 
-def drawSMbar(cen,err):
+def drawSMbar(cen,err,color_):
   line = TLine(cen,0,cen,1)
   ci = TColor.GetColor("#000000")
   line.SetLineColor(ci)
   line.SetLineWidth(2)
   line.SetLineStyle(2)
-  box = TBox(cen-err,0,cen+err,1)
-  ci = TColor.GetColor("#d0efd0")
+  box = TBox(cen-cen*err,0,cen+cen*err,1)
+  ci = TColor.GetColor(color_)
+  #ci = TColor.GetColor("#d0efd0")
   box.SetFillColor(ci)
   #box.Draw()
   #line.Draw()
@@ -104,7 +105,8 @@ h1 = TH1D("cx","",50,0,600)
 #h1 = TH1D("cx","",50,0,0.08)
 h1.GetYaxis().SetLabelSize(0)
 h1.GetYaxis().SetNdivisions(1)
-h1.GetXaxis().SetTitle("#sigma [pb] or ratio ")
+#h1.GetXaxis().SetTitle("#sigma [pb] or ratio ")
+h1.GetXaxis().SetTitle("#sigma [pb] ")
 h1.Draw()
 
 pt1,pt2=addLegendLumi(),addLegendPreliminary()
@@ -113,13 +115,34 @@ pt1.Draw(), pt2.Draw()
 ##########################
 ##########################
 ##########################
-ttjjFSsim = {"cen":257, "err":26 }
-#from math import sqrt
-#ttjjFSsim = {"cen":POW2["nom"]["ttjjFSCX"], "err": sqrt(POW2["nom"]["statAcc_ttjj"]**2+ POW2["nom"]["statEff_ttjj"]**2)*POW2["nom"]["ttjjFSCX"] }
+ttjjFSsim2 = {"cen":257, "err":26 }
+from math import sqrt
+
+ttjjAccSysErr = sqrt(0.0013**2+  0.021**2)
+ttjjEffSysErr = sqrt(0.022**2 + 0.12**2)
+ttjjSysErr = sqrt(0.0013**2+  0.021**2 + 0.022**2 + 0.12**2  )
+ttjjStatErr = sqrt(POW2["nom"]["statAcc_ttjj"]**2+POW2["nom"]["statEff_ttjj"]**2)
+ttjjStatSysErr = sqrt(POW2["nom"]["statAcc_ttjj"]**2+POW2["nom"]["statEff_ttjj"]**2 + 0.0013**2+  0.021**2 + 0.022**2 + 0.12**2 )
+k= 0.842498214663
+
+ttjjFSsim = {"cen":POW2["nom"]["ttjjFSCX"]   , "StatErr":ttjjStatErr  ,"SysErr":ttjjSysErr, "StatSysErr":ttjjStatErr  }
+ttjjFSsim3 = {"cen":POW2["nom"]["ttjjFSCX"]*k, "StatErr":ttjjStatErr  ,"SysErr":ttjjSysErr, "StatSysErr":ttjjStatErr  }
+print ttjjFSsim
+print ttjjFSsim2
+
 ttjjFSfit = {"cen":176, "stat":5, "syst":33 }
 
-box,line=drawSMbar(ttjjFSsim["cen"],ttjjFSsim["err"])
-box.Draw(), line.Draw()
+box01,line01=drawSMbar(ttjjFSsim["cen"],ttjjFSsim["StatErr"],"#efd0d0")
+box02,line02=drawSMbar(ttjjFSsim["cen"],ttjjFSsim["StatSysErr"],"#e0a3a3")
+box02.Draw()
+box01.Draw(), line01.Draw()
+
+
+box11,line11=drawSMbar(ttjjFSsim3["cen"],ttjjFSsim3["StatErr"],"#d0efd0")
+box12,line12=drawSMbar(ttjjFSsim3["cen"],ttjjFSsim3["StatSysErr"],"#a3e0a3")
+box12.Draw()
+box11.Draw(), line11.Draw()
+
 
 gr,l1,l2=drawCXWithError(ttjjFSfit["cen"],ttjjFSfit["stat"],0.8)
 gr2,l3,l4=drawCXWithError(ttjjFSfit["cen"],ttjjFSfit["syst"],0.8)
@@ -129,8 +152,22 @@ gr2.Draw("LP"),l3.Draw(),l4.Draw()
 
 ttjjFS=addText("t#bar{t}jj_{full phase space}",0.1,0.8)
 ttjjFS.Draw()
-ttjjFS2=addText("176 #pm 5 #pm 33 pb",0.55,0.8)
+ttjjFS2=addText("176 #pm 5 #pm 33 pb",0.5,0.8)
 ttjjFS2.Draw()
+
+ttjjFS22text = str(int(ttjjFSsim["cen"]))+" #pm "+str(int(ttjjFSsim["cen"]*ttjjFSsim["StatErr"] ))+" #pm "+str(int(ttjjFSsim["cen"]*ttjjFSsim["SysErr"] ))+" pb"
+ttjjFS22=addText( ttjjFS22text,0.5,0.6)
+ttjjFS22.SetTextColor(TColor.GetColor("#e0a3a3") )
+ttjjFS22.Draw()
+
+ttjjFS23text = str(int(ttjjFSsim3["cen"]))+" #pm "+str(int(ttjjFSsim3["cen"]*ttjjFSsim3["StatErr"] ))+" #pm "+str(int(ttjjFSsim3["cen"]*ttjjFSsim3["SysErr"] ))+" pb"
+ttjjFS23=addText(ttjjFS23text+" within k = 0.84" ,0.5,0.4)
+ttjjFS23.SetTextColor(TColor.GetColor("#a3e0a3") )
+ttjjFS23.Draw()
+
+
+
+
 
 """
 ##########################
