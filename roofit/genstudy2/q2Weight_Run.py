@@ -149,7 +149,7 @@ def printARow2(bbb,aaa):
   ccc+=(" & "+str(roudV(ttbbEff))+" $\pm$ ("+str(roudV(statEff_ttbb*100./ttbbEff))+" \\%) $\pm$ ("+str(roudV(ttbbEffSys*100.))+" \\%) ").ljust(nn)
   #ccc+=(" & ")+str(bbb["total"] ).ljust(20)
   ccc+=" \\\\ "
-  print ccc
+  #print ccc
 
 def getOutputAll(aaa):
   outputAll = {}
@@ -179,6 +179,15 @@ for key in sorted(MG52.keys()):
   printARow2( MG52[key], POW2["nom"])
 for key in sorted(POHP2.keys()):
   printARow2( POHP2[key], POW2["nom"])
+
+print "POW="+str(POW2)
+print "dwPOW="+str(dwPOW2)
+print "upPOW="+str(upPOW2)
+print "AMC="+str(AMC2)
+print "MG5="+str(MG52)
+print "POHP="+str(POHP2)
+
+
 
 
 
