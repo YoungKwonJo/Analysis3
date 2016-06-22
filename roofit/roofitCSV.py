@@ -591,6 +591,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   result2["n_tt2b"]   = copy.deepcopy(n_tt2b)
   result2["n_ttcc"]  = copy.deepcopy(n_ttcc)
   result2["n_ttlf"]  = copy.deepcopy(n_ttlf)
+  result2["n_ttjj"]  = copy.deepcopy(n_ttjj)
   result2["n_ttot"]  = copy.deepcopy(n_ttot)
   result2["n_bkg"]   = copy.deepcopy(n_bkg)
   result2["n_ddbkg"] = copy.deepcopy(n_ddbkg)
@@ -1461,7 +1462,7 @@ elif int(arg3)==5:
 
 #################
 elif int(arg3)==3:
-  SystematicUnc,SystematicUnck ={},{}
+  SystematicUnc,SystematicUnck,SystematicUncTTBB ={},{},{}
   histogramSys = {}
   histogramSysGEN = {}
   #ttccUp={"Up":[GEN+'ttcc'],"Down":[]}
@@ -1481,15 +1482,21 @@ elif int(arg3)==3:
 
   orig_r,orig_err,result=fitting(histograms, freeTTB, freeTTCC, GEN,True,False)
   kVal = result["kVal"] 
+  ttbbCenter = result["n_ttjj"]*kVal*orig_r
   for sys in sysSets.keys():
     orig_r2,orig_err2,result2=fitting(histogramSys[sys], freeTTB, freeTTCC, histogramSysGEN[sys],True,False)
     sysUnc = getSys(orig_r,orig_r2)
     sysUnck = getSys(kVal,result2["kVal"])
+    ttbbNew2 = result2["n_ttjj"]*result2["kVal"]*orig_r2
+    sysUncTTBB = getSys(ttbbCenter, ttbbNew2)
+
+
     print "FINAL2: "+(sys.rjust(30))+": R "+ str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
     print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
-    print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])))+" %"
+    print "FINAL2: "+(sys.rjust(30))+": ttbb: "+str(roudV(sysUncTTBB*100))+" % "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
+    SystematicUncTTBB[sys]=copy.deepcopy(sysUncTTBB)
 
   """
   signals2= [GEN+'ttcc', GEN+'ttlf']
@@ -1502,7 +1509,7 @@ elif int(arg3)==3:
 ###############################################################################
 ###############################################################################
 elif int(arg3)==2:
-  SystematicUnc,SystematicUnck ={},{}
+  SystematicUnc,SystematicUnck,SystematicUncTTBB ={},{},{}
   histogramsMG5,freeTTB5,freeTTCC5,GEN5=loadHistogram("0", "0",Step,"csvweight")
   histogramsPOHP,freeTTBPOHP,freeTTCCPOHP,GENPOHP=loadHistogram("0", "2",Step,"csvweight")
   histogramsupPOW,freeTTBupPOW,freeTTCCupPOW,GENupPOW=loadHistogram("0", "4",Step,"csvweight")
@@ -1529,6 +1536,9 @@ elif int(arg3)==2:
   genRF      = orig_r*eRPOW*acPPOW
   genRerrorF = orig_r*eRPOW*acPPOW*orig_err/orig_r
   kVal = result["kVal"]
+
+  ttbbCenter = result["n_ttjj"]*kVal*orig_r
+
   print "FINAL2: csvweight: full gen R = "+ str(roudV(genRF))+" $\pm$ "+str(roudV(genRerrorF))+" "
   print "FINAL2: csvweight: k ="+str(roudV(result["kVal"]))+" $\pm$ "+str(roudV(result["kValerror"]))+" "
 
@@ -1541,11 +1551,15 @@ elif int(arg3)==2:
     if orig_r==False or result2==False : continue
     sysUnc = getSys(orig_r,orig_r2)
     sysUnck = getSys(kVal,result2["kVal"])
+    ttbbNew2 = result2["n_ttjj"]*result2["kVal"]*orig_r2
+    sysUncTTBB = getSys(ttbbCenter, ttbbNew2)
 
     print "FINAL2: "+(sys.rjust(30))+": R "+str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
     print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
+    print "FINAL2: "+(sys.rjust(30))+": TTBB "+str(roudV(sysUncTTBB*100))+" %     ,     k = "+ str(roudV( ttbbNew2  ))+" "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
+    SystematicUncTTBB[sys]=copy.deepcopy(sysUncTTBB)
   print "FINAL2: ---- "+str(SystematicUnc)+"------"
   orig_r3,orig_err3,result3 = fitting(histograms, True, False, GEN,True,False)
   orig_r4,orig_err4,result4 = fitting(histograms, False, True, GEN,True,False)
@@ -1564,52 +1578,72 @@ elif int(arg3)==2:
  
   sysUnc3 = getSys(orig_r,orig_r3)
   sysUnc3k = getSys(kVal,result3["kVal"])
+  ttbbNew3 = result3["n_ttjj"]*result3["kVal"]*orig_r3
+  sysUnc3ttbb = getSys(ttbbCenter,ttbbNew3)
+
   sysUnc4 = getSys(orig_r,orig_r4)
   sysUnc4k = getSys(kVal,result4["kVal"])
+  ttbbNew4 = result4["n_ttjj"]*result4["kVal"]*orig_r4
+  sysUnc4ttbb = getSys(ttbbCenter,ttbbNew4)
   sysUnc5 = (genR-orig_r5*eRMG5)/genR
   #sysUnc5 = (orig_r-orig_r5)/orig_r
   sysUnc5k = getSys(kVal,result5["kVal"])
+  ttbbNew5 = result5["n_ttjj"]*result5["kVal"]*orig_r5
+  sysUnc5ttbb = getSys(ttbbCenter,ttbbNew5)
 
   sysUnc6 = (genR-orig_r6*eRPOHP)/genR
   sysUnc6k = getSys(kVal,result6["kVal"])
+  ttbbNew6 = result6["n_ttjj"]*result6["kVal"]*orig_r6
+  sysUnc6ttbb = getSys(ttbbCenter,ttbbNew6)
 
   sysUnc7 = (genR-orig_r7*eRupPOW)/genR
   sysUnc7k = getSys(kVal,result7["kVal"])
+  ttbbNew7 = result7["n_ttjj"]*result7["kVal"]*orig_r7
+  sysUnc7ttbb = getSys(ttbbCenter,ttbbNew7)
 
   sysUnc8 = (genR-orig_r8*eRdwPOW)/genR
   sysUnc8k = getSys(kVal,result8["kVal"])
+  ttbbNew8 = result8["n_ttjj"]*result8["kVal"]*orig_r8
+  sysUnc8ttbb = getSys(ttbbCenter,ttbbNew8)
 
 
   sysUnc=0.
   for sys2 in StepSys2.keys():
     sysUnc1=[]
     sysUnc1k=[]
+    sysUnc1ttbb=[]
     for sys3 in StepSys2[sys2]:
       if sys3.find("JER")>-1:
         up=SystematicUnc[sys3+"_Up"] 
         upk=SystematicUnck[sys3+"_Up"] 
+        upttbb=SystematicUncTTBB[sys3+"_Up"] 
         dw=SystematicUnc[sys3+"_Down"] 
         dwk=SystematicUnck[sys3+"_Down"] 
+        dwttbb=SystematicUncTTBB[sys3+"_Down"] 
       else:
         up=SystematicUnc[sys3+"_Up"] 
         upk=SystematicUnck[sys3+"_Up"] 
+        upttbb=SystematicUncTTBB[sys3+"_Up"] 
         dw=SystematicUnc[sys3+"_Down"] 
         dwk=SystematicUnck[sys3+"_Down"] 
+        dwttbb=SystematicUncTTBB[sys3+"_Down"] 
       sysUnc1.append(max(abs(up),abs(dw)))
       sysUnc1k.append(max(abs(upk),abs(dwk)))
+      sysUnc1ttbb.append(max(abs(upttbb),abs(dwttbb)))
 
     sysUnc = quardsum(sysUnc1)
     sysUnck = quardsum(sysUnc1k)
+    sysUncTTBB = quardsum(sysUnc1ttbb)
     #print "FINAL2: "+sys2.rjust(10)+": R : "+str(roudV(sysUnc*100))+" % ,     k="+str(roudV(sysUnck*100))+" %, ttbb: "+str(roudV(quardsum([sysUnc,sysUnck])*100))+" %"
-    print "FINAL2: "+sys2.rjust(10)+": & "+str(roudV(sysUnc*100))+"  & "+str(roudV(sysUnck*100))+" & "+str(roudV(quardsum([sysUnc,sysUnck])*100))+"  \\\\ "
+    print "FINAL2: "+sys2.rjust(10)+": & "+str(roudV(sysUnc*100)).rjust(10)+"  & "+str(roudV(sysUnck*100)).rjust(10)+" & "+str(roudV(sysUncTTBB*100)).rjust(10)+"  \\\\ "
     sysUnc = 0.
 
-  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+"  &  "+str(roudV(sysUnc3k*100))+"   &   "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+"   \\\\  "
-  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100))+"  &  "+str(roudV(sysUnc4k*100))+"   &   "+str(roudV(quardsum([sysUnc4,sysUnc4k])*100))+"   \\\\  "
-  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100))+"  &  "+str(roudV(sysUnc5k*100))+"   &   "+str(roudV(quardsum([sysUnc5,sysUnc5k])*100))+"   \\\\  "
-  print "FINAL2: "+("POHP").rjust(5)+" : "+str(roudV(sysUnc6*100))+"  &  "+str(roudV(sysUnc6k*100))+"   &   "+str(roudV(quardsum([sysUnc6,sysUnc6k])*100))+"   \\\\  "
-  print "FINAL2: "+("upPOW").rjust(5)+" : "+str(roudV(sysUnc7*100))+"  &  "+str(roudV(sysUnc7k*100))+"   &   "+str(roudV(quardsum([sysUnc7,sysUnc7k])*100))+"   \\\\  "
-  print "FINAL2: "+("dwPOW").rjust(5)+" : "+str(roudV(sysUnc8*100))+"  &  "+str(roudV(sysUnc8k*100))+"   &   "+str(roudV(quardsum([sysUnc8,sysUnc8k])*100))+"   \\\\  "
+  print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100)).rjust(10)+"  &  "+str(roudV(sysUnc3k*100)).rjust(10)+"   &    "+str(roudV(sysUnc3ttbb*100)).rjust(10)+"   \\\\  "
+  print "FINAL2: "+("TTCC").rjust(5)+" : "+str(roudV(sysUnc4*100)).rjust(10)+"  &  "+str(roudV(sysUnc4k*100)).rjust(10)+"   &   "+str(roudV(sysUnc4ttbb*100)).rjust(10)+"   \\\\  "
+  print "FINAL2: "+("GEN").rjust(5)+" : "+str(roudV(sysUnc5*100)).rjust(10)+"  &  "+str(roudV(sysUnc5k*100)).rjust(10)+"   &    "+str(roudV(sysUnc5ttbb*100)).rjust(10)+"   \\\\  "
+  print "FINAL2: "+("POHP").rjust(5)+" : "+str(roudV(sysUnc6*100)).rjust(10)+"  &  "+str(roudV(sysUnc6k*100)).rjust(10)+"   &   "+str(roudV(sysUnc6ttbb*100)).rjust(10)+"   \\\\  "
+  print "FINAL2: "+("upPOW").rjust(5)+" : "+str(roudV(sysUnc7*100)).rjust(10)+"  &  "+str(roudV(sysUnc7k*100)).rjust(10)+"   &  "+str(roudV(sysUnc7ttbb*100)).rjust(10)+"   \\\\  "
+  print "FINAL2: "+("dwPOW").rjust(5)+" : "+str(roudV(sysUnc8*100)).rjust(10)+"  &  "+str(roudV(sysUnc8k*100)).rjust(10)+"   &  "+str(roudV(sysUnc8ttbb*100)).rjust(10)+"   \\\\  "
  
   """
   print "FINAL2: "+("TTB").rjust(5)+" : "+str(roudV(sysUnc3*100))+" % ,     k="+str(roudV(sysUnc3k*100))+" %, ttbb:  "+str(roudV(quardsum([sysUnc3,sysUnc3k])*100))+" %"
