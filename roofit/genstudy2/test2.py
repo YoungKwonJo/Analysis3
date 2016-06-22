@@ -147,7 +147,7 @@ def drawCanvas(ttjjFSsim, ttjjFSfit,canvas):
   pt1.Draw(), pt2.Draw()
 
 
-  gr,l1,l2=drawMCSample(ttjjFSsim["cen"],ttjjFSsim["StatErr"],0.5)
+  gr,l1,l2=drawMCSample(ttjjFSsim["cen"],ttjjFSsim["StatErr"],0.7)
   #box02,line02=drawMCSample(ttjjFSsim["cen"],ttjjFSsim["StatSysErr"],0.8,"#e0a3a3")
   #box02.Draw()
   gr.Draw("LP"),l1.Draw(),l2.Draw()
@@ -159,9 +159,10 @@ def drawCanvas(ttjjFSsim, ttjjFSfit,canvas):
   box02.Draw()
   box01.Draw(), line01.Draw()
   gr.Draw("LP"),l1.Draw(),l2.Draw()
+  h1.Draw("same")
 
   ttjjFStext = ttjjFSfit["title"]
-  ttjjFS=addText(ttjjFStext,0.07,0.8)
+  ttjjFS=addText(ttjjFStext,0.7,0.8)
   ttjjFS.Draw()
   ttjjFS2text = str(int(ttjjFSfit["cen"]))+" #pm "+str(int(ttjjFSfit["StatErr"] ))+" #pm "+str(int(ttjjFSfit["SysErr"] ))+" pb"
   ttjjFS2=addText( ttjjFS2text,0.5,0.5)
@@ -201,11 +202,11 @@ ttjjCanvas = {"can":"c1","N":9,"xmin":110,"xmax":310,"title":"#sigma [pb]","Name
 
 c1 = TCanvas("c1","",800,400)
 c1.Divide(4,1)
-c1.cd(1)
+c1.cd(2)
 ttjjCanvas1,ttjj1,ttjj2,line01,box01,box02,gr1 = drawCanvas(ttjjFSsim,ttjjFSfit,ttjjCanvas)
 
 
-ttjjAMC = drawMarker(AMC["nom"]["ttjjFSCX"],0.45,kBlue,21)
+ttjjAMC = drawMarker(AMC["nom"]["ttjjFSCX"],0.5,kBlue,21)
 ttjjAMC.Draw("P")
 ttjjMG5 = drawMarker(MG5["nom"]["ttjjFSCX"],0.3,kGreen,22)
 ttjjMG5.Draw("P")
@@ -219,11 +220,11 @@ ttbbFSsim = {"cen":POW["nom"]["ttbbFSCX"]   , "StatErr":ttbbStatErr  ,"SysErr":t
 
 #ttbbFSfit = {"cen":3.86, "StatErr":0.55, "SysErr":1.29, "StatSysErr":sqrt(0.55**2+1.29**2), "title":"t#bar{t}b#bar{b}" }
 ttbbFSfit = {"cen":3.86, "StatErr":0.55, "SysErr":1.32, "StatSysErr":sqrt(0.55**2+1.32**2), "title":"t#bar{t}b#bar{b}" }
-ttbbCanvas = {"can":"c2","N":7,"xmin":0.5,"xmax":6.5,"title":"#sigma [pb]","Name":"ttbb" } 
+ttbbCanvas = {"can":"c2","N":7,"xmin":0.5,"xmax":9.5,"title":"#sigma [pb]","Name":"ttbb" } 
 
-c1.cd(2)
+c1.cd(1)
 ttbbCanvas2,ttbb1,ttbb2,line11,box11,box12,gr2 = drawCanvas(ttbbFSsim,ttbbFSfit,ttbbCanvas)
-ttbbAMC = drawMarker(AMC["nom"]["ttbbFSCX"],0.45,kBlue,21)
+ttbbAMC = drawMarker(AMC["nom"]["ttbbFSCX"],0.5,kBlue,21)
 ttbbAMC.Draw("P")
 ttbbMG5 = drawMarker(MG5["nom"]["ttbbFSCX"],0.3,kGreen,22)
 ttbbMG5.Draw("P")
@@ -241,7 +242,7 @@ rCanvas = {"can":"c2","N":5,"xmin":0.2,"xmax":4.5,"title":"ratio as t#bar{t}b#ba
 
 c1.cd(3)
 rCanvas2,r1,r2,line21,box21,box22,gr3 = drawCanvas(rFSsim,rFSfit,rCanvas)
-rAMC = drawMarker(AMC["nom"]["ttbbFS"]/AMC["nom"]["ttjjFS"]*100.,0.45,kBlue,21)
+rAMC = drawMarker(AMC["nom"]["ttbbFS"]/AMC["nom"]["ttjjFS"]*100.,0.5,kBlue,21)
 rAMC.Draw("P")
 rMG5 = drawMarker(MG5["nom"]["ttbbFS"]/MG5["nom"]["ttjjFS"]*100.,0.3,kGreen,22)
 rMG5.Draw("P")
@@ -276,6 +277,12 @@ cmslegend=addLegendPreliminary()
 cmslegend.Draw()
 lumilegend=addLegendLumi()
 lumilegend.Draw()
+
+c1.cd(1).RedrawAxis()
+c1.cd(2).RedrawAxis()
+c1.cd(3).RedrawAxis()
+c1.cd(4).RedrawAxis()
+
 
 c1.Print("ttbb_dilepton_13TeV_summary.C")
 c1.Print("ttbb_dilepton_13TeV_summary.eps")
