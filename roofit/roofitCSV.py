@@ -1062,8 +1062,8 @@ def resultPrint3(result, genInfo):
   #dilepBr = 0.10705984
   dilepBr = 0.1049580955
   ttbarCX = 831.76 
-  ttjjAcp = genInfo["Acc"]["ttjj"]*dilepBr
-  ttbbAcp = genInfo["Acc"]["ttbb"]*dilepBr
+  #ttjjAcp = genInfo["Acc"]["ttjj"]*dilepBr
+  #ttbbAcp = genInfo["Acc"]["ttbb"]*dilepBr
 
   #Acc :  ttbbVPS_DiLeptonic / ttbbFPS_Alldecay , 2016. June 13
   #POW & 0.0160401846363 & 0.0176910436472
@@ -1071,7 +1071,9 @@ def resultPrint3(result, genInfo):
   #AMC & 0.0160596740749 & 0.0177292239969
   #ttjjAcp = 0.0176910436472
   #ttbbAcp = 0.0160401846363
-
+  #ttbbAcp=0.021
+  ttbbAcp=0.022
+  ttjjAcp=0.020
 
   ttjjEff = genInfo["Eff"]["ttjj"]
   ttbbEff = genInfo["Eff"]["ttbb"]
@@ -1556,11 +1558,12 @@ elif int(arg3)==2:
 
     print "FINAL2: "+(sys.rjust(30))+": R "+str(roudV(sysUnc*100))+" %     ,     R = "+ str(roudV(orig_r2))+" "
     print "FINAL2: "+(sys.rjust(30))+": k "+str(roudV(sysUnck*100))+" %     ,     k = "+ str(roudV(result2["kVal"]))+" "
-    print "FINAL2: "+(sys.rjust(30))+": TTBB "+str(roudV(sysUncTTBB*100))+" %     ,     k = "+ str(roudV( ttbbNew2  ))+" "
+    print "FINAL2: "+(sys.rjust(30))+": TTBB "+str(roudV(sysUncTTBB*100))+" %     ,     TTBB = "+ str(roudV( ttbbNew2  ))+" "
     SystematicUnc[sys]=copy.deepcopy(sysUnc)
     SystematicUnck[sys]=copy.deepcopy(sysUnck)
     SystematicUncTTBB[sys]=copy.deepcopy(sysUncTTBB)
-  print "FINAL2: ---- "+str(SystematicUnc)+"------"
+    #print "FINAL2: ttbb "+str(SystematicUncTTBB)
+  #print "FINAL2: ---- "+str(SystematicUnc)+"------"
   orig_r3,orig_err3,result3 = fitting(histograms, True, False, GEN,True,False)
   orig_r4,orig_err4,result4 = fitting(histograms, False, True, GEN,True,False)
   orig_r5,orig_err5,result5 = fitting(histogramsMG5, False, False, "MG5",True,False)
@@ -1608,6 +1611,7 @@ elif int(arg3)==2:
 
 
   sysUnc=0.
+  print "FINAL2: ttbb "+str(SystematicUncTTBB)
   for sys2 in StepSys2.keys():
     sysUnc1=[]
     sysUnc1k=[]
