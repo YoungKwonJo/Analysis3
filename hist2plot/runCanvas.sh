@@ -9,22 +9,23 @@
 
 for i in {1..7}
 do
-    python makeCanvas.py S2 $i -b
-    python makeCanvas.py S3 $i -b
-    python makeCanvas.py S4 $i -b
-    python makeCanvas.py S5 $i -b
-    python makeCanvas.py S6 $i -b
+    python makeCanvasAN.py S2 $i -b
+    python makeCanvasAN.py S3 $i -b
+    python makeCanvasAN.py S4 $i -b
+    python makeCanvasAN.py S5 $i -b
+    python makeCanvasAN.py S6 $i -b
 done 
 
 for i in {8..15}
 do
-    python makeCanvas.py S2 $i -b
-    python makeCanvas.py S3 $i -b
+    python makeCanvasAN.py S2 $i -b
+    python makeCanvasAN.py S3 $i -b
 done 
 
 for i in {16..31}
 do
-    python makeCanvas.py S5 $i -b
-    python makeCanvas.py S6 $i -b
+    python makeCanvasAN.py S4 $i -b
+    python makeCanvasAN.py S5 $i -b
+    python makeCanvasAN.py S6 $i -b
 done 
 

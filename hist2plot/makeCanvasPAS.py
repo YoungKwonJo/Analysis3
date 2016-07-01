@@ -34,7 +34,8 @@ def addLegendCMS():#lumi):
   #lumi2 = str(round(lumi/100)/10)
   title  = TLatex(-20.,50.,"CMS")
   title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.20),      title.SetY(0.83)
-  title.SetTextFont(42)#, title.SetTextSize(0.57),
+  #title.SetTextFont(42)#, title.SetTextSize(0.57),
+  title.SetTextFont(61)#, title.SetTextSize(0.57),
   title.SetTextSizePixels(44)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
   title.Draw()
@@ -55,7 +56,8 @@ def addLegendPreliminary():
   tex2 = TLatex(-20.,50.,"Preliminary")
   tex2.SetNDC(),          tex2.SetTextAlign(12),  tex2.SetX(0.25),        tex2.SetY(0.93)
   #tex2.SetTextColor(2),
-  tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
+  #tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
+  tex2.SetTextFont(52) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
   #tex2.SetTextColor(2),   tex2.SetTextFont(42),   tex2.SetTextSize(0.05), tex2.SetTextSizePixels(24)
   return tex2
 

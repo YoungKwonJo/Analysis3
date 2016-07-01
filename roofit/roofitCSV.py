@@ -1167,11 +1167,13 @@ def resultPrint3(result, genInfo):
   ####################### 2016. 06.11 v765
   RSysVS=0.281609658925
   ttjjSysVS=0.186850207385
-  ttbbSysVS=0.337921588538
+  #ttbbSysVS=0.337921588538
+  ttbbSysVS=0.318233368547
 
   RSysFS=0.285952793307
   ttjjSysFS=0.210059515376
-  ttbbSysFS=0.35324354205
+  #ttbbSysFS=0.35324354205
+  ttbbSysFS=0.329605031601
   ######## FPS all decays 2016. 06. 13. v765
   #RSysFS=0.291293666255
   #ttjjSysFS=0.202281981402
@@ -1611,7 +1613,7 @@ elif int(arg3)==2:
 
 
   sysUnc=0.
-  print "FINAL2: ttbb "+str(SystematicUncTTBB)
+  #print "FINAL2: ttbb "+str(SystematicUncTTBB)
   for sys2 in StepSys2.keys():
     sysUnc1=[]
     sysUnc1k=[]

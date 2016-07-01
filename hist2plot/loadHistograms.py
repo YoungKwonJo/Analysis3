@@ -22,8 +22,10 @@ def loadHistogramMC(mc, mon, Step, Weight,DYsf,SFbyFitting):
   Weight1= Weight
   if Weight is "Scale_Up":   Weight1="csvweight"
   if Weight is "Scale_Down": Weight1="csvweight"
+  Weight2= Weight1
+  #if Weight is "CEN": Weight2="CEN_nopw"
 
-  f = TFile.Open(loc+"/hist_"+Weight1+".root")
+  f = TFile.Open(loc+"/hist_"+Weight2+".root")
   name = mc['name']
   #print name+"  "+str(mc['cx'])+"   "
   scale = float(str(mc['cx']))*lumi
