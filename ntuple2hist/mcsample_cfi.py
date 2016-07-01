@@ -4,7 +4,7 @@ from os.path import isfile, join
 
 
 ###################################################################
-loc = "/store/user/youngjo/Cattools/v7-6-5v1/"
+loc = "/store/user/youngjo/Cattools/v7-6-6v2/"
 z  ="v1" # bkg
 zz ="v1" # data
 zzz="v1" # ttbar
@@ -136,7 +136,7 @@ def getValues(data,doSumWeight):
       if doSumWeight :
         sumWeights[aa["name"]] = sumEntries(files(loc +  aa["name"] + zzz))
         print "sumWeights['"+aa["name"]+"']="+str(sumWeights[aa["name"]])
-    elif aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6"]:
+    elif aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6","TTLL_powheg"]:
       fileList[aa["name"]]   = files(loc + aa["name"] + zzz)
       if doSumWeight :
         sumWeights[aa["name"]] = sumWeight(files(loc +  aa["name"] + zzz))
@@ -156,64 +156,34 @@ data = loadJson('../ntuple2hist/dataset.json')
 cx = {}
 sumWeights={}
 fileList={}
-sumWeights['DYJets']=81236727.0
+sumWeights['DYJets']=80118462.0
 sumWeights['DYJets_10to50']=22482569.0
 sumWeights['DYJets_MG']=9004328.0
 sumWeights['DYJets_MG_5to50']=8771481.0
 sumWeights['WJets']=16521036.0
-sumWeights['TTJets_MG5']=10215131.0
-sumWeights['TTJets_aMC']=12771412.0
+sumWeights['TTJets_MG5']=10166612.0
+sumWeights['TTJets_aMC']=12754845.0
 sumWeights['TTJets_scaleup']=14150600.0
 sumWeights['TTJets_scaledown']=12798823.0
 sumWeights['TT_powheg']=97994442.0
 sumWeights['TT_powheg_scaledown']=9932876.0
 sumWeights['TT_powheg_scaleup']=9919776.0
+sumWeights['TTLL_powheg']=107163544.0
 sumWeights['TT_powheg-herwigpp']=19383463.0
-sumWeights['TT_powheg_pythia6']=0.0
 sumWeights['SingleTbar_tW']=999400.0
 sumWeights['SingleTop_tW']=1000000.0
-sumWeights['SingleTbar_t']=0.0
-sumWeights['SingleTop_t']=0.0
-sumWeights['SingleTop_s']=0.0
+sumWeights['SingleTbar_t']=1630900.0
+sumWeights['SingleTop_t']=3299200.0
+sumWeights['SingleTop_s']=621946.0
 sumWeights['WW']=988418.0
 sumWeights['WZ']=1000000.0
 sumWeights['ZZ']=985600.0
-sumWeights['ttH_bb']=0.0
-sumWeights['ttH_nonbb']=0.0
+sumWeights['ttH_bb']=3772012.0
+sumWeights['ttH_nonbb']=3945824.0
 sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=129001.0
 sumWeights['ttZToLLNuNu']=183200.0
 sumWeights['ttZToQQ']=350106.0
-"""
-sumWeights['DYJets']=76816262.0
-sumWeights['DYJets_10to50']=22606898.5977
-sumWeights['DYJets_MG']=9004328.0
-sumWeights['DYJets_MG_5to50']=8771481.0
-sumWeights['WJets']=16521035.0153
-sumWeights['TTJets_MG5']=10215131.0
-sumWeights['TTJets_aMC']=12698526.0
-sumWeights['TTJets_scaleup']=14082216.0
-sumWeights['TTJets_scaledown']=12798823.0
-sumWeights['TT_powheg']=97994442.0
-sumWeights['TT_powheg_scaledown']=9932876.0
-sumWeights['TT_powheg_scaleup']=9919776.0
-sumWeights['TT_powheg-herwigpp']=19383463.0
-sumWeights['TT_powheg_pythia6']=0.0
-sumWeights['SingleTbar_tW']=950000.0
-sumWeights['SingleTop_tW']=1000000.0
-sumWeights['SingleTbar_t']=0.0
-sumWeights['SingleTop_t']=0.0
-sumWeights['SingleTop_s']=0.0
-sumWeights['WW']=988437.589993
-sumWeights['WZ']=1000000.0
-sumWeights['ZZ']=985600.0
-sumWeights['ttH_bb']=0.0
-sumWeights['ttH_nonbb']=0.0
-sumWeights['ttWJetsToQQ']=429599.0
-sumWeights['ttWJetsToLNu']=129001.0
-sumWeights['ttZToLLNuNu']=183200.0
-sumWeights['ttZToQQ']=350106.0
-"""
 
 #############
 if len(sumWeights.keys()) is 0 : 
@@ -245,7 +215,7 @@ ttbb,ttb,tt2b,ttcc,ttlf,ttot =ttbarSelections(isVis)
 #ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot,"All":"(1)"}
 ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot}
 
-ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp" 
+ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp", "POLL": "TTLL_powheg" 
                    ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" 
                 }
 #ttbarMCsamples = {"MG5":"TTJets_MG5","AMC","TTJets_aMC","POW":"TT_powheg","upPOW":"TT_powheg_scaleup","dwPOW":"TT_powheg_scaledown","POHP":"TT_powheg-herwigpp","POPY6":"TT_powheg_pythia6" }
