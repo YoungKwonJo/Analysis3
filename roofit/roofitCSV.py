@@ -458,7 +458,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   n_bkg = histograms["bkg"]["exp"]
   n_ddbkg = histograms["ddbkg"]["exp"]
   n_data = histograms["DATA"]["exp"]
-  
+ 
+
   n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   n_ttbar = n_ttjj+n_ttot
   
@@ -511,7 +512,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ######
   nttcc =RooRealVar(   "nttcc","number of ttcc events",                         n_ttcc , n_ttcc, n_ttcc)
   knttcc=RooFormulaVar("knttcc","number of ttcc events after fitting","k*nttcc",RooArgList(k,nttcc) )
-  
+  #####
+ 
   #histogram
   xyArg = RooArgList(x, y)
   data    = RooDataHist("data",    "data set with (x)",   xyArg, histograms["DATA"]["h1"])
@@ -522,6 +524,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ttcc    = RooDataHist("ttcc",    "ttcc set with (x)",   xyArg, histograms[GEN+"ttcc"]["h1"] )
   ttlf    = RooDataHist("ttlf",    "ttlf set with (x)",   xyArg, histograms[GEN+"ttlf"]["h1"])
   ttcclf  = RooDataHist("ttcclf",  "ttcclf set with (x)", xyArg, histograms[GEN+"ttcclf"]["h1"])
+
   ttot    = RooDataHist("ttot",    "ttot set with (x)",   xyArg, histograms[GEN+"ttot"]["h1"])
   bkg     = RooDataHist("bkg",     "bkg  set with (x)",   xyArg, histograms["bkg"]["h1"])
   ddbkg   = RooDataHist("ddbkg",   "ddbkg  set with (x)", xyArg, histograms["ddbkg"]["h1"])
@@ -541,7 +544,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ddbkgpdf     = RooHistPdf("ddbkgpdf",    "ddbkgpdf",     RooArgSet(RooArgList(x,y)), ddbkg)
   
   #for separate ttcc
-  #if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig3))
+  ##if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig3))
   if freeTTB and not freeTTCC  : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttcclfpdf), RooArgList(fsig,fsig2,fsig32con))
   elif not freeTTB and freeTTCC: model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttccpdf, ttlfpdf), RooArgList(fsig,fsig2con,fsig3con, fsigcc))
   elif freeTTB and freeTTCC    : model  = RooAddPdf("model",   "model",RooArgList( ttbbpdf, ttbpdf,tt2bpdf, ttccpdf, ttlfpdf), RooArgList(fsig,fsig2,fsig3, fsigcc))
@@ -1025,6 +1028,15 @@ def Chi2Test2D(GEN,histograms):#data2D,mc2D):
 
   mc2D = histograms[GEN+"ttbb"]["h1"].Clone("mc2D")
   mc2D.Reset()
+  ttbbSF=1.62796470428
+  ttcclfSF=0.916707908424
+  k=0.842498214663
+  #ttbb.Scale(ttbbSF*k)
+  #ttb.Scale(ttbbSF*k)
+  #tt2b.Scale(ttbbSF*k)
+  #ttcclf.Scale(ttcclfSF*k)
+  #ttot.Scale(k)
+
   mc2D.Add(ttbb), mc2D.Add(ttb),mc2D.Add(tt2b)
   #mc2D.Add(ttcc)
   mc2D.Add(ttcclf),  mc2D.Add(ttot),  mc2D.Add(bkg),  mc2D.Add(ddbkg)
