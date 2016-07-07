@@ -239,36 +239,40 @@ def loadHistogram2(arg1, arg2, Step,Q2, Weight,Variation):
   ttcclfhist = histograms[GEN+'ttot']["h1"].Clone("ttcclfhist")
   ttcclfhist3rd = histograms[GEN+'ttot']["h11"].Clone("ttcclfhist3rd")
   ttcclfhist4th = histograms[GEN+'ttot']["h12"].Clone("ttcclfhist4th")
+  ttcclfhist333 = histograms[GEN+'ttot']["h333"].Clone("ttcclfhist333")
   ttcclfhist.Reset()
   ttcclfhist3rd.Reset()
   ttcclfhist4th.Reset()
+  ttcclfhist333.Reset()
 
   for hh in signals1:
     h = histograms[hh]
     #h = histograms[hh]
-    h333 = th1_2to1(h["h12"],h["h12"])
-    h["h333"]=copy.deepcopy(h333)
+    #h333 = th1_2to1(h["h12"],h["h12"])
+    #h["h333"]=copy.deepcopy(h333)
     histograms2[hh]=h 
  
   for hh in signals2:
     h = histograms[hh]["h1"]
     h3rd = histograms[hh]["h11"]
     h4th = histograms[hh]["h12"]
+    h333 = histograms[hh]["h333"]
     h2 = histograms[hh]
     ttcclfhist.Add(h)
     ttcclfhist3rd.Add(h3rd)
     ttcclfhist4th.Add(h4th)
+    ttcclfhist333.Add(h333)
 
     histograms2[hh]=h2
 
-  hcclfhist333 = th1_2to1(ttcclfhist3rd,ttcclfhist4th)
-  histograms2[GEN+"ttcclf"]={"h1":copy.deepcopy(ttcclfhist),"exp":ttcclfhist.Integral(),"h11":copy.deepcopy(ttcclfhist3rd),"h12":copy.deepcopy(ttcclfhist4th),"h333":copy.deepcopy(hcclfhist333)}
+  #hcclfhist333 = th1_2to1(ttcclfhist3rd,ttcclfhist4th)
+  histograms2[GEN+"ttcclf"]={"h1":copy.deepcopy(ttcclfhist),"exp":ttcclfhist.Integral(),"h11":copy.deepcopy(ttcclfhist3rd),"h12":copy.deepcopy(ttcclfhist4th),"h333":copy.deepcopy(ttcclfhist333)}
 
   for hh in backgrounds1:
     h = histograms[hh]
     #h = histograms[hh]
-    h333 = th1_2to1(h["h12"],h["h12"])
-    h["h333"]=copy.deepcopy(h333)
+    #h333 = th1_2to1(h["h12"],h["h12"])
+    #h["h333"]=copy.deepcopy(h333)
     histograms2[GEN+"ttot"]=h
 
   return loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation)
@@ -362,40 +366,48 @@ def loadHistogram22(freeTTB, freeTTCC,GEN, Step,Weight1, histograms2,Variation):
  
   bkghist = histograms2[GEN+'ttot']["h1"].Clone("bkghist")
   bkghist3rd = histograms2[GEN+'ttot']["h11"].Clone("bkghist")
-  bkghist4th = histograms2[GEN+'ttot']["h12"].Clone("bkghist")
+  bkghist4th = histograms2[GEN+'ttot']["h12"].Clone("bkghist2")
+  bkghist333 = histograms2[GEN+'ttot']["h333"].Clone("bkghist333")
   bkghist.Reset()
   bkghist3rd.Reset()
   bkghist4th.Reset()
+  bkghist333.Reset()
   ddbkghist = histograms2[GEN+'ttot']["h1"].Clone("ddbkghist")
   ddbkghist3rd = histograms2[GEN+'ttot']["h11"].Clone("ddbkghist")
   ddbkghist4th = histograms2[GEN+'ttot']["h12"].Clone("ddbkghist")
+  ddbkghist333 = histograms2[GEN+'ttot']["h333"].Clone("ddbkghist333")
   ddbkghist.Reset()
   ddbkghist3rd.Reset()
   ddbkghist4th.Reset()
+  ddbkghist333.Reset()
   
   for hh in backgrounds2:
     h = histograms[hh]["h1"]
     h11 = histograms[hh]["h11"]
     h12 = histograms[hh]["h12"]
+    h333 = histograms[hh]["h333"]
     bkghist.Add(h)
     bkghist3rd.Add(h11)
     bkghist4th.Add(h12)
+    bkghist333.Add(h333)
 
     #print "FINAL "+hh
 
-  hbkghist333 = th1_2to1(bkghist3rd,bkghist4th)
-  histograms2["bkg"]={"h1":copy.deepcopy(bkghist),"exp":bkghist.Integral(),"h11":copy.deepcopy(bkghist3rd),"h12":copy.deepcopy(bkghist4th),"h333":copy.deepcopy(hbkghist333) }
+  #hbkghist333 = th1_2to1(bkghist3rd,bkghist4th)
+  histograms2["bkg"]={"h1":copy.deepcopy(bkghist),"exp":bkghist.Integral(),"h11":copy.deepcopy(bkghist3rd),"h12":copy.deepcopy(bkghist4th),"h333":copy.deepcopy(bkghist333) }
 
   for hh in backgrounds3:
     h = histograms[hh]["h1"]
     h11 = histograms[hh]["h11"]
     h12 = histograms[hh]["h12"]
+    h333 = histograms[hh]["h333"]
     ddbkghist.Add(h)
     ddbkghist3rd.Add(h11)
     ddbkghist4th.Add(h12)
+    ddbkghist333.Add(h333)
     #print "FINAL "+hh
-  hddbkghist333 = th1_2to1(ddbkghist3rd,ddbkghist4th)
-  histograms2["ddbkg"]={"h1":copy.deepcopy(ddbkghist),"exp":ddbkghist.Integral(),"h11":copy.deepcopy(ddbkghist3rd),"h12":copy.deepcopy(ddbkghist4th),"h333":copy.deepcopy(hddbkghist333)}
+  #hddbkghist333 = th1_2to1(ddbkghist3rd,ddbkghist4th)
+  histograms2["ddbkg"]={"h1":copy.deepcopy(ddbkghist),"exp":ddbkghist.Integral(),"h11":copy.deepcopy(ddbkghist3rd),"h12":copy.deepcopy(ddbkghist4th),"h333":copy.deepcopy(ddbkghist333)}
 
   return loadHistogram23(freeTTB, freeTTCC,GEN, Step,histograms2)
   
@@ -1163,9 +1175,11 @@ def Chi2Test1D(GEN,histograms):#data2D,mc2D):
 
   mc2D = histograms[GEN+"ttbb"]["h333"].Clone("mc2D")
   mc2D.Reset()
-  ttbbSF=2.99701540996e-06
-  ttcclfSF=1.13263777626
-  k=1.83239431314
+  #FINAL2:newSF by fitting :{'ttbbSF':1.6448700808,'ttcclfSF':0.914465610155,'k':1.83912781193}
+
+  ttbbSF=1.6448700808
+  ttcclfSF=0.914465610155
+  k=1.83912781193
   ttbb.Scale(ttbbSF*k)
   ttb.Scale(ttbbSF*k)
   tt2b.Scale(ttbbSF*k)
