@@ -216,6 +216,14 @@ def loadHistogram2(arg1, arg2, Step,Q2, Weight,Variation):
       h12.Add(h22)
       h12.Add(h32)
 
+    if h11.Integral()>0 :  h11.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h21.Integral()>0 :  h21.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h31.Integral()>0 :  h31.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h12.Integral()>0 :  h12.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h22.Integral()>0 :  h22.Scale(ttbarsamples2[name]['cx']*lumi)
+    if h32.Integral()>0 :  h32.Scale(ttbarsamples2[name]['cx']*lumi)
+ 
+
     if name in Variation["Up"]:
       h1.Scale(1.5)
       h11.Scale(1.5)
@@ -562,19 +570,18 @@ def newTemplate(h1):
 ################
 def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   res = {}
-  n_ttbb = histograms[GEN+"ttbb"]["exp"]
-  n_ttb  = histograms[GEN+"ttb"]["exp"]
-  n_tt2b  = histograms[GEN+"tt2b"]["exp"]
+  n_ttbb = histograms[GEN+"ttbb"]["exp"]*2.
+  n_ttb  = histograms[GEN+"ttb"]["exp"]*2.
+  n_tt2b  = histograms[GEN+"tt2b"]["exp"]*2.
   #n_tt2b = histograms[GEN+"tt2b"]["exp"]
-  n_ttcc = histograms[GEN+"ttcc"]["exp"]#+histograms[GEN+"ttc"]["exp"]
+  n_ttcc = histograms[GEN+"ttcc"]["exp"]*2. #+histograms[GEN+"ttc"]["exp"]
   #n_ttc = histograms[GEN+"ttc"]["exp"]
-  n_ttlf = histograms[GEN+"ttlf"]["exp"]
-  n_ttcclf = histograms[GEN+"ttcclf"]["exp"]
-  n_ttot = histograms[GEN+"ttot"]["exp"]
-  n_bkg = histograms["bkg"]["exp"]
-  n_ddbkg = histograms["ddbkg"]["exp"]
-  n_data = histograms["DATA"]["exp"]
- 
+  n_ttlf = histograms[GEN+"ttlf"]["exp"]*2.
+  n_ttcclf = histograms[GEN+"ttcclf"]["exp"]*2.
+  n_ttot = histograms[GEN+"ttot"]["exp"]*2.
+  n_bkg = histograms["bkg"]["exp"]*2.
+  n_ddbkg = histograms["ddbkg"]["exp"]*2.
+  n_data = histograms["DATA"]["exp"]*2.
 
   n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   n_ttbar = n_ttjj+n_ttot
@@ -1177,14 +1184,24 @@ def Chi2Test1D(GEN,histograms):#data2D,mc2D):
   mc2D.Reset()
   #FINAL2:newSF by fitting :{'ttbbSF':1.6448700808,'ttcclfSF':0.914465610155,'k':1.83912781193}
 
-  ttbbSF=1.6448700808
-  ttcclfSF=0.914465610155
-  k=1.83912781193
-  ttbb.Scale(ttbbSF*k)
-  ttb.Scale(ttbbSF*k)
-  tt2b.Scale(ttbbSF*k)
-  ttcclf.Scale(ttcclfSF*k)
-  ttot.Scale(k)
+  ttbbSF=1.64487
+  ttcclfSF=0.91447
+  k=1.839
+  #ttbb.Scale(ttbbSF*k)
+  #ttb.Scale(ttbbSF*k)
+  #tt2b.Scale(ttbbSF*k)
+  #ttcclf.Scale(ttcclfSF*k)
+  #ttot.Scale(k)
+  print  "FINAL2:chi2test: ttbb: "+str(ttbb.Integral())
+  print  "FINAL2:chi2test: ttb: "+str(ttb.Integral())
+  print  "FINAL2:chi2test: tt2b: "+str(tt2b.Integral())
+  print  "FINAL2:chi2test: ttcc: "+str(ttcc.Integral())
+  print  "FINAL2:chi2test: ttlf: "+str(ttlf.Integral())
+  print  "FINAL2:chi2test: ttot: "+str(ttot.Integral())
+
+  print  "FINAL2:chi2test: bkg: "+str(bkg.Integral())
+  print  "FINAL2:chi2test: ddbkg: "+str(ddbkg.Integral())
+  print  "FINAL2:chi2test: data2D: "+str(data2D.Integral())
 
   mc2D.Add(ttbb), mc2D.Add(ttb),mc2D.Add(tt2b)
   #mc2D.Add(ttcc)
