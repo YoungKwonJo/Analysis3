@@ -1182,16 +1182,16 @@ def Chi2Test1D(GEN,histograms):#data2D,mc2D):
 
   mc2D = histograms[GEN+"ttbb"]["h333"].Clone("mc2D")
   mc2D.Reset()
-  #FINAL2:newSF by fitting :{'ttbbSF':1.6448700808,'ttcclfSF':0.914465610155,'k':1.83912781193}
+  #FINAL2:newSF by fitting :{'ttbbSF':1.65202242693,'ttcclfSF':0.913516936027,'k':0.896536953009}
 
-  ttbbSF=1.64487
-  ttcclfSF=0.91447
-  k=1.839
-  #ttbb.Scale(ttbbSF*k)
-  #ttb.Scale(ttbbSF*k)
-  #tt2b.Scale(ttbbSF*k)
-  #ttcclf.Scale(ttcclfSF*k)
-  #ttot.Scale(k)
+  ttbbSF=1.65202242693
+  ttcclfSF=0.913516936027
+  k=0.896536953009
+  ttbb.Scale(ttbbSF*k)
+  ttb.Scale(ttbbSF*k)
+  tt2b.Scale(ttbbSF*k)
+  ttcclf.Scale(ttcclfSF*k)
+  ttot.Scale(k)
   print  "FINAL2:chi2test: ttbb: "+str(ttbb.Integral())
   print  "FINAL2:chi2test: ttb: "+str(ttb.Integral())
   print  "FINAL2:chi2test: tt2b: "+str(tt2b.Integral())
