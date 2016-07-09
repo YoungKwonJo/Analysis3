@@ -1423,7 +1423,7 @@ myResultMaximumSys = {}
 #myResultMaximumSys["recoR"]=0.
 #myResultMaximumSys["kVal"]=0.
 
-NN=200
+NN=1000
 hRsys = TH1D("hRsys","pull of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-2,2)
 hKsys = TH1D("hKsys","pull of k as normalization factor",100,-2,2)
 hRsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
@@ -1446,14 +1446,19 @@ cccc.cd(1)
 hRsys.SetMaximum(hRsys.GetMaximum()*1.6)
 hRsys.Draw()
 f1 = TF1("f1","gaus",-0.2,0.2);
+f1.SetLineColor(kRed)
 hRfit=hRsys.Fit("f1")
 f1.Draw("sames")
 #dddd = TCanvas("d1111","",500,500)
 cccc.cd(2)
 hKsys.SetMaximum(hKsys.GetMaximum()*1.6)
 hKsys.Draw()
-f2 = TF1("f2","gaus",-0.1,0.1);
+f2 = TF1("f2","gaus",-0.1,0.1)
+f2.SetLineColor(kRed)
 hKfit=hKsys.Fit("f2")
 f2.Draw("sames")
+
+cccc.Print("pullTest.C")
+cccc.Print("pullTest.eps")
 
 
