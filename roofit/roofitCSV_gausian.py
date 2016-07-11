@@ -1424,16 +1424,21 @@ myResultMaximumSys = {}
 #myResultMaximumSys["kVal"]=0.
 
 NN=1000
-hRsys = TH1D("hRsys","pull of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-2,2)
-hKsys = TH1D("hKsys","pull of k as normalization factor",100,-2,2)
-hRsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
-hKsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
+hRsys = TH1D("hRpull","pull of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-0.2,0.2)
+hKsys = TH1D("hKpull","pull of k as normalization factor",100,-0.1,0.1)
+#hRsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
+#hKsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
+hRsys.GetXaxis().SetTitle(" pull as (center-template_{i})/center ")
+hKsys.GetXaxis().SetTitle(" pull as (center-template_{i})/center ")
+
 
 for i in range(NN):
   gRandom.SetSeed(i)
   myResultAll[i]=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
-  hRsys.Fill( (0.05554-myResultAll[i]["recoR"])/myResultAll[i]["recoRerror"] )
-  hKsys.Fill( (0.8425-myResultAll[i]["kVal"])/myResultAll[i]["kValerror"] )
+  #hRsys.Fill( (0.05554-myResultAll[i]["recoR"])/myResultAll[i]["recoRerror"] )
+  #hKsys.Fill( (0.8425-myResultAll[i]["kVal"])/myResultAll[i]["kValerror"] )
+  hRsys.Fill( (0.05554-myResultAll[i]["recoR"])/0.05554 )
+  hKsys.Fill( (0.8425-myResultAll[i]["kVal"])/0.8425 )
   #myResultMaximumSys["recoR"] += (abs(0.05554-myResultAll[i]["recoR"])/0.05554)**2
   #myResultMaximumSys["kVal"] += (abs(0.8425-myResultAll[i]["kVal"])/0.8425)**2
 
