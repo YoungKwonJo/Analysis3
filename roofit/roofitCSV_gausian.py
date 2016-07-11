@@ -1424,19 +1424,22 @@ myResultMaximumSys = {}
 #myResultMaximumSys["kVal"]=0.
 
 NN=1000
-hRsys = TH1D("hRpull","pull of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-0.2,0.2)
-hKsys = TH1D("hKpull","pull of k as normalization factor",100,-0.1,0.1)
-#hRsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
-#hKsys.GetXaxis().SetTitle(" pull as (center-sys_{i})/err_{sys_{i}} ")
-hRsys.GetXaxis().SetTitle(" pull as (center-template_{i})/center ")
-hKsys.GetXaxis().SetTitle(" pull as (center-template_{i})/center ")
+hRsys = TH1D("hRpull","test of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-0.2,0.2)
+hKsys = TH1D("hKpull","test of k as normalization factor",100,-0.1,0.1)
+
+hRsys2 = TH1D("hRpull2","test of R as #sigma_{ttbb}/#sigma_{ttjj}",100,-2.,2.)
+hKsys2 = TH1D("hKpull2","test of k as normalization factor",100,-1.,1.)
+hRsys2.GetXaxis().SetTitle(" (center-template_{i})/err_{template_{i}} ")
+hKsys2.GetXaxis().SetTitle(" (center-template_{i})/err_{template_{i}} ")
+hRsys.GetXaxis().SetTitle(" (center-template_{i})/center ")
+hKsys.GetXaxis().SetTitle(" (center-template_{i})/center ")
 
 
 for i in range(NN):
   gRandom.SetSeed(i)
   myResultAll[i]=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
-  #hRsys.Fill( (0.05554-myResultAll[i]["recoR"])/myResultAll[i]["recoRerror"] )
-  #hKsys.Fill( (0.8425-myResultAll[i]["kVal"])/myResultAll[i]["kValerror"] )
+  hRsys2.Fill( (0.05554-myResultAll[i]["recoR"])/myResultAll[i]["recoRerror"] )
+  hKsys2.Fill( (0.8425-myResultAll[i]["kVal"])/myResultAll[i]["kValerror"] )
   hRsys.Fill( (0.05554-myResultAll[i]["recoR"])/0.05554 )
   hKsys.Fill( (0.8425-myResultAll[i]["kVal"])/0.8425 )
   #myResultMaximumSys["recoR"] += (abs(0.05554-myResultAll[i]["recoR"])/0.05554)**2
@@ -1463,7 +1466,29 @@ f2.SetLineColor(kRed)
 hKfit=hKsys.Fit("f2")
 f2.Draw("sames")
 
-cccc.Print("pullTest.C")
-cccc.Print("pullTest.eps")
+cccc.Print("pullTest2.C")
+cccc.Print("pullTest2.eps")
+
+cccc2 = TCanvas("c2111","",1000,500)
+cccc2.Divide(2,1)
+cccc2.cd(1)
+hRsys2.SetMaximum(hRsys2.GetMaximum()*1.6)
+hRsys2.Draw()
+f12 = TF1("f12","gaus",-1.,1.);
+f12.SetLineColor(kRed)
+hRfit2=hRsys2.Fit("f12")
+f12.Draw("sames")
+#dddd = TCanvas("d1111","",500,500)
+cccc2.cd(2)
+hKsys2.SetMaximum(hKsys2.GetMaximum()*1.6)
+hKsys2.Draw()
+f22 = TF1("f22","gaus",-1.,1.)
+f22.SetLineColor(kRed)
+hKfit2=hKsys2.Fit("f22")
+f22.Draw("sames")
+
+cccc2.Print("pullTest.C")
+cccc2.Print("pullTest.eps")
+
 
 
