@@ -570,6 +570,59 @@ def newTemplate(h1):
 ################
 def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   res = {}
+  h1_data  = histograms["DATA"]["h333"]
+  h1_ttbb  = histograms[GEN+"ttbb"]["h333"]
+  h1_ttb   = histograms[GEN+"ttb"]["h333"]
+  h1_tt2b  = histograms[GEN+"tt2b"]["h333"]
+  h1_ttcc  = histograms[GEN+"ttcc"]["h333"]
+  h1_ttcclf= histograms[GEN+"ttcclf"]["h333"]
+  h1_ttlf  = histograms[GEN+"ttlf"]["h333"]
+  h1_ttot  = histograms[GEN+"ttot"]["h333"]
+  h1_bkg   = histograms["bkg"]["h333"]
+  h1_ddbkg = histograms["ddbkg"]["h333"]
+  xmin = histograms["bkg"]["h333"].GetXaxis().GetXmin()
+  xmax = histograms["bkg"]["h333"].GetXaxis().GetXmax()
+  
+  """
+  h1_data.Rebin(2) 
+  h1_ttbb.Rebin(2)  
+  h1_ttb.Rebin(2)   
+  h1_tt2b.Rebin(2)  
+  h1_ttcc.Rebin(2)  
+  h1_ttcclf.Rebin(2)
+  h1_ttlf.Rebin(2)  
+  h1_ttot.Rebin(2)  
+  h1_bkg.Rebin(2)   
+  h1_ddbkg.Rebin(2) 
+  """
+
+  h1_data.Scale(0.5) 
+  h1_ttbb.Scale(0.5)  
+  h1_ttb.Scale(0.5)   
+  h1_tt2b.Scale(0.5)  
+  h1_ttcc.Scale(0.5)  
+  h1_ttcclf.Scale(0.5)
+  h1_ttlf.Scale(0.5)  
+  h1_ttot.Scale(0.5)  
+  h1_bkg.Scale(0.5)   
+  h1_ddbkg.Scale(0.5) 
+ 
+  
+  n_ttbb   = h1_ttbb.Integral() 
+  n_ttb    = h1_ttb.Integral()
+  n_tt2b   = h1_tt2b.Integral()
+  #n_tt2b  = h1_tt2b.Integral()
+  n_ttcc   = h1_ttcc.Integral()
+  #n_ttc   = h1_ttc.Integral()
+  n_ttlf   = h1_ttlf.Integral()
+  n_ttcclf = h1_ttcclf.Integral()
+  n_ttot   = h1_ttot.Integral()
+  n_bkg    = h1_bkg.Integral()
+  n_ddbkg  = h1_ddbkg.Integral()
+  n_data   = h1_data.Integral()
+   
+
+  """
   n_ttbb = histograms[GEN+"ttbb"]["exp"]*2.
   n_ttb  = histograms[GEN+"ttb"]["exp"]*2.
   n_tt2b  = histograms[GEN+"tt2b"]["exp"]*2.
@@ -582,6 +635,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   n_bkg = histograms["bkg"]["exp"]*2.
   n_ddbkg = histograms["ddbkg"]["exp"]*2.
   n_data = histograms["DATA"]["exp"]*2.
+  """
 
   n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   n_ttbar = n_ttjj+n_ttot
@@ -607,9 +661,9 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   #rtt2b = n_tt2b/n_ttjj
   rttcc = (n_ttcc)/n_ttjj
   
-  xmin = histograms["bkg"]["h1"].GetXaxis().GetXmin()
-  xmax = histograms["bkg"]["h1"].GetXaxis().GetXmax()
-  x=RooRealVar("x","x",xmin,xmax+(xmax-xmin)) 
+  #xmin = histograms["bkg"]["h1"].GetXaxis().GetXmin()
+  #xmax = histograms["bkg"]["h1"].GetXaxis().GetXmax()
+  x=RooRealVar("x","x",xmin,xmax) 
   #x=RooRealVar("x","x",xmin,xmax) 
   #y=RooRealVar("y","y",histograms["bkg"]["h1"].GetYaxis().GetXmin(),histograms["bkg"]["h1"].GetYaxis().GetXmax()) 
   
@@ -643,6 +697,20 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   #histogram
   xyArg = RooArgList(x)
   #xyArg = RooArgList(x, y)
+  data    = RooDataHist("data",    "data set with (x)",   xyArg, h1_data)
+  #ttbb    = RooDataHist("ttbb",    "ttbb set with (x)",   xyArg, test_ttbb)
+  ttbb    = RooDataHist("ttbb",    "ttbb set with (x)",   xyArg, h1_ttbb)
+  ttb     = RooDataHist("ttb",     "ttb  set with (x)",   xyArg, h1_ttb)
+  tt2b    = RooDataHist("tt2b",    "tt2b set with (x)",   xyArg, h1_tt2b)
+  ttcc    = RooDataHist("ttcc",    "ttcc set with (x)",   xyArg, h1_ttcc)
+  ttlf    = RooDataHist("ttlf",    "ttlf set with (x)",   xyArg, h1_ttlf)
+  ttcclf  = RooDataHist("ttcclf",  "ttcclf set with (x)", xyArg, h1_ttcclf)
+
+  ttot    = RooDataHist("ttot",    "ttot set with (x)",   xyArg, h1_ttot)
+  bkg     = RooDataHist("bkg",     "bkg  set with (x)",   xyArg, h1_bkg)
+  ddbkg   = RooDataHist("ddbkg",   "ddbkg  set with (x)", xyArg, h1_ddbkg)
+
+  """
   data    = RooDataHist("data",    "data set with (x)",   xyArg, histograms["DATA"]["h333"]        )
   ttbb    = RooDataHist("ttbb",    "ttbb set with (x)",   xyArg, histograms[GEN+"ttbb"]["h333"]    )
   ttb     = RooDataHist("ttb",     "ttb  set with (x)",   xyArg, histograms[GEN+"ttb"]["h333"]     )
@@ -654,6 +722,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ttot    = RooDataHist("ttot",    "ttot set with (x)",   xyArg, histograms[GEN+"ttot"]["h333"]    )
   bkg     = RooDataHist("bkg",     "bkg  set with (x)",   xyArg, histograms["bkg"]["h333"]         )
   ddbkg   = RooDataHist("ddbkg",   "ddbkg  set with (x)", xyArg, histograms["ddbkg"]["h333"]       )
+  """
 
   #print "ttbar type: "+str(type(ttbar))
   #print "rooArglist(x):"+str(type(RooArgList(x)))
