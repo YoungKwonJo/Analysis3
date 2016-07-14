@@ -583,7 +583,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   xmin = histograms["bkg"]["h333"].GetXaxis().GetXmin()
   xmax = histograms["bkg"]["h333"].GetXaxis().GetXmax()
   
-  """
+  #"""
   h1_data.Rebin(2) 
   h1_ttbb.Rebin(2)  
   h1_ttb.Rebin(2)   
@@ -594,8 +594,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   h1_ttot.Rebin(2)  
   h1_bkg.Rebin(2)   
   h1_ddbkg.Rebin(2) 
+  #"""
   """
-
   h1_data.Scale(0.5) 
   h1_ttbb.Scale(0.5)  
   h1_ttb.Scale(0.5)   
@@ -620,7 +620,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   n_bkg    = h1_bkg.Integral()
   n_ddbkg  = h1_ddbkg.Integral()
   n_data   = h1_data.Integral()
-   
+  #""" 
 
   """
   n_ttbb = histograms[GEN+"ttbb"]["exp"]*2.
@@ -637,6 +637,21 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   n_data = histograms["DATA"]["exp"]*2.
   """
 
+  #"""
+  h1_data.Scale(0.5) 
+  n_ttbb = histograms[GEN+"ttbb"]["exp"]
+  n_ttb  = histograms[GEN+"ttb"]["exp"]
+  n_tt2b  = histograms[GEN+"tt2b"]["exp"]
+  #n_tt2b = histograms[GEN+"tt2b"]["exp"]
+  n_ttcc = histograms[GEN+"ttcc"]["exp"] #+histograms[GEN+"ttc"]["exp"]
+  #n_ttc = histograms[GEN+"ttc"]["exp"]
+  n_ttlf = histograms[GEN+"ttlf"]["exp"]
+  n_ttcclf = histograms[GEN+"ttcclf"]["exp"]
+  n_ttot = histograms[GEN+"ttot"]["exp"]
+  n_bkg = histograms["bkg"]["exp"]
+  n_ddbkg = histograms["ddbkg"]["exp"]
+  n_data = histograms["DATA"]["exp"]
+  #"""
   n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   n_ttbar = n_ttjj+n_ttot
   
@@ -866,17 +881,17 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
 
 ######################## 
   if freeTTB and freeTTCC:
-    cR10.Print("plots/"+GEN+"_R_freeTTBTTCC.eps")
-    cR10.Print("plots/"+GEN+"_R_freeTTBTTCC.png") 
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTBTTCC.eps")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTBTTCC.png") 
   elif freeTTB:
-    cR10.Print("plots/"+GEN+"_R_freeTTB.eps")
-    cR10.Print("plots/"+GEN+"_R_freeTTB.png")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTB.eps")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTB.png")
   elif freeTTCC:              
-    cR10.Print("plots/"+GEN+"_R_freeTTCC.eps")
-    cR10.Print("plots/"+GEN+"_R_freeTTCC.png")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTCC.eps")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_freeTTCC.png")
   else :                      
-    cR10.Print("plots/"+GEN+"_R_constraintTTB.eps")
-    cR10.Print("plots/"+GEN+"_R_constraintTTB.png")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_constraintTTB.eps")
+    cR10.Print("test_1dfit_v1/"+GEN+"_R_constraintTTB.png")
   #return cR10
   
   ################
@@ -921,17 +936,17 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   pt3.Draw()
   
   if freeTTB and freeTTCC:
-    cR00.Print("plots/"+GEN+"_K_freeTTBTTCC.eps")
-    cR00.Print("plots/"+GEN+"_K_freeTTBTTCC.png") 
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTBTTCC.eps")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTBTTCC.png") 
   elif freeTTB:
-    cR00.Print("plots/"+GEN+"_K_freeTTB.eps")
-    cR00.Print("plots/"+GEN+"_K_freeTTB.png")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTB.eps")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTB.png")
   elif freeTTCC:              
-    cR00.Print("plots/"+GEN+"_K_freeTTCC.eps")
-    cR00.Print("plots/"+GEN+"_K_freeTTCC.png")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTCC.eps")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_freeTTCC.png")
   else :                      
-    cR00.Print("plots/"+GEN+"_K_constraintTTB.eps")
-    cR00.Print("plots/"+GEN+"_K_constraintTTB.png")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_constraintTTB.eps")
+    cR00.Print("test_1dfit_v1/"+GEN+"_K_constraintTTB.png")
   
   
   ################
@@ -947,7 +962,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ndof = xframe.GetNbinsX()
   print "chi2 = "+ str(chi2)
   print "ndof = "+ str(ndof)
-  xframe.SetMaximum(xframe.GetMaximum()*1.5)
+  xframe.SetMaximum(xframe.GetMaximum()*3.5)
   xframe.Draw()
   
   pt.Draw()
@@ -955,17 +970,17 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   pt3.Draw()
   
   if freeTTB and freeTTCC:
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTBTTCC.eps")
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTBTTCC.png") 
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTBTTCC.eps")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTBTTCC.png") 
   elif freeTTB:
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTB.eps")
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTB.png")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTB.eps")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTB.png")
   elif freeTTCC:              
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTCC.eps")
-    cR11.Print("plots/"+GEN+"_jet3CSV_freeTTCC.png")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTCC.eps")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_freeTTCC.png")
   else :                      
-    cR11.Print("plots/"+GEN+"_jet3CSV_constraintTTB.eps")
-    cR11.Print("plots/"+GEN+"_jet3CSV_constraintTTB.png")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_constraintTTB.eps")
+    cR11.Print("test_1dfit_v1/"+GEN+"_jet3CSV_constraintTTB.png")
   
   ################
   ################
@@ -990,17 +1005,17 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   pt3.Draw()
   
   if freeTTB and freeTTCC:
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTBTTCC.eps")
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTBTTCC.png") 
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTBTTCC.eps")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTBTTCC.png") 
   elif freeTTB:
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTB.eps")
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTB.png")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTB.eps")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTB.png")
   elif freeTTCC:
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTCC.eps")
-    cR12.Print("plots/"+GEN+"_jet4CSV_freeTTCC.png")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTCC.eps")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_freeTTCC.png")
   else :
-    cR12.Print("plots/"+GEN+"_jet4CSV_constraintTTB.eps")
-    cR12.Print("plots/"+GEN+"_jet4CSV_constraintTTB.png")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_constraintTTB.eps")
+    cR12.Print("test_1dfit_v1/"+GEN+"_jet4CSV_constraintTTB.png")
   """  
   ###########################
   ###########################
@@ -1049,11 +1064,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     l2.Draw()
   
     if freeTTCC:
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig2_freeTTBTTCC.eps")
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig2_freeTTBTTCC.png") 
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig2_freeTTBTTCC.eps")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig2_freeTTBTTCC.png") 
     else :
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig2_freeTTB.eps")
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig2_freeTTB.png")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig2_freeTTB.eps")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig2_freeTTB.png")
 
     nll23 = model2.createNLL(data)
     m=RooMinuit(nll23)
@@ -1087,11 +1102,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     l21.Draw()
   
     if freeTTCC:
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTBTTCC.eps")
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTBTTCC.png") 
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig3_freeTTBTTCC.eps")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig3_freeTTBTTCC.png") 
     else :
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTB.eps")
-      cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTB.png")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig3_freeTTB.eps")
+      cNLLContourb.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsig3_freeTTB.png")
   
   ###########################
   ###########################
@@ -1131,11 +1146,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     l2.Draw()
   
     if freeTTB:
-      cNLLContourc.Print("plots/"+GEN+"_NLL_fsigVSfsigcc_freeTTBTTCC.eps")
-      cNLLContourc.Print("plots/"+GEN+"_NLL_fsigVSfsigcc_freeTTBTTCC.png")
+      cNLLContourc.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsigcc_freeTTBTTCC.eps")
+      cNLLContourc.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsigcc_freeTTBTTCC.png")
     else :
-      cNLLContourc.Print("plots/"+GEN+"_NLL_fsigVSfsigcc_freeTTCC.eps")
-      cNLLContourc.Print("plots/"+GEN+"_NLL_fsigVSfsigcc_freeTTCC.png")
+      cNLLContourc.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsigcc_freeTTCC.eps")
+      cNLLContourc.Print("test_1dfit_v1/"+GEN+"_NLL_fsigVSfsigcc_freeTTCC.png")
   
   ###########################
   ###########################
@@ -1188,8 +1203,8 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   
   
   
-  cN.Print("plots/"+GEN+"_Norm1.eps")
-  cN.Print("plots/"+GEN+"_Norm1.png")
+  cN.Print("test_1dfit_v1/"+GEN+"_Norm1.eps")
+  cN.Print("test_1dfit_v1/"+GEN+"_Norm1.png")
   ###########################
   cN2 = TCanvas("cN2", "cN2", 1)
   #histograms[GEN+"ttcc"]["h12"].Add(histograms[GEN+"ttc"]["h12"])
@@ -1222,11 +1237,11 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   pt3.Draw()
   
   
-  cN2.Print("plots/"+GEN+"_Norm2.eps")
-  cN2.Print("plots/"+GEN+"_Norm2.png")
+  cN2.Print("test_1dfit_v1/"+GEN+"_Norm2.eps")
+  cN2.Print("test_1dfit_v1/"+GEN+"_Norm2.png")
 
  ###########################
-  return cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2
+  return cR10, cR00, cR11, cNLLContourb,cNLLContourc, cN, cN2
 
 
 ################
@@ -1657,7 +1672,7 @@ Chi2Test1D(GEN,histograms)
 
 from math import *
 if int(arg3)==0:
-  cR10, cR00, cR11, cR12, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
+  cR10, cR00, cR11, cNLLContourb,cNLLContourc, cN, cN2=fitting(histograms, freeTTB, freeTTCC, GEN,False,False)
 ###################
 elif int(arg3)==4:
   sumweightQ2={'dwPOW_csvweight': 9932876.0, 'POW_csvweight': 97994442.0, 'upPOW_Q2_N1': 9721877.978248205, 'upPOW_Q2_N3': 8656597.607850373, 'dwPOW_Q2_N6': 11328951.66248878, 'dwPOW_Q2_N5': 11099336.392136984, 'dwPOW_Q2_N4': 10193564.465720307, 'upPOW_csvweight': 9919776.0, 'upPOW_Q2_N2': 8878141.199428499, 'POW_Q2_N4': 100562130.05494703, 'POW_Q2_N5': 109501436.23855484, 'POW_Q2_N6': 111759839.10910639, 'POW_Q2_N1': 96043292.78107499, 'POW_Q2_N2': 87702904.5710082, 'POW_Q2_N3': 85517519.10829923}

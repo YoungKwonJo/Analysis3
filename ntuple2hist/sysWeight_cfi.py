@@ -3,7 +3,7 @@ baseWeight = "weight*puweight*mueffweight*eleffweight*tri"
 baseWeightNOPU = "weight*mueffweight*eleffweight*tri"
 mceventweight=[
 {"name":"CEN",       "var": "("+baseWeight+")"},
-{"name":"NoPU",       "var": "("+baseWeightNOPU+")"},
+#{"name":"NoPU",       "var": "("+baseWeightNOPU+")"},
 {"name":"csvweight", "var": "("+baseWeight+"*csvweights[0])"},
 {"name":"PW_Up",     "var": "(weight*puweightUp*mueffweight*eleffweight*tri*csvweights[0])"},
 {"name":"PW_Down",   "var": "(weight*puweightDown*mueffweight*eleffweight*tri*csvweights[0])"},

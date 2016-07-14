@@ -6,6 +6,7 @@ import ROOT
 from ROOT import *
 from array import array
 import copy
+from math import sqrt
 
 import sys
 sys.path.append('../ntuple2hist')
@@ -26,7 +27,7 @@ def make_legend(xmin,ymin,xmax,ymax):
 def make_legend2(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
   leg = TLegend(xmin,ymin,xmax,ymax)
-  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62),  leg.SetTextSize(0.03)
+  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(42),  leg.SetTextSize(0.03)
   leg.SetBorderSize(1), leg.SetLineStyle(1), leg.SetLineWidth(1),  leg.SetLineColor(0)
   return leg
 
@@ -35,7 +36,7 @@ def addLegendCMS():#lumi):
   title  = TLatex(-20.,50.,"CMS")
   title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.20),      title.SetY(0.83)
   #title.SetTextFont(42)#, title.SetTextSize(0.57),
-  title.SetTextFont(61)#, title.SetTextSize(0.57),
+  title.SetTextFont(42)#, title.SetTextSize(0.57),
   title.SetTextSizePixels(44)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
   title.Draw()
@@ -44,8 +45,9 @@ def addLegendCMS():#lumi):
 def addLegendLumi():#lumi):
   #lumi2 = str(round(lumi/100)/10)
   title  = TLatex(-20.,50.,"2.3 fb^{-1} (13 TeV)")
-  title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.67),      title.SetY(0.93)
-  title.SetTextFont(42), title.SetTextSize(0.059)#,  title.SetTextSizePixels(24)
+  title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.62),      title.SetY(0.93)
+  title.SetTextFont(42)
+  title.SetTextSize(0.068)#,  title.SetTextSizePixels(24)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
   title.Draw()
   return title
@@ -53,34 +55,38 @@ def addLegendLumi():#lumi):
 
 def addLegendPreliminary():
   #tex2 = TLatex(0.3715952,0.9146667,"Preliminary")
-  tex2 = TLatex(-20.,50.,"Preliminary")
-  tex2.SetNDC(),          tex2.SetTextAlign(12),  tex2.SetX(0.25),        tex2.SetY(0.93)
+  tex2 = TLatex(-20.,50.,"#bf{CMS} Preliminary")
+  tex2.SetNDC(),          tex2.SetTextAlign(12),  tex2.SetX(0.16),        tex2.SetY(0.93)
   #tex2.SetTextColor(2),
   #tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
-  tex2.SetTextFont(52) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
+  tex2.SetTextFont(42)
+  tex2.SetTextSize(0.07)#, tex2.SetTextSizePixels(24)
   #tex2.SetTextColor(2),   tex2.SetTextFont(42),   tex2.SetTextSize(0.05), tex2.SetTextSizePixels(24)
   return tex2
 
 def addDecayMode(ll):
-  ll2="l^{#mp}l^{#pm} channel"
-  if ll.find("ME")>-1 : ll2="e^{#mp}#mu^{#pm} channel"
-  if ll.find("MM")>-1 : ll2="#mu^{#mp}#mu^{#pm} channel"
-  if ll.find("EE")>-1 : ll2="e^{#mp}e^{#pm} channel"
+  ll2="l^{#mp}l^{#pm}"
+  if ll.find("ME")>-1 : ll2="e^{#mp}#mu^{#pm}"
+  if ll.find("MM")>-1 : ll2="#mu^{#mp}#mu^{#pm}"
+  if ll.find("EE")>-1 : ll2="e^{#mp}e^{#pm}"
   chtitle = TLatex(-20.,50.,ll2)
   chtitle.SetNDC(),         chtitle.SetTextAlign(12)
   #chtitle.SetX(0.20),  chtitle.SetY(0.75)
-  chtitle.SetX(0.20),  chtitle.SetY(0.66)
-  chtitle.SetTextFont(42) #,  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
-  chtitle.SetTextSizePixels(34)
+  #chtitle.SetX(0.20),  chtitle.SetY(0.66)
+  chtitle.SetX(0.20),  chtitle.SetY(0.83)
+  chtitle.SetTextFont(42),
+  chtitle.SetTextSize(0.075)
+  #chtitle.SetTextSizePixels(34)
   #chtitle.SetTextFont(42),  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
 
   return chtitle
 
 def addTitle(ll):
   chtitle = TLatex(-20.,50.,ll)
-  chtitle.SetNDC(),         chtitle.SetTextAlign(12),   chtitle.SetX(0.20),  chtitle.SetY(0.75)
-  chtitle.SetTextFont(42) #,  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
-  chtitle.SetTextSizePixels(34)
+  chtitle.SetNDC(),         chtitle.SetTextAlign(12),   chtitle.SetX(0.20),  chtitle.SetY(0.74)
+  chtitle.SetTextFont(42)
+  chtitle.SetTextSize(0.075)#,  chtitle.SetTextSizePixels(24)
+  #chtitle.SetTextSizePixels(34)
   #chtitle.SetTextFont(42),  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
 
   return chtitle
@@ -201,8 +207,8 @@ def styleBottomUp(hdata):
   hdata.GetYaxis().SetTitleOffset(0.27)
   hdata.GetXaxis().SetTitleOffset(0.85)
 
-  hdata.GetYaxis().SetTitleSize(0.21)
-  hdata.GetXaxis().SetTitleSize(0.21)
+  hdata.GetYaxis().SetTitleSize(0.22)
+  hdata.GetXaxis().SetTitleSize(0.22)
   
   hdata.SetMinimum(0.6)
   hdata.SetMaximum(1.4)
@@ -221,6 +227,149 @@ def myRatioSyst(hdata):
 
   return thegraphRatioSyst
 
+def myTTTSyst2(hdata,hdataUp,hdataDown):
+  x,y,exl,exh,eyl,eyh = [],[],[],[],[],[]
+  for i in range(1,hdata.GetNbinsX()+1):
+    x.append(hdata.GetBinCenter(i) ) #hdata.GetBinContent(i) )
+    y.append(hdata.GetBinContent(i))
+    exl.append(hdata.GetBinWidth(i)/2.)
+    exh.append(hdata.GetBinWidth(i)/2.)
+    yl_= (hdataDown.GetBinContent(i)-hdata.GetBinContent(i))
+    yh_= (hdataUp.GetBinContent(i)-hdata.GetBinContent(i))
+    print "("+str(yl_)+","+str(yh_)+")"
+    eyl.append( yl_)
+    eyh.append( yh_)
+
+  xx = array("d", x)
+  yy = array("d", y)
+  xxl = array("d", exl)
+  yyl = array("d", eyl)
+  xxh = array("d", exh)
+  yyh = array("d", eyh)
+
+  n = hdata.GetNbinsX()
+  gr = TGraphAsymmErrors(n,xx,yy,xxl,xxh,yyl,yyh)
+
+  gr.SetFillStyle( 3454 )
+  #gr.SetFillStyle( 1001 )
+  #gr.SetLineColor( kBlack )
+  #gr.SetFillColor( kBlack )
+  #gr.SetMarkerColor( kBlack )
+  gr.SetName("eeeeeeee")
+  #gr.SetFillColor(4)
+  #gr.SetFillStyle(3010)
+
+  #return gr
+  xys ={ "x":xx,"y":yy,"xl":xxl,"yl":yyl, "xh":xxh, "yh":yyh}
+  return gr,xys
+
+def myTTTSyst3(hdata,xys):
+  x,y,exl,exh,eyl,eyh = [],[],[],[],[],[]
+  for i in range(1,hdata.GetNbinsX()+1):
+    x.append(hdata.GetBinCenter(i) ) #hdata.GetBinContent(i) )
+    y.append(hdata.GetBinContent(i))
+    exl.append(hdata.GetBinWidth(i)/2.)
+    exh.append(hdata.GetBinWidth(i)/2.)
+    ey = hdata.GetBinError(i)
+    yl_= sqrt(xys["yl"][i-1]**2+ey**2) 
+    yh_= sqrt(xys["yh"][i-1]**2+ey**2 )
+    #print "("+str(yl_)+","+str(yh_)+")"
+    eyl.append( yl_)
+    eyh.append( yh_)
+
+  xx = array("d", x)
+  yy = array("d", y)
+  xxl = array("d", exl)
+  yyl = array("d", eyl)
+  xxh = array("d", exh)
+  yyh = array("d", eyh)
+
+  n = hdata.GetNbinsX()
+  gr = TGraphAsymmErrors(n,xx,yy,xxl,xxh,yyl,yyh)
+
+  gr.SetFillStyle( 3454 )
+  #gr.SetFillStyle( 1001 )
+  #gr.SetLineColor( kBlack )
+  #gr.SetFillColor( kBlack )
+  #gr.SetMarkerColor( kBlack )
+  gr.SetName("eeeee")
+  #gr.SetFillColor(4)
+  #gr.SetFillStyle(3010)
+
+  return gr
+
+
+
+def myRatioSyst2(hdata,hdataUp,hdataDown):
+  x,y,exl,exh,eyl,eyh = [],[],[],[],[],[]
+  for i in range(1,hdata.GetNbinsX()+1):
+    x.append(hdata.GetBinCenter(i) ) #hdata.GetBinContent(i) )
+    y.append(1.)#hdata.GetBinContent(i))
+    exl.append(hdata.GetBinWidth(i)/2.)
+    exh.append(hdata.GetBinWidth(i)/2.)
+    yl_= 1.-(hdataDown.GetBinContent(i)/hdata.GetBinContent(i))
+    yh_= (hdataUp.GetBinContent(i)/hdata.GetBinContent(i))-1.
+    print "("+str(yl_)+","+str(yh_)+")"
+    eyl.append( yl_)
+    eyh.append( yh_)
+
+  xx = array("d", x)
+  yy = array("d", y)
+  xxl = array("d", exl)
+  yyl = array("d", eyl)
+  xxh = array("d", exh)
+  yyh = array("d", eyh)
+
+  n = hdata.GetNbinsX()
+  gr = TGraphAsymmErrors(n,xx,yy,xxl,xxh,yyl,yyh)
+
+  gr.SetFillStyle( 3454 )
+  #gr.SetFillStyle( 1001 )
+  #gr.SetLineColor( kBlack )
+  #gr.SetFillColor( kBlack )
+  #gr.SetMarkerColor( kBlack )
+  gr.SetName("ddddd")
+  #gr.SetFillColor(4)
+  #gr.SetFillStyle(3010)
+
+  #return gr
+  xys ={ "x":xx,"y":yy,"xl":xxl,"yl":yyl, "xh":xxh, "yh":yyh}
+  return gr,xys
+
+def myRatioSyst3(hdata,xys):
+  x,y,exl,exh,eyl,eyh = [],[],[],[],[],[]
+  for i in range(1,hdata.GetNbinsX()+1):
+    x.append(hdata.GetBinCenter(i) ) #hdata.GetBinContent(i) )
+    y.append(1.)#hdata.GetBinContent(i))
+    exl.append(hdata.GetBinWidth(i)/2.)
+    exh.append(hdata.GetBinWidth(i)/2.)
+    ey = hdata.GetBinError(i)
+    yl_= sqrt(xys["yl"][i-1]**2+ey**2) 
+    yh_= sqrt(xys["yh"][i-1]**2+ey**2 )
+    #print "("+str(yl_)+","+str(yh_)+")"
+    eyl.append( yl_)
+    eyh.append( yh_)
+
+  xx = array("d", x)
+  yy = array("d", y)
+  xxl = array("d", exl)
+  yyl = array("d", eyl)
+  xxh = array("d", exh)
+  yyh = array("d", eyh)
+
+  n = hdata.GetNbinsX()
+  gr = TGraphAsymmErrors(n,xx,yy,xxl,xxh,yyl,yyh)
+
+  gr.SetFillStyle( 3454 )
+  #gr.SetFillStyle( 1001 )
+  #gr.SetLineColor( kBlack )
+  #gr.SetFillColor( kBlack )
+  #gr.SetMarkerColor( kBlack )
+  gr.SetName("ddddd")
+  #gr.SetFillColor(4)
+  #gr.SetFillStyle(3010)
+
+  return gr
 
 
 ##############################
@@ -321,6 +470,31 @@ def AddHist(channel,histograms):
     return h["aa"]
   else : False
 
+def AddHist2(channel,histograms):
+  ls=["hMM","hEE","hME"]
+  if channel=="MM":   ls = ["hMM"]
+  if channel=="EE":   ls = ["hEE"]
+  if channel=="ME":   ls = ["hME"]
+  if channel=="MMEE": ls = ["hMM","hEE"]
+  h={}
+  for bb in ls: 
+    if len(h.keys())==0:
+      h["aa"]=copy.deepcopy(histograms[bb])
+    else :
+      h["aa"].Add(copy.deepcopy(histograms[bb]))
+  return h["aa"]
+
+def UpdateSys(h1, h1_sys,name):
+  test_h1 = h1.Clone(h1.GetName()+"_"+name)
+  test_h1.Reset()
+  for x in range(1, test_h1.GetNbinsX()+1):
+      cen=h1.GetBinContent(x)
+      sys=h1_sys.GetBinContent(x)
+      test_h1.SetBinContent(x,cen)
+      test_h1.SetBinError(x,abs(cen-sys))
+  return test_h1
+
+
 def printStat():
   print ""
 
@@ -342,8 +516,19 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ########################
   ########################
   ########################
+  sysSetUp = plotSet["sysSet"]["bkgSysUp"]
+  sysSetDown = plotSet["sysSet"]["bkgSysDown"]
+
   DATA   =  AddHist(decay,histograms2["DATA"])
   MCtot1 =  AddHist(decay,histograms2["MCtot1"])
+  MCtot1SysUp_   = AddHist2(decay,sysSetUp)
+  MCtot1SysDown_ = AddHist2(decay,sysSetDown)
+
+  MCtot1Sys,xys = myTTTSyst2(MCtot1,MCtot1SysUp_,MCtot1SysDown_)
+  MCtot1SysStatAll = myTTTSyst3(MCtot1, xys)
+  #ratioSyst.Draw("e2")
+  #ratioSys.Draw("e2")
+ 
   MCtot1gr =  myHist2TGraphError(MCtot1)
   MCtot2 =  AddHist(decay,histograms2["MCtot2"])
   MCtot3 =  AddHist(decay,histograms2["MCtot3"])
@@ -371,11 +556,11 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
       if ttbbMuMu.GetBinContent(i)>0 and minY>ttbbMuMu.GetBinContent(i): minY=ttbbMuMu.GetBinContent(i)
 
     if canvasname.find("CSV") is -1:
-      DATA.SetMaximum(maxY*1000000)
-      if maxY*1000000 < scale*340 : DATA.SetMaximum(scale*340)
+      DATA.SetMaximum(maxY*100000)
+      if maxY*100000 < scale*340 : DATA.SetMaximum(scale*340)
     else :
-      DATA.SetMaximum(maxY*5000)
-      if maxY*5000 < scale*340 : DATA.SetMaximum(scale*340)
+      DATA.SetMaximum(maxY*500)
+      if maxY*500 < scale*34 : DATA.SetMaximum(scale*34)
     if   minY>1     :  DATA.SetMinimum( 4.0 )
     elif minY>0.4   :  DATA.SetMinimum( 0.4 )
     elif minY>0.04  :  DATA.SetMinimum( 0.04 )
@@ -391,9 +576,10 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
     DATA.GetYaxis().SetTitle(mon["Ytitle"])
 
   DATA.Draw(), hs.Draw("same,hist") 
+  MCtot1SysStatAll.Draw("e2")
   #MCtot1gr.Draw("e2same"), MCtot2.Draw("same"), MCtot3.Draw("same")
   #MCtot4.Draw("same")
-  DATA.Draw("same")
+  DATA.Draw("sameaxis")
 
   ########################
   ########################
@@ -401,8 +587,10 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   if mon["Title"] is not None : 
     title = mon["Title"]
 
-  pt,pt2,pt3,pt4 = addLegendCMS(),addLegendPreliminary(),addTitle(title),addLegendLumi()
-  pt.Draw(),  pt2.Draw(),  pt3.Draw(), pt4.Draw()
+  #pt,pt2,pt3,pt4 = addLegendCMS(),addLegendPreliminary(),addTitle(title),addLegendLumi()
+  pt2,pt3,pt4 = addLegendPreliminary(),addTitle(title),addLegendLumi()
+  #pt.Draw(),
+  pt2.Draw(),  pt3.Draw(), pt4.Draw()
   pt5 = addDecayMode(decay)
   pt5.Draw()
   ########################
@@ -411,13 +599,18 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   wid=0.18
   #wid=0.12
   legx1 = 0.75
-  legx2 = 0.54
-  legx3 = 0.39
+  legx2 = 0.545
+  legx3 = 0.42
 
   leg  = make_legend(legx1,0.68, legx1+wid*0.9,0.86)
   leg2 = make_legend(legx2,0.68, legx2+wid,0.86)
   leg22 = make_legend(legx3,0.68, legx3+wid,0.86)
-  leg3 = make_legend2(legx3,0.54, legx3+wid,0.68)
+  leg3 = make_legend2(0.71,0.62, legx3+wid,0.68)
+
+  leg4 = make_legend2(0.71,0.62, legx3+wid,0.68)
+  leg4.SetTextSize(0.055)
+  leg4.AddEntry(MCtot1SysStatAll,"stat.#oplussys.","f")
+  
   #leg3 = make_legend(legx1,0.54, legx1+wid,0.63)
   print "---------------"
   print  plotSet
@@ -471,7 +664,7 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
  
   #leg3.AddEntry(histograms2["ttH"]["h1"]["hMM"], histograms2["ttH"]["label"], "l")
   ###############
-  leg22.Draw(),  leg2.Draw()#,  leg3.Draw()
+  leg22.Draw(),  leg2.Draw(),  leg4.Draw()
   #leg3.Draw(),
   leg.Draw()
   pad1.Modified()
@@ -480,6 +673,9 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
   ########################
   ratio3,ratio2,ratio1 = DATA.Clone("AMC"),DATA.Clone("MG5"),DATA.Clone("POW")
   ratio4 = DATA.Clone("POHP")
+  ratioMC = MCtot1.Clone("ratioMC")
+  ratioMC.Divide(MCtot1)
+
   ratio1.Divide(MCtot1),  copyStyleUp(ratio1, MCtot1) 
   ratio2.Divide(MCtot2),  copyStyleUp(ratio2, MCtot2) 
   ratio3.Divide(MCtot3),  copyStyleUp(ratio3, MCtot3) 
@@ -490,12 +686,20 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
     ratio1.GetXaxis().SetTitle(mon["Xtitle"])
   ratio1.Draw("ex0")
   ratioSyst=myRatioSyst(ratio1)
+  ratioSys,xys = myRatioSyst2(MCtot1,MCtot1SysUp_,MCtot1SysDown_)
+  ratioSysStatAll = myRatioSyst3(ratioMC, xys)
+  #ratioSyst.Draw("e2")
+  #ratioSys.Draw("e2")
+  ratioSysStatAll.Draw("e2")
+  ratio1.Draw("ex0same")
+ 
   #ratioSyst.Draw("e2")
   #ratio1.Draw("e1SAME")
   #ratio2.Draw("histSAME")
   #ratio3.Draw("histSAME")
   #ratio4.Draw("histSAME")
 
+  pad2.Modified()
   line = TLine(0,1,ratio4.GetXaxis().GetXmax(),1)
   ci = TColor.GetColor("#990000")
   line.SetLineColor(ci)
@@ -518,7 +722,8 @@ def aCanvas(mon,step,decay,isLogy,Weight,SFbyFitting):
       c1.Print("plots_fit/TH1_"+canvasname+".C")
     else      : c1.Print("plots_fit/TH1_"+canvasname+"_Li.eps")
  
-  c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst,ratio4,MCtot4,leg22]
+  c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst,ratio4,MCtot4,leg22]
+  #c1set = [c1,pad1,pad2,histograms2,hs,MCtot1,MCtot2,MCtot3,DATA,pt,pt2,pt3,leg,leg2,leg3,ratio1,ratio2,ratio3,ratioSyst,ratio4,MCtot4,leg22]
   return c1set,Stats,plotSet
 
 ##################################
@@ -610,7 +815,7 @@ def main():#step, moni):
 
   if moni ==30 or moni==31 : 
     mon["Xtitle"] = "b jet discriminator"
-    mon["Ytitle"] = "Jets / 0.1 units"
+    mon["Ytitle"] = "Jets / 0.1 "
   if moni == 30 :  mon["Title"] = "Third jet"
   if moni == 31 :  mon["Title"] = "Fouth jet"
 

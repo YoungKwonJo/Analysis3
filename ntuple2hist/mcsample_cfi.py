@@ -136,7 +136,7 @@ def getValues(data,doSumWeight):
       if doSumWeight :
         sumWeights[aa["name"]] = sumEntries(files(loc +  aa["name"] + zzz))
         print "sumWeights['"+aa["name"]+"']="+str(sumWeights[aa["name"]])
-    elif aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6","TTLL_powheg"]:
+    elif aa["name"] in ["TTJets_MG5","TTJets_aMC","TTJets_scaleup","TTJets_scaledown","TT_powheg","TT_powheg_scaledown","TT_powheg_scaleup","TT_powheg-herwigpp","TT_powheg_pythia6","TTLL_powheg","Ttbb_amc"]:
       fileList[aa["name"]]   = files(loc + aa["name"] + zzz)
       if doSumWeight :
         sumWeights[aa["name"]] = sumWeight(files(loc +  aa["name"] + zzz))
@@ -184,6 +184,7 @@ sumWeights['ttWJetsToQQ']=429599.0
 sumWeights['ttWJetsToLNu']=129001.0
 sumWeights['ttZToLLNuNu']=183200.0
 sumWeights['ttZToQQ']=350106.0
+sumWeights['Ttbb_amc']=1073936.0
 
 #############
 if len(sumWeights.keys()) is 0 : 
@@ -215,8 +216,8 @@ ttbb,ttb,tt2b,ttcc,ttlf,ttot =ttbarSelections(isVis)
 #ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot,"All":"(1)"}
 ttbarSelections_={"ttbb":ttbb,"ttb":ttb,"tt2b":tt2b,"ttcc":ttcc,"ttlf":ttlf,"ttot":ttot}
 
-ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp", "POLL": "TTLL_powheg" 
-                   ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown" 
+ttbarMCsamples = {  "MG5":"TTJets_MG5",         "AMC":"TTJets_aMC",            "POW":"TT_powheg",        "POHP":"TT_powheg-herwigpp"#, #"POLL": "TTLL_powheg" 
+                   ,"upPOW":"TT_powheg_scaleup", "dwPOW":"TT_powheg_scaledown", "ttbbAMC":"Ttbb_amc" 
                 }
 #ttbarMCsamples = {"MG5":"TTJets_MG5","AMC","TTJets_aMC","POW":"TT_powheg","upPOW":"TT_powheg_scaleup","dwPOW":"TT_powheg_scaledown","POHP":"TT_powheg-herwigpp","POPY6":"TT_powheg_pythia6" }
 bkgMCsamples = {"TTWlNu":"ttWJetsToLNu",  "TTWqq":"ttWJetsToQQ", "TTZll":"ttZToLLNuNu",   "TTZqq":"ttZToQQ",

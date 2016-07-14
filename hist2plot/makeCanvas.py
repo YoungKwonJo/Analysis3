@@ -17,14 +17,18 @@ sys.path.append('../ntuple2hist')
 def make_legend(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
   leg = TLegend(xmin,ymin,xmax,ymax)
-  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62),  leg.SetTextSize(0.03)
+  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62)
+  #,  leg.SetTextSize(0.03)
+  leg.SetTextSize(0.055)
   leg.SetBorderSize(1), leg.SetLineStyle(1), leg.SetLineWidth(1),  leg.SetLineColor(0)
   return leg
 
 def make_legend2(xmin,ymin,xmax,ymax):
   #leg = TLegend(0.65,0.7, 0.89,0.89)
   leg = TLegend(xmin,ymin,xmax,ymax)
-  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62),  leg.SetTextSize(0.03)
+  leg.SetFillColor(0),  leg.SetLineColor(1), leg.SetTextFont(62)
+  #,  leg.SetTextSize(0.03)
+  leg.SetTextSize(0.055)
   leg.SetBorderSize(1), leg.SetLineStyle(1), leg.SetLineWidth(1),  leg.SetLineColor(0)
   return leg
 
@@ -33,6 +37,7 @@ def addLegendLumi():#lumi):
   title  = TLatex(-20.,50.,"CMS #sqrt{s} = 13TeV, L = 2.3 fb^{-1}")
   title.SetNDC(),        title.SetTextAlign(12),   title.SetX(0.20),      title.SetY(0.83)
   title.SetTextFont(42)#, title.SetTextSize(0.05),  title.SetTextSizePixels(24)
+  title.SetTextSize(0.059)
   #title.SetTextFont(42), title.SetTextSize(0.1),  title.SetTextSizePixels(24)
   title.Draw()
   return title
@@ -42,6 +47,7 @@ def addLegendCMS():
   tex2 = TLatex(-20.,50.,"Preliminary")
   tex2.SetNDC(),          tex2.SetTextAlign(12),  tex2.SetX(0.25),        tex2.SetY(0.93)
   tex2.SetTextColor(2),   tex2.SetTextFont(42) #,   tex2.SetTextSize(0.2), tex2.SetTextSizePixels(24)
+  tex2.SetTextSizePixels(44)
   #tex2.SetTextColor(2),   tex2.SetTextFont(42),   tex2.SetTextSize(0.05), tex2.SetTextSizePixels(24)
   return tex2
 
@@ -53,6 +59,7 @@ def addDecayMode(ll):
   chtitle = TLatex(-20.,50.,ll2)
   chtitle.SetNDC(),         chtitle.SetTextAlign(12),   chtitle.SetX(0.20),  chtitle.SetY(0.75)
   chtitle.SetTextFont(42) #,  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
+  chtitle.SetTextSizePixels(34)
   #chtitle.SetTextFont(42),  chtitle.SetTextSize(0.05),  chtitle.SetTextSizePixels(24)
 
   return chtitle
@@ -97,10 +104,14 @@ def copyStyleUp(hist, hist2):
 
 def myDataHistStyleUp(hdata):
   hdata.GetYaxis().SetTitle("Events")
-  hdata.GetYaxis().SetTitleOffset(1.2)
-  hdata.GetYaxis().SetTitleSize(0.07)
+  #hdata.GetYaxis().SetTitleOffset(1.2)
+  #hdata.GetYaxis().SetTitleSize(0.07)
 
-  hdata.GetYaxis().SetLabelSize(0.055)
+  hdata.GetYaxis().SetTitleOffset(0.8)
+  hdata.GetYaxis().SetTitleSize(0.075)
+
+  #hdata.GetYaxis().SetLabelSize(0.055)
+  hdata.GetYaxis().SetLabelSize(0.060)
   hdata.GetYaxis().SetNdivisions(607)
 
   #hdata.GetYaxis().SetLabelSize(0.05)
@@ -129,7 +140,8 @@ def myHist2TGraphError(hist1):
 
 def styleBottomUp(hdata):
   hdata.SetMarkerStyle(20)
-  hdata.SetMarkerSize(0.5)
+  #hdata.SetMarkerSize(0.5)
+  hdata.SetMarkerSize(1)
   hdata.SetMarkerColor(1)
   hdata.SetLineColor(1)
   hdata.SetLineWidth(1)
@@ -138,15 +150,25 @@ def styleBottomUp(hdata):
   hdata.SetTitle("")
   
   hdata.GetYaxis().SetTitle("Obs/Exp")
-  hdata.GetYaxis().CenterTitle()
-  hdata.GetYaxis().SetTitleOffset(0.45)
-  hdata.GetYaxis().SetTitleSize(0.16)
+  #hdata.GetYaxis().CenterTitle()
+  #hdata.GetYaxis().SetTitleOffset(0.45)
+  #hdata.GetYaxis().SetTitleSize(0.16)
   hdata.GetYaxis().SetNdivisions(402)
   hdata.GetXaxis().SetNdivisions(509)
-  hdata.GetXaxis().SetTitleOffset(1.1)
+  #hdata.GetXaxis().SetTitleOffset(1.1)
+  #hdata.GetYaxis().SetLabelSize(0.15)
+  #hdata.GetXaxis().SetLabelSize(0.20)
+  #hdata.GetXaxis().SetTitleSize(0.16)
+
   hdata.GetYaxis().SetLabelSize(0.15)
-  hdata.GetXaxis().SetLabelSize(0.20)
-  hdata.GetXaxis().SetTitleSize(0.16)
+  hdata.GetXaxis().SetLabelSize(0.15)
+
+  hdata.GetYaxis().SetTitleOffset(0.27)
+  hdata.GetXaxis().SetTitleOffset(0.85)
+
+  hdata.GetYaxis().SetTitleSize(0.21)
+  hdata.GetXaxis().SetTitleSize(0.21)
+ 
 
   hdata.SetMinimum(0.6)
   hdata.SetMaximum(1.4)

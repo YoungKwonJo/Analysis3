@@ -99,16 +99,34 @@ def loadHistogramDATA(mon, Step, Weight):
   return histograms
 
 def mergesHistograms(selectedHists, oldHistograms):
+  return mergesHistograms2(selectedHists, oldHistograms,1.0)
+
+def mergesHistograms2(selectedHists, oldHistograms,scale):
   newHistograms = {}
   for hhh in oldHistograms.keys():
     if hhh in selectedHists:
+      histDict = copy.deepcopy(oldHistograms[hhh])
+      histDict["hMM"].Scale(scale)
+      histDict["hEE"].Scale(scale)
+      histDict["hME"].Scale(scale)
       if len(newHistograms.keys())==0:
-        import copy
-        newHistograms=copy.deepcopy(oldHistograms[hhh])
+        newHistograms=copy.deepcopy( histDict )
       else:
-        newHistograms["hMM"].Add(oldHistograms[hhh]["hMM"])
-        newHistograms["hEE"].Add(oldHistograms[hhh]["hEE"])
-        newHistograms["hME"].Add(oldHistograms[hhh]["hME"])
+        newHistograms["hMM"].Add(histDict["hMM"])
+        newHistograms["hEE"].Add(histDict["hEE"])
+        newHistograms["hME"].Add(histDict["hME"])
+  return newHistograms
+
+def mergesHistograms3(histDicts):
+  newHistograms = {}
+  for hhh in histDicts.keys():
+      histDict = copy.deepcopy(histDicts[hhh])
+      if len(newHistograms.keys())==0:
+        newHistograms=copy.deepcopy( histDict )
+      else:
+        newHistograms["hMM"].Add(histDict["hMM"])
+        newHistograms["hEE"].Add(histDict["hEE"])
+        newHistograms["hME"].Add(histDict["hME"])
   return newHistograms
 
 

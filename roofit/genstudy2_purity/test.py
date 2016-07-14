@@ -119,7 +119,7 @@ gStyle.SetPadBottomMargin(0.12);
 
 #loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160604_ttbb_765/hist_20160604/temp"
 loc="/Users/youngkwonjo/Documents/CMS/Analysis/20160604_ttbb_765/hist_20160604/Analysis3/roofit/genstudy2_purity"
-f = TFile.Open(loc+"/output.root")
+f = TFile.Open(loc+"/output5jet.root")
 
 th1ds,ytitle = getTH1DFlat(f)#.Get("cattree"))
 th2ds,ytitle = getTH2DFlat(f)#.Get("cattree"))
