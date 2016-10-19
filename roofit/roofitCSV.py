@@ -676,6 +676,20 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   ################
   ################
   ################
+
+  cRho = TCanvas("cRho00", "Rvsk", 1)#500, 500)
+  nll_ratio = model2.createNLL(data)
+  roominimizer=RooMinimizer(nll_ratio)
+  roominimizer.migrad()
+  roominimizer.hesse()
+  rsav = RooFitResult(roominimizer.save())
+  rsav.correlationHist().Draw("coltext")
+  cRho.Print("plots/correlation_KvsR.eps")
+  cRho.Print("plots/correlation_KvsR.png")
+  ################
+  ################
+  ################
+  ################
   cR00 = TCanvas("R00", "R", 1)#500, 500)
   nllK = model2.createNLL(data)
   #nllK = result["nll"]#model2.createNLL(data)
@@ -883,7 +897,54 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
     else :
       cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTB.eps")
       cNLLContourb.Print("plots/"+GEN+"_NLL_fsigVSfsig3_freeTTB.png")
+
+  ###########################
+  ###########################
+  ###########################
+  ###########################
+  ###########################
+  cNLLContourKvsR = TCanvas("cNLLContourKvsR", "cNLLContourKvsR", 1)
+  if True:  
+    nll22 = model2.createNLL(data)
+    m=RooMinuit(nll22)
+    frameNLLContour = m.contour(fsig, k,1,2,3)
+    #cNLLContourKvsR = TCanvas("cNLLContourKvsR", "cNLLContourKvsR", 1)
   
+    frameNLLContour.GetXaxis().SetTitle("R as ttbb/ttjj")
+    frameNLLContour.GetYaxis().SetTitle("k")
+    frameNLLContour.SetMarkerStyle(21)
+    frameNLLContour.Draw()
+  
+    preM = TMarker(rttbb,1,20)
+    preM.SetMarkerColor(kRed)
+    preM.Draw()
+    preM2 = TMarker(rttbb,1,20)
+    preM2.SetMarkerColor(kBlack)
+   
+  
+    pt.Draw()
+    pt2.Draw()
+    pt3.Draw()
+  
+    l2 = make_legend(0.49,0.7,0.93,0.88)
+    l2.AddEntry(preM,"prefit: R="+str(roudV(rttbb)),"p")
+    l2.AddEntry(preM,"prefit: k="+str(roudV(1)),"p")
+    l2.AddEntry(preM2,"fit: R="+str(roudV(recoR))+" #pm "+str(roudV(recoRerror))+"","p")
+    l2.AddEntry(preM2,"fit: k="+str(roudV(kVal))+" #pm "+str(roudV(kValerror))+"","p")
+    l2.SetTextSize(0.04)
+    l2.SetFillColor(0)
+    l2.SetLineColor(0)
+    l2.Draw()
+  
+    if freeTTB:
+      cNLLContourKvsR.Print("plots/"+GEN+"_NLL_kVSr_freeTTBTTCC.eps")
+      cNLLContourKvsR.Print("plots/"+GEN+"_NLL_kVSr_freeTTBTTCC.png")
+    else :
+      cNLLContourKvsR.Print("plots/"+GEN+"_NLL_kVSr_freeTTCC.eps")
+      cNLLContourKvsR.Print("plots/"+GEN+"_NLL_kVSr_freeTTCC.png")
+  
+  ###########################
+
   ###########################
   ###########################
   ###########################
