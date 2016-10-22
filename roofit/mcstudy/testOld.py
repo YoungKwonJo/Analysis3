@@ -3,15 +3,30 @@
 from ROOT import *
 import copy
 
-loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160604_ttbb_765/hist_20160604/Analysis3/roofit/mcstudy/"
+loc = "/Users/youngkwonjo/Documents/CMS/Analysis/20160604_ttbb_765/hist_20160604/"
 
 def loadHistogramMC(mc,label,total):
-  f = TFile.Open(loc+"/output_v766_statOnly.root")
-  print "mc:"+mc
-  h1 = f.Get(mc).Clone("h2_"+mc)
-  if mc is "httb":
-    h12 = f.Get("htt2b").Clone("h2_"+mc)
+  f = TFile.Open(loc+"/hist_csvweight.root")
+  HN="jet3CSV_jet4CSV"
+  h1 = f.Get(mc+"/csvweight/h2_"+mc+"_"+HN+"_mm_S6_csvweight").Clone("h2_"+mc+"_S6mm"+"_csvweight")
+  h2 = f.Get(mc+"/csvweight/h2_"+mc+"_"+HN+"_ee_S6_csvweight").Clone("h2_"+mc+"_S6ee"+"_csvweight")
+  h3 = f.Get(mc+"/csvweight/h2_"+mc+"_"+HN+"_em_S6_csvweight").Clone("h2_"+mc+"_S6em"+"_csvweight")
+  h1.Add(h2)
+  h1.Add(h3)
+  if mc is "POWttb":
+    mc2="POWtt2b"
+    h12 = f.Get(mc2+"/csvweight/h2_"+mc2+"_"+HN+"_mm_S6_csvweight").Clone("h2_"+mc2+"_S6mm"+"_csvweight")
+    h22 = f.Get(mc2+"/csvweight/h2_"+mc2+"_"+HN+"_ee_S6_csvweight").Clone("h2_"+mc2+"_S6ee"+"_csvweight")
+    h32 = f.Get(mc2+"/csvweight/h2_"+mc2+"_"+HN+"_em_S6_csvweight").Clone("h2_"+mc2+"_S6em"+"_csvweight")
     h1.Add(h12)
+    h1.Add(h22)
+    h1.Add(h32)
+ 
+  h1.SetTitle(mc)
+  h1.Scale(total)
+  for i in range(1,11):
+    for j in range(1,11):
+       h1.SetBinContent(i,j,round(h1.GetBinContent(i,j)) )
 
   h1.GetYaxis().SetTitleOffset(1.)
   h1.GetYaxis().SetTitleSize(0.08)
@@ -42,7 +57,7 @@ def addLegend(name):
   tex.SetLineWidth(2)
   return tex
 
-POWttbar = ["httbb","httb","httcc","httlf","httot"]
+POWttbar = ["POWttbb","POWttb","POWttcc","POWttlf","POWttot"]
 POWttbar2 = ["t#bar{t}b#bar{b}","t#bar{t}bj","t#bar{t}cc","t#bar{t}LF","t#bar{t} others"]#,"POWttot"]
 
 #POLLttbar = ["POLLttbb","POLLttb","POLLtt2b","POLLttcc","POLLttlf"]#,"POWttot"]
@@ -68,7 +83,7 @@ for i in range(1,6):
   h1 = h2All[i-1]["h2"]
   label[i] = addLegend(h2All[i-1]["label"])
   #h1.Draw("colz")
-  h1.Draw("coltext")
+  h1.Draw("col")
   label[i].Draw();
   #h1.Draw("colztext")
   print h1.GetTitle()+":"+str(h1.Integral())
@@ -93,6 +108,6 @@ tex2.SetTextSize(0.09913043)
 tex2.SetLineWidth(2)
 tex2.Draw()
 
-c1.Print("TH2D_jet3CSV_jet4CSV_colgtext_statOnly.eps")
-c1.Print("TH2D_jet3CSV_jet4CSV_colgtext_statOnly.C")
-c1.Print("TH2D_jet3CSV_jet4CSV_colgtext_statOnly.png")
+c1.Print("TH2D_jet3CSV_jet4CSV_colg.eps")
+c1.Print("TH2D_jet3CSV_jet4CSV_colg.C")
+c1.Print("TH2D_jet3CSV_jet4CSV_colg.png")
