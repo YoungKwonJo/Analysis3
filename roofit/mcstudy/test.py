@@ -16,9 +16,9 @@ def loadHistogramMC(mc,label,total):
   h1.GetYaxis().SetTitleOffset(1.)
   h1.GetYaxis().SetTitleSize(0.08)
   h1.GetYaxis().SetLabelSize(0.060)
-#  h1.GetYaxis().SetNdivisions(607)
+  h1.GetYaxis().SetNdivisions(607)
 
-#  h1.GetXaxis().SetNdivisions(509)
+  h1.GetXaxis().SetNdivisions(509)
   h1.GetXaxis().SetLabelSize(0.06)
   h1.GetXaxis().SetTitleOffset(0.88)
   h1.GetXaxis().SetTitleSize(0.076)

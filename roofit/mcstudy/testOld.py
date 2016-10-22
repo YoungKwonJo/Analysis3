@@ -30,13 +30,16 @@ def loadHistogramMC(mc,label,total):
 
   h1.GetYaxis().SetTitleOffset(1.)
   h1.GetYaxis().SetTitleSize(0.08)
-  h1.GetYaxis().SetLabelSize(0.060)
-#  h1.GetYaxis().SetNdivisions(607)
+  h1.GetYaxis().SetLabelSize(0.06)
+  h1.GetYaxis().SetNdivisions(607)
 
-#  h1.GetXaxis().SetNdivisions(509)
+  h1.GetXaxis().SetNdivisions(509)
   h1.GetXaxis().SetLabelSize(0.06)
   h1.GetXaxis().SetTitleOffset(0.88)
   h1.GetXaxis().SetTitleSize(0.076)
+
+  #h1.SetTickLength(0.2,"X")
+  #h1.SetTickLength(0.2,"Y")
 
   #h1.GetYaxis().SetTitle("b discriminator of jet_{4th}")
   #h1.GetXaxis().SetTitle("b discriminator of jet_{3rd}")
@@ -71,7 +74,7 @@ for i,mc in enumerate(POWttbar):
 gROOT.ProcessLine(".L tdrStyle.C")
 setTDRStyle()
 
-c1 = TCanvas("c1","",900,600)
+c1 = TCanvas("c1","",1200,800)
 c1.SetGrayscale(True)
 c1.Divide(3,2)
 label = {}
