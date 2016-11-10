@@ -494,104 +494,38 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
   rttbb = n_ttbb/n_ttjj
   rttb  = n_ttb/n_ttjj
   rtt2b  = n_tt2b/n_ttjj
-  #rtt2b = n_tt2b/n_ttjj
   rttcc = (n_ttcc)/n_ttjj
   
-  x=RooRealVar("x","x",h1_ttbb.GetXaxis().GetXmin(),h1_ttbb.GetXaxis().GetXmax()) 
-  #y=RooRealVar("y","y",histograms["bkg"]["h1"].GetYaxis().GetXmin(),histograms["bkg"]["h1"].GetYaxis().GetXmax()) 
-  
-  RttbbReco=RooRealVar("RttbbReco","RttbbReco",rttbb,rttbb,rttbb);
-  RttbReco =RooRealVar("RttbReco", "RttbReco", rttb, rttb, rttb);
-  Rtt2bReco=RooRealVar("Rtt2bReco","Rtt2bReco",rtt2b,rtt2b,rtt2b);
-  RttccReco=RooRealVar("RttccReco","RttccReco",rttcc,rttcc,rttcc);
-  
-  fsig   =RooRealVar(    "fsig",                "fsig",           rttbb, 0.0, 0.18) 
-  fsig2con  =RooFormulaVar("fsig2con",          "fsig2","@0/@1*@2",RooArgList(fsig,RttbbReco,RttbReco) )  # constraint fsig2 with fsig
-  fsig3con  =RooFormulaVar("fsig3con",          "fsig3","@0/@1*@2",RooArgList(fsig,RttbbReco,Rtt2bReco) )  # constraint fsig3 with fsig
-  fsig2  =RooRealVar(   "fsig2",                "fsig2",          rttb, 0.0, 0.3)  # free fsig2
-  fsig3  =RooRealVar(   "fsig3",                "fsig3",          rtt2b, 0.0, 0.3)  # free fsig3
-  fsig32con  =RooFormulaVar(   "fsig32con",    "fsig32con", "@0/@1*@2",RooArgList(fsig2,RttbReco,Rtt2bReco))  # free fsig32 with fsig2
-  fsigcc =RooRealVar(  "fsigcc",              "fsigcc",           rttcc, 0.0, 0.4)  # free fsigcc
-  k      =RooRealVar(       "k","normalization factor",           1, 0.5, 1.5) 
-  
-  nttjj =RooRealVar(    "nttjj","number of ttjj events",                            n_ttjj , n_ttjj, n_ttjj)
-  knttjj=RooFormulaVar("knttjj","number of ttjj events after fitting","k*nttjj",    RooArgList(k,nttjj) )
-  nttot =RooRealVar(    "nttot","number of ttot events",                            n_ttot , n_ttot, n_ttot)
-  knttot=RooFormulaVar("knttot","number of ttot events after fitting","k*nttot",    RooArgList(k,nttot) )
-  nbkg  =RooRealVar(     "nbkg","number of background events",                      n_bkg , n_bkg, n_bkg)
-  nddbkg  =RooRealVar(   "nddbkg","number of background events",                    n_ddbkg , n_ddbkg, n_ddbkg)
-  knbkg=RooFormulaVar("knbkg","number of background events after fitting","k*nbkg", RooArgList(k,nbkg) )
-  
-  ######
-  nttcc =RooRealVar(   "nttcc","number of ttcc events",                         n_ttcc , n_ttcc, n_ttcc)
-  knttcc=RooFormulaVar("knttcc","number of ttcc events after fitting","k*nttcc",RooArgList(k,nttcc) )
-  #####
- 
-  #histogram
-  xyArg = RooArgList(x)
-  data    = RooDataHist("data",    "data set with (x)",   xyArg, h1_data)
-  #ttbb    = RooDataHist("ttbb",    "ttbb set with (x)",   xyArg, test_ttbb)
-  ttbb    = RooDataHist("ttbb",    "ttbb set with (x)",   xyArg, h1_ttbb)
-  ttb     = RooDataHist("ttb",     "ttb  set with (x)",   xyArg, h1_ttb)
-  tt2b    = RooDataHist("tt2b",    "tt2b set with (x)",  xyArg,  h1_tt2b)
-  ttcc    = RooDataHist("ttcc",    "ttcc set with (x)",   xyArg, h1_ttcc)
-  ttlf    = RooDataHist("ttlf",    "ttlf set with (x)",   xyArg, h1_ttlf)
-  ttcclf  = RooDataHist("ttcclf",  "ttcclf set with (x)", xyArg, h1_ttcclf)
-
-  ttot    = RooDataHist("ttot",    "ttot set with (x)",   xyArg, h1_ttot)
-  bkg     = RooDataHist("bkg",     "bkg  set with (x)",   xyArg, h1_bkg)
-  ddbkg   = RooDataHist("ddbkg",   "ddbkg  set with (x)", xyArg, h1_ddbkg)
-
-  #print "ttbar type: "+str(type(ttbar))
-  #print "rooArglist(x):"+str(type(RooArgList(x)))
-  
-  #pdf
-  ttbbpdf      = RooHistPdf("ttbbpdf",     "ttbbpdf",      RooArgSet(RooArgList(x)), ttbb)
-  ttbpdf       = RooHistPdf("ttbpdf",      "ttbpdf",       RooArgSet(RooArgList(x)), ttb)
-  tt2bpdf      = RooHistPdf("tt2bpdf",     "tt2bpdf",      RooArgSet(RooArgList(x)), tt2b)
-  ttccpdf      = RooHistPdf("ttccpdf",     "ttccpdf",      RooArgSet(RooArgList(x)), ttcc)
-  ttlfpdf      = RooHistPdf("ttlfpdf",     "ttlfpdf",      RooArgSet(RooArgList(x)), ttlf)
-  ttcclfpdf    = RooHistPdf("ttcclfpdf",   "ttcclfpdf",    RooArgSet(RooArgList(x)), ttcclf)
-  ttotpdf      = RooHistPdf("ttotpdf",     "ttotpdf",      RooArgSet(RooArgList(x)), ttot)
-  bkgpdf       = RooHistPdf("bkgpdf",      "bkgpdf",       RooArgSet(RooArgList(x)), bkg)
-  ddbkgpdf     = RooHistPdf("ddbkgpdf",    "ddbkgpdf",     RooArgSet(RooArgList(x)), ddbkg)
  
   h1_data2 = h1_data.Clone("data2")
   h1_data2.Add(h1_bkg,-1.)
   h1_data2.Add(h1_ddbkg,-1.)
   h1_data2.Add(h1_ttot,-0.8425)
 
-  """
-  h1_ttbb3 = h1_ttbb.Clone("ttbb3")
-  h1_ttbb3.Add(h1_ttb)
-  h1_ttbb3.Add(h1_tt2b)
-
-  h1_ttbar3 = h1_ttbb.Clone("ttbar3")
-  h1_ttbar3.Add(h1_ttb)
-  h1_ttbar3.Add(h1_tt2b)
-  h1_ttbar3.Add(h1_ttcc)
-  h1_ttbar3.Add(h1_ttlf)
-  h1_ttbar3.Add(h1_ttot)
-  """
+  h1_ttb3 = h1_ttb.Clone("ttb3")
+  h1_ttb3.Add(h1_tt2b)
+  h1_ttb3.Add(h1_ttbb)
   
   h1_bkgAll3 = h1_bkg.Clone("BkgAll")
   h1_bkgAll3.Add(h1_ddbkg)
 
-  h1_ttcclf1b2b3 = h1_ttcclf.Clone("ttcclf1b2b3")
+  h1_ttcclf3 = h1_ttcclf.Clone("ttcclf3")
   #h1_ttcclf1b2b3.Add(h1_ttb)
   #h1_ttcclf1b2b3.Add(h1_tt2b)
 
-  mc = TObjArray(2)
-  mc.Add(h1_ttbb)
-  ##mc.Add(h1_ttb)
-  ##mc.Add(h1_tt2b)
-  mc.Add(h1_ttcclf1b2b3)
+  mc = TObjArray(3)
+  #mc.Add(h1_ttbb)
+  mc.Add(h1_ttb3)
+  mc.Add(h1_ttcclf3)
   ##mc.Add(h1_ttlf)
-  ##mc.Add(h1_ttot)
+  #mc.Add(h1_ttot)
   ##mc.Add(h1_bkg)
   ##mc.Add(h1_ddbkg)
   fit = TFractionFitter(h1_data2, mc)
-  fit.Constrain(1,0.001,0.999)
+  fit.Constrain(0,0.0001,0.4)
+  #fit.Constrain(1,0.0001,0.4)
+  fit.Constrain(1,0.7,0.999)
+  #fit.Constrain(3,0.011,0.4)
   fit.SetRangeX(1,100)
   #fit.SetMC(parameter , );
 
@@ -621,7 +555,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
 
 
   leg2=addLegend2("(ttbj+ttbb)/ttjj : "+str(round(rrr*10000)/10000)+" #pm "+str(round(rrr_error*100000)/100000),0.46,0.75)
-  leg3=addLegend2("ttbb/ttjj : "+str(round(rrr*r_ttbb_ttb*10000)/10000),0.46,0.7)
+  leg3=addLegend2("ttbb/ttjj : "+str(round(rrr*r_ttbb_ttb*10000)/10000)+" #pm "+str(round(rrr_error*100000*r_ttbb_ttb)/100000),0.46,0.7)
   leg4=addLegend2("NDF : "+str(fit.GetNDF())+", #chi^2 : "+str(round(fit.GetChisquare()*10)/10),0.46,0.65)
   leg2.Draw()
   leg3.Draw()
@@ -629,7 +563,7 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
 
   cRAAA.Print("TFraction.pdf")
 
-  return cRAAA,data,result,leg,leg2,leg3,leg4
+  return cRAAA,h1_data2,result,leg,leg2,leg3,leg4
 
 
 ################
@@ -641,13 +575,17 @@ def fitting(histograms, freeTTB, freeTTCC, GEN, onlyPrint, isPullTest):
 ################
 ################
 def th2DtoTH1D(h2):
-  binN    = h2.GetNbinsX()*h2.GetNbinsY()
-  h1   =  TH1D(h2.GetName()+"__","",binN,0.,20.)
+  binN    = 55# h2.GetNbinsX()*h2.GetNbinsY()
+  h1   =  TH1D(h2.GetName()+"__","",binN,0.,55)
   for i in range(1,h2.GetNbinsX()+1):
-    for j in range(1,h2.GetNbinsY()+1):
-       ij = i*(h2.GetNbinsX()-1)+j
-       h1.SetBinContent  (ij,h2.GetBinContent  (i,j) )
-       h1.SetBinError    (ij,h2.GetBinError    (i,j) )
+    j=0
+    for jj in range(1,h2.GetNbinsY()+1):
+      if i>=jj:
+        j+=1
+        #ij = i*(h2.GetNbinsX()-1)+j
+        ij = sum(range(0,i))+(j)
+        h1.SetBinContent  (ij,h2.GetBinContent  (i,jj) )
+        h1.SetBinError    (ij,h2.GetBinError    (i,jj) )
   return h1
 
 
