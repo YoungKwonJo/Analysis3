@@ -1,0 +1,13 @@
+ python -i q2Weight2.py
+>>> ttbbF=POW['nom']['nom']['POW']['S0']['ttbbF']
+>>> ttbF=POW['nom']['nom']['POW']['S0']['ttbF']
+>>> tt2bF=POW['nom']['nom']['POW']['S0']['tt2bF']
+>>> ttccF=POW['nom']['nom']['POW']['S0']['ttccF']
+>>> ttlfF=POW['nom']['nom']['POW']['S0']['ttlfF']
+>>> (ttbbF+ttbF+tt2bF+ttccF+ttlfF)/POW['nom']['nom']['POW']['dileptonicP1']
+0.3070360798749157
+>>> POW['nom']['nom']['POW']['dileptonicP1']/(POW['nom']['nom']['POW']['dileptonicP1']+POW['nom']['nom']['POW']['dileptonicP1not'])
+0.04664547199523826
+>>> ttbbF/(ttbbF+ttbF+tt2bF+ttccF+ttlfF)
+0.01324867595180771
+
