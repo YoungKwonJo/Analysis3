@@ -132,8 +132,11 @@ def fitting(histograms, freeTTB, freeTTCC):
 
   n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   n_ttbar = n_ttjj+n_ttot
- 
-  print "FINAL2 : ttot / ttbar  =  "+str(n_ttot/n_ttbar )
+  n_all = n_ttbar+n_bkg+n_ddbkg
+
+  print "FINAL2 : ttot / all  =  "+str(n_ttot/n_all )
+  print "FINAL2 : bkg / all  =  "+str(n_bkg/n_all )
+  print "FINAL2 : ddbkg / ttbar  =  "+str(n_ddbkg/n_all )
 
   print "n_ttbb:"+str(n_ttbb)
   print "n_ttb:"+str(n_ttb)
@@ -185,19 +188,28 @@ def fitting(histograms, freeTTB, freeTTCC):
   #h1_ttcclf1b2b3.Add(h1_ttb)
   #h1_ttcclf1b2b3.Add(h1_tt2b)
 
-  mc = TObjArray(3)
+  mc = TObjArray(5)
   #mc.Add(h1_ttbb)
   mc.Add(h1_ttb3)
   mc.Add(h1_ttcclf3)
   ##mc.Add(h1_ttlf)
   mc.Add(h1_ttot)
-  ##mc.Add(h1_bkg)
-  ##mc.Add(h1_ddbkg)
+  mc.Add(h1_bkg)
+  mc.Add(h1_ddbkg)
+
+  #FINAL2 : ttot / all  =  0.0741054146837
+  #FINAL2 : bkg / all  =  0.0392637404208
+  #FINAL2 : ddbkg / ttbar  =  0.00417416116344
+
   fit = TFractionFitter(h1_data2, mc)
   fit.Constrain(0,0.0001,0.4)
   #fit.Constrain(1,0.0001,0.4)
   fit.Constrain(1,0.7,0.999)
-  fit.Constrain(2,0.0765,0.0775)#0.07747)
+  #fit.Constrain(2,0.0765,0.0775)#0.07747)
+  fit.Constrain(2,0.07410,0.074105)#0.07747)
+  fit.Constrain(3,0.03926,0.039264)
+  fit.Constrain(4,0.00417,0.004174)
+  #fit.Constrain(5,0.0765,0.0775)
   #fit.SetRangeX(2,0.0,0.2)
   fit.SetRangeX(1,100)
   #fit.SetMC(parameter , );
@@ -210,12 +222,18 @@ def fitting(histograms, freeTTB, freeTTCC):
   rrr,rrr_error=ROOT.Double(0),ROOT.Double(0)
   rr22,rr22_error=ROOT.Double(0),ROOT.Double(0)
   rr33,rr33_error=ROOT.Double(0),ROOT.Double(0)
+  rr44,rr44_error=ROOT.Double(0),ROOT.Double(0)
+  rr55,rr55_error=ROOT.Double(0),ROOT.Double(0)
   fit.GetResult(0,rrr,rrr_error)
   fit.GetResult(1,rr22,rr22_error)
   fit.GetResult(2,rr33,rr33_error)
+  fit.GetResult(3,rr44,rr44_error)
+  fit.GetResult(4,rr55,rr55_error)
   print "Rbb : "+str(rrr)+" +- "+str(rrr_error)
   print "Rlf : "+str(rr22)+" +- "+str(rr22_error)
   print "Rot : "+str(rr33)+" +- "+str(rr33_error)
+  print "Rbkg : "+str(rr44)+" +- "+str(rr44_error)
+  print "Rddbkg : "+str(rr55)+" +- "+str(rr55_error)
 
   cRAAA = TCanvas("RAAA", "AAA", 1)#500, 500)
   result = h1_bkg.Clone("result")
@@ -226,8 +244,8 @@ def fitting(histograms, freeTTB, freeTTCC):
   result.Draw("same")
   #"""
   leg=make_legend(0.5,0.8,0.88,0.88)
-  leg.AddEntry(result, "t#bar{t}jj + t#bar{t} others ", "l")
-  leg.AddEntry(h1_data2, "Data - (Bkg. )", "ep")
+  leg.AddEntry(result, "t#bar{t}jj + t#bar{t} others + Bkg ", "l")
+  leg.AddEntry(h1_data2, "Data ", "ep")
   leg.Draw()
   #n_ttjj = n_ttbb+n_ttb+n_ttcc+n_ttlf+n_tt2b
   #n_ttbar = n_ttjj+n_ttot
@@ -243,6 +261,7 @@ def fitting(histograms, freeTTB, freeTTCC):
   leg4.Draw()
   #"""
   cRAAA.Print("plots2/TFraction.pdf")
+  cRAAA.Print("plots2/TFraction.png")
 
   return cRAAA,h1_data2,result,leg,leg2,leg3,leg4
 
