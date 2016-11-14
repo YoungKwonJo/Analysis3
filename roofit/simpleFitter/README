@@ -1,0 +1,13 @@
+
+folder:
+ plots2
+files:
+ roofitCSV.py
+ roofitCSV_TFractionFitter2.py
+ tdrStyle.C
+ ttbb_top-16-010.root
+
+run : 
+python  roofitCSV.py # main
+python roofitCSV_TFractionFitter2 # for TFractionFitter
+
