@@ -1,0 +1,48 @@
+
+genstudy2 youngkwonjo$ python -i bbbbb.py
+>>> POW.keys()
+['Q2_Dw3', 'nom', 'Q2_Dw1', 'Q2_Dw2', 'Q2_Up3', 'Q2_Up2', 'Q2_Up1']
+>>> POW['Q2_Dw3'].keys()
+['sysAcc_ttbb', 'statAcc_ttbb', 'key2', 'ttbbEff', 'ttbbFS', 'ttbbVSCX', 'statAcc_ttjj', 'total', 'ttbbAcc', 'ttbbVS', 'ttjjS6', 'sysAcc_ttjj', 'statEff_ttjj', 'llratio', 'sysEff_ttjj', 'statEff_ttbb', 'ttjjFS', 'sysEff_ttbb', 'key', 'ttbbFSCX', 'ttjjEff', 'ttjjVSCX', 'ttjjAcc', 'ttjjVS', 'ttbbS6', 'ttjjFSCX']
+>>> POW['Q2_Dw3']['total']
+111759839.10910648
+>>> POW['Q2_Dw2']['total']
+109501436.2385544
+>>> POW['Q2_Dw1']['total']
+100562130.05494657
+>>> POW['Q2_Up1']['total']
+96043292.78107496
+>>> POW['Q2_Up2']['total']
+87702904.5710082
+>>> POW['Q2_Up3']['total']
+85517519.10829926
+>>> POW['nom']['total']
+97994442.0
+
+
+Q2_Dw3 =111759839.10910648
+Q2_Dw2 =109501436.2385544
+Q2_Dw1 =100562130.05494657
+Q2_Up1 =96043292.78107496
+Q2_Up2 =87702904.5710082
+Q2_Up3 =85517519.10829926
+NOM =97994442.0
+
+Q2_Dw3_SF= Q2_Dw3/NOM
+Q2_Dw2_SF= Q2_Dw2/NOM
+Q2_Dw1_SF= Q2_Dw1/NOM
+Q2_Up3_SF= Q2_Up3/NOM
+Q2_Up2_SF= Q2_Up2/NOM
+Q2_Up1_SF= Q2_Up1/NOM
+
+Q2_Dw3_SF=1.1404712025311239
+Q2_Dw2_SF=1.1174249682298758
+Q2_Dw1_SF=1.026202384569388
+Q2_Up1_SF=0.9800891848649432
+Q2_Up2_SF=0.8949783557215235
+Q2_Up3_SF=0.8726772392693379
+
+
+
+
+
